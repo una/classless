@@ -1,0 +1,28 @@
+{
+  "name": "classist",
+  "version": "0.1.0",
+  "description": "Enforce and question your design system by checking your classes against an approved class list",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "backpack"
+  },
+  "keywords": [
+    "linter",
+    "html",
+    "CSS",
+    "classist",
+    "classes",
+    "htmllint",
+    "design",
+    "system"
+  ],
+  "author": "Una Kravets",
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "backpack-core": "^0.2.0"
+  }
+}
