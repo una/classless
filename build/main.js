@@ -80,8 +80,10 @@ var getCSSElems = __webpack_require__(3);
 var getHTMLElems = __webpack_require__(19);
 
 // These are the two things that users would update
+// All in the config JSON
 var cssFilePath = './test/testStyles.css';
 var htmlFilePath = './test/**/*.html';
+var configPath = './test/classless-config.json';
 
 var compiledStyles = fs.readFileSync(cssFilePath, 'utf8');
 
@@ -89,7 +91,7 @@ var compiledStyles = fs.readFileSync(cssFilePath, 'utf8');
 var cssElemArray = getCSSElems(compiledStyles);
 var eachHTMLElemArray = [];
 
-// For each HTML file, run through and grab the elements
+// For each HTML file, run through and grab the elements (sidenote: this should be better structured)
 glob(htmlFilePath, function (er, files) {
   var _ref;
 
@@ -103,8 +105,12 @@ glob(htmlFilePath, function (er, files) {
 
   // This should be in its own function probably, but keeping
   // it here because re: scope lol, this is easier for now
+
+  //Add elements from accepted elements list to the total CSS array
+  var approvedElems = JSON.parse(fs.readFileSync(configPath)).acceptedElems;
+  cssElemArray.push(approvedElems);
+
   console.log('All CSS Allowed: \n' + cssElemArray, '\n\nAll HTML Classes/Ids Used: \n' + totalHTMLElemArray);
-  //TO DO: Add elements from accepted elements list to the total CSS array
 
   // Comparing total HTML to CSS Elements allowed in design system
   var unmatchedElems = totalHTMLElemArray.filter(function (obj) {

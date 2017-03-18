@@ -1,0 +1,5 @@
+{
+  "cssPath": "./testStyles.css",
+  "markupPath": "./**/*.html",
+  "acceptedElems": [".zoo", "#meerkatz"]
+}
