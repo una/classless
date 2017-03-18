@@ -75,6 +75,9 @@ module.exports =
 var fs = __webpack_require__(1);
 var glob = __webpack_require__(9);
 var getCSSElems = __webpack_require__(3);
+var getHTMLElems = __webpack_require__(19);
+
+// These are the two things that users would update
 var cssFilePath = './test/testStyles.css';
 var htmlFilePath = './test/**/*.html';
 
@@ -82,7 +85,8 @@ var compiledStyles = fs.readFileSync(cssFilePath, 'utf8');
 
 glob(htmlFilePath, function (er, files) {
   files.forEach(function (file) {
-    console.log(file);
+    var htmlText = fs.readFileSync(file, 'utf8');
+    getHTMLElems(htmlText);
   });
 });
 
@@ -123,13 +127,13 @@ function getClassesAndIds(stylesheet) {
   }
 
   // Combine classes and ID's and filter for unique ones
-  var allElems = classes.concat(ids).filter(function (v, i, a) {
+  var filteredElems = classes.concat(ids).filter(function (v, i, a) {
     return a.indexOf(v) === i;
   });
 
   // Return all of the unique elements
-  console.log(allElems);
-  return allElems;
+  // console.log(filteredElems);
+  return filteredElems;
 }
 
 module.exports = getClassesAndIds;
@@ -2164,6 +2168,54 @@ module.exports = require("inherits");
 /***/ function(module, exports) {
 
 module.exports = require("wrappy");
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+function getHTMLElements(htmlText) {
+  var elemStrings = [];
+  var allElems = [];
+  var temp = void 0;
+
+  // Get the classes
+  temp = htmlText.match(/[class|id]+[ \t]*=[ \t]*['|"][^'|"]+['|"]/g);
+  if (temp) {
+    elemStrings.push.apply(elemStrings, temp);
+  }
+
+  elemStrings.forEach(function (elem) {
+    var delimeter = '"';
+
+    if (elem.includes("'")) {
+      delimeter = "'";
+    }
+
+    var substring = elem.split(delimeter)[1].split(' ');
+
+    // console.log(substring);
+
+    substring.forEach(function (item) {
+      // get all id elements and add '#' to all Elem list
+      if (elem.startsWith("id")) {
+        allElems.push('#' + item);
+
+        // get all class elements and add '.' to all Elem list
+      } else {
+        allElems.push('.' + item);
+      }
+    });
+  });
+
+  var filteredElems = allElems.filter(function (v, i, a) {
+    return a.indexOf(v) === i;
+  });
+
+  // console.log(filteredElems);
+  return filteredElems;
+}
+
+module.exports = getHTMLElements;
 
 /***/ }
 /******/ ]);

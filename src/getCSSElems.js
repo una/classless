@@ -16,12 +16,12 @@ function getClassesAndIds(stylesheet) {
   }
 
   // Combine classes and ID's and filter for unique ones
-  const allElems = classes.concat(ids)
+  const filteredElems = classes.concat(ids)
     .filter((v, i, a) => a.indexOf(v) === i);
 
   // Return all of the unique elements
-  console.log(allElems);
-  return allElems;
+  // console.log(filteredElems);
+  return filteredElems;
 }
 
 module.exports = getClassesAndIds;
