@@ -72,6 +72,8 @@ module.exports =
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var fs = __webpack_require__(1);
 var glob = __webpack_require__(9);
 var getCSSElems = __webpack_require__(3);
@@ -83,14 +85,25 @@ var htmlFilePath = './test/**/*.html';
 
 var compiledStyles = fs.readFileSync(cssFilePath, 'utf8');
 
+// For the computed CSS file, grab the unique elements
+var cssElemArray = getCSSElems(compiledStyles);
+var htmlElemArrays = [];
+
+// For each HTML file, run through and grab the elements
 glob(htmlFilePath, function (er, files) {
+  var _ref;
+
   files.forEach(function (file) {
     var htmlText = fs.readFileSync(file, 'utf8');
-    getHTMLElems(htmlText);
+    htmlElemArrays.push(getHTMLElems(htmlText));
   });
+
+  // Merge all of the elements from each HTML file into one array
+  var allHTMLElems = [].concat(_toConsumableArray(new Set((_ref = []).concat.apply(_ref, htmlElemArrays))));
+  console.log(allHTMLElems);
 });
 
-getCSSElems(compiledStyles);
+// console.log(cssElemArray, htmlElemArray);
 
 /***/ },
 /* 1 */
