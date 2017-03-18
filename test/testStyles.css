@@ -1,0 +1,29 @@
+.pupper {
+  color: red;
+}
+
+.pupper__mama {
+  background: blue;
+}
+
+.pupper.pupper__big {
+  /* comment */
+  line-height: 3.2;
+  color: hotpink;
+}
+
+.dogsAreCute {
+  width: 600px;
+}
+
+.pupper .dogsAreCute {
+  width: 500px;
+}
+
+#hi {
+  font-size: 1.25em;
+}
+
+#hi .newProp {
+  color: black;
+}

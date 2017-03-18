@@ -1,4 +1,4 @@
-# Classist
+# Classless
 
 A list of specified classes to make sure you stick to your design system, or contribute back to it!
 

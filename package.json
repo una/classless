@@ -1,5 +1,5 @@
 {
-  "name": "classist",
+  "name": "classless",
   "version": "0.1.0",
   "description": "Enforce and question your design system by checking your classes against an approved class list",
   "main": "src/index.js",

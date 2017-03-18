@@ -73,8 +73,14 @@ module.exports =
 /***/ function(module, exports, __webpack_require__) {
 
 var fs = __webpack_require__(1);
+var getCSSElems = __webpack_require__(3);
+var cssFilePath = './test/testStyles.css';
+var htmlFilePath = './test/test.html';
 
-console.log('hello beautiful');
+var compiledStyles = fs.readFileSync(cssFilePath, 'utf8');
+
+console.log(compiledStyles);
+getCSSElems(compiledStyles);
 
 /***/ },
 /* 1 */
@@ -88,6 +94,39 @@ module.exports = require("fs");
 
 module.exports = __webpack_require__(0);
 
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+function getClassesAndIds(stylesheet) {
+  var classes = [];
+  var ids = [];
+  var temp = void 0;
+
+  // Get the classes
+  temp = stylesheet.match(/\.\D\w+/g);
+  if (temp) {
+    classes.push.apply(classes, temp);
+  }
+
+  // Get the IDs
+  temp = stylesheet.match(/\#\D\w+/g);
+  if (temp) {
+    ids.push.apply(ids, temp);
+  }
+
+  // Combine classes and ID's and filter for unique ones
+  var allElems = classes.concat(ids).filter(function (v, i, a) {
+    return a.indexOf(v) === i;
+  });
+
+  // Return all of the unique elements
+  console.log(allElems);
+  return allElems;
+}
+
+module.exports = getClassesAndIds;
 
 /***/ }
 /******/ ]);
