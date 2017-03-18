@@ -7,7 +7,7 @@ const getHTMLElems = require('./getHTMLElems');
 // All in the config JSON
 const cssFilePath = './test/testStyles.css';
 const htmlFilePath = './test/**/*.html';
-const configPath = './test/classless-config.json';
+const configPath = './test/classless.config';
 
 const compiledStyles = fs.readFileSync(cssFilePath, 'utf8');
 
@@ -32,15 +32,25 @@ glob(htmlFilePath, (er, files) => {
   const approvedElems = JSON.parse(fs.readFileSync(configPath)).acceptedElems;
   cssElemArray.push(approvedElems);
 
-  console.log('All CSS Allowed: \n' + cssElemArray, '\n\nAll HTML Classes/Ids Used: \n' + totalHTMLElemArray);
+  // console.log('All CSS Allowed: \n' + cssElemArray, '\n\nAll HTML Classes/Ids Used: \n' + totalHTMLElemArray);
 
   // Comparing total HTML to CSS Elements allowed in design system
-  const unmatchedElems = totalHTMLElemArray.filter(function(obj) { return cssElemArray.indexOf(obj) == -1; });
+  const unmatchedElems = totalHTMLElemArray.filter((obj) => {
+    return (cssElemArray.indexOf(obj) == -1);
+  });
+
+  console.log(unmatchedElems);
 
   console.log(
-    `    Your markup includes the following elements
-    that do not live in the design system or
-    accepted classes file:
+    `    😬  Uh oh! Your markup includes the
+    following elements that do not live in the
+    design system or accepted classes config:
 
-    ${unmatchedElems}`);
+    ${unmatchedElems}
+
+    Please revisit the design system documenation
+    or add them to your approved class list in your
+    \`classless.config\` file 💕  💁`
+
+  );
 });

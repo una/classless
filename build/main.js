@@ -83,7 +83,7 @@ var getHTMLElems = __webpack_require__(19);
 // All in the config JSON
 var cssFilePath = './test/testStyles.css';
 var htmlFilePath = './test/**/*.html';
-var configPath = './test/classless-config.json';
+var configPath = './test/classless.config';
 
 var compiledStyles = fs.readFileSync(cssFilePath, 'utf8');
 
@@ -110,14 +110,16 @@ glob(htmlFilePath, function (er, files) {
   var approvedElems = JSON.parse(fs.readFileSync(configPath)).acceptedElems;
   cssElemArray.push(approvedElems);
 
-  console.log('All CSS Allowed: \n' + cssElemArray, '\n\nAll HTML Classes/Ids Used: \n' + totalHTMLElemArray);
+  // console.log('All CSS Allowed: \n' + cssElemArray, '\n\nAll HTML Classes/Ids Used: \n' + totalHTMLElemArray);
 
   // Comparing total HTML to CSS Elements allowed in design system
   var unmatchedElems = totalHTMLElemArray.filter(function (obj) {
     return cssElemArray.indexOf(obj) == -1;
   });
 
-  console.log('    Your markup includes the following elements\n    that do not live in the design system or\n    accepted classes file:\n\n    ' + unmatchedElems);
+  console.log(unmatchedElems);
+
+  console.log('    \uD83D\uDE2C  Uh oh! Your markup includes the\n    following elements that do not live in the\n    design system or accepted classes config:\n\n    ' + unmatchedElems + '\n\n    Please revisit the design system documenation\n    or add them to your approved class list in your\n    `classless.config` file \uD83D\uDC95  \uD83D\uDC81');
 });
 
 /***/ },
