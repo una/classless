@@ -1,3 +1,6 @@
+const glob = require('glob');
+const fs = require('fs');
+
 function getHTMLElements(htmlText) {
   const elemStrings = [];
   const allElems = [];
@@ -38,4 +41,25 @@ function getHTMLElements(htmlText) {
   return filteredElems;
 }
 
-module.exports = getHTMLElements;
+// let totalHTMLElemArray = [];
+
+// For each HTML file, run through and grab the elements (sidenote: this should be better structured)
+function getAllHTMLElems(htmlFilePath) {
+  let eachHTMLElemArray = [];
+  const files = new glob(htmlFilePath, {sync: true});
+
+  files.forEach(file => {
+    const htmlText = fs.readFileSync(file, 'utf8');
+    eachHTMLElemArray.push(getHTMLElements(htmlText));
+  });
+
+  const totalHTMLElemArray = ([ ...new Set( [].concat( ...eachHTMLElemArray ) ) ]);
+
+  // Merge all of the elements from each HTML file into one array
+  return totalHTMLElemArray;
+};
+
+module.exports = {
+  getHTMLElements: getHTMLElements,
+  getAllHTMLElems: getAllHTMLElems
+};
