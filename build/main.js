@@ -74,16 +74,16 @@ module.exports =
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+// User defines config path
+var configPath = './test/classless.config';
+
 var fs = __webpack_require__(1);
 var glob = __webpack_require__(9);
 var getCSSElems = __webpack_require__(3);
 var getHTMLElems = __webpack_require__(19);
-
-// These are the two things that users would update
-// All in the config JSON
-var cssFilePath = './test/testStyles.css';
-var htmlFilePath = './test/**/*.html';
-var configPath = './test/classless.config';
+var config = JSON.parse(fs.readFileSync(configPath));
+var cssFilePath = config.cssPath;
+var htmlFilePath = config.htmlPath;
 
 var compiledStyles = fs.readFileSync(cssFilePath, 'utf8');
 
@@ -107,7 +107,7 @@ glob(htmlFilePath, function (er, files) {
   // it here because re: scope lol, this is easier for now
 
   //Add elements from accepted elements list to the total CSS array
-  var approvedElems = JSON.parse(fs.readFileSync(configPath)).acceptedElems;
+  var approvedElems = config.acceptedElems;
   cssElemArray.push(approvedElems);
 
   // console.log('All CSS Allowed: \n' + cssElemArray, '\n\nAll HTML Classes/Ids Used: \n' + totalHTMLElemArray);

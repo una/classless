@@ -1,13 +1,13 @@
+// User defines config path
+const configPath = './test/classless.config';
+
 const fs = require('fs');
 const glob = require('glob');
 const getCSSElems = require('./getCSSElems');
 const getHTMLElems = require('./getHTMLElems');
-
-// These are the two things that users would update
-// All in the config JSON
-const cssFilePath = './test/testStyles.css';
-const htmlFilePath = './test/**/*.html';
-const configPath = './test/classless.config';
+const config = JSON.parse(fs.readFileSync(configPath));
+const cssFilePath = config.cssPath;
+const htmlFilePath = config.htmlPath;
 
 const compiledStyles = fs.readFileSync(cssFilePath, 'utf8');
 
@@ -29,7 +29,7 @@ glob(htmlFilePath, (er, files) => {
   // it here because re: scope lol, this is easier for now
 
   //Add elements from accepted elements list to the total CSS array
-  const approvedElems = JSON.parse(fs.readFileSync(configPath)).acceptedElems;
+  const approvedElems = config.acceptedElems;
   cssElemArray.push(approvedElems);
 
   // console.log('All CSS Allowed: \n' + cssElemArray, '\n\nAll HTML Classes/Ids Used: \n' + totalHTMLElemArray);
