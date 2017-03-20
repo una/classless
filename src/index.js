@@ -1,5 +1,5 @@
 // User defines config path
-const configPath = './test/classless.config';
+const configPath = './classless.config';
 const fs = require('fs');
 const getCSSElems = require('./getCSSElems');
 const htmlUtils = require('./HTMLUtils');

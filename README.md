@@ -11,7 +11,7 @@ Classless makes sure you use less unique classes in your project and instead imp
 
 ## Options
 
-- `cssPath`: Link to your CSS stylesheet (single)
+- `cssPath`: Link to your CSS stylesheet (single), currently local link only
 - `htmlPath`: Link to your HTML paths (glob)
 - `acceptedElems`: Additional accepted elements list
 
@@ -19,3 +19,4 @@ Classless makes sure you use less unique classes in your project and instead imp
 TODO:
 - make stylesheet linkable externally or as node module in the repo
 - make this pass or fail tests
+- CSS as local or URL link
