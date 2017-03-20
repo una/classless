@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // User defines config path
 const configPath = './classless.config';
 const fs = require('fs');
