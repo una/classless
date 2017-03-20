@@ -9,7 +9,14 @@ It also creates a list of elements that we've introduced in this project (in tim
 
 Classless makes sure you use less unique classes in your project and instead implement your design system to its fullest potential.
 
+## Setup
+
+- `npm install -g classless-js`
+- `touch classless.config` & set it up with options
+
 ## Options
+
+`classless.config` per-project options:
 
 - `cssPath`: Link to your CSS stylesheet (single), currently local link only
 - `htmlPath`: Link to your HTML paths (glob)

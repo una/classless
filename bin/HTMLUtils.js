@@ -43,7 +43,7 @@ function getHTMLElements(htmlText) {
 
 // let totalHTMLElemArray = [];
 
-// For each HTML file, run through and grab the elements (sidenote: this should be better structured)
+// For each HTML file, run through and grab the elements
 function getAllHTMLElems(htmlFilePath) {
   let eachHTMLElemArray = [];
   const files = new glob(htmlFilePath, {sync: true});

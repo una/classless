@@ -1,3 +1,6 @@
+const glob = require('glob');
+const fs = require('fs');
+
 function getClassesAndIds(stylesheet) {
   const classes = [];
   const ids = [];
@@ -24,4 +27,22 @@ function getClassesAndIds(stylesheet) {
   return filteredElems;
 }
 
-module.exports = getClassesAndIds;
+function getAllCSSElems(cssFilePath) {
+  let eachCSSElemArray = [];
+  const files = new glob(cssFilePath, {sync: true});
+
+  files.forEach(file => {
+    const cssText = fs.readFileSync(file, 'utf8');
+    eachCSSElemArray.push(getClassesAndIds(cssText));
+  });
+
+  const totalCSSElemArray = ([ ...new Set( [].concat( ...eachCSSElemArray ) ) ]);
+
+  // Merge all of the elements from each CSS file into one array
+  return totalCSSElemArray;
+};
+
+module.exports = {
+  getClassesAndIds: getClassesAndIds,
+  getAllCSSElems: getAllCSSElems
+};

@@ -3,20 +3,24 @@
 // User defines config path
 const configPath = './classless.config';
 const fs = require('fs');
-const getCSSElems = require('./getCSSElems');
+const cssUtils = require('./getCSSElems');
 const htmlUtils = require('./HTMLUtils');
 const config = JSON.parse(fs.readFileSync(configPath));
 const cssFilePath = config.cssPath;
 const htmlFilePath = config.htmlPath;
 
 // For the computed CSS file, grab the unique elements
-const compiledStyles = fs.readFileSync(cssFilePath, 'utf8');
-const cssElemArray = getCSSElems(compiledStyles);
+// const compiledStyles = fs.readFileSync(cssFilePath, 'utf8');
+// const cssElemArray = getCSSElems(compiledStyles);
+
+// get all of the CSS elements in the linked glob
+let cssElemArray = cssUtils.getAllCSSElems(cssFilePath);
+
 //Add elements from accepted elements list to the total CSS array
 const approvedElems = config.acceptedElems;
 cssElemArray.push(approvedElems);
 
-// get all of the HTML Elements used
+// get all of the HTML elements used
 const totalHTMLElemArray = htmlUtils.getAllHTMLElems(htmlFilePath);
 
 function compareMatches(htmlList, cssList) {
