@@ -6,6 +6,10 @@
   "scripts": {
     "start": "backpack"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:una/classless.git"
+  },
   "keywords": [
     "linter",
     "html",
