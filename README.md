@@ -18,8 +18,8 @@ Classless makes sure you use less unique classes in your project and instead imp
 
 `classless.config` per-project options:
 
-- `cssPath`: Link to your CSS stylesheet (single), currently local link only
-- `htmlPath`: Link to your HTML paths (glob)
+- `cssPath`: Link to your CSS stylesheet(s)
+- `htmlPath`: Link to your HTML path(s). Can be any format (i.e. `.erb`, `.hbs`, etc.)
 - `acceptedElems`: Additional accepted elements list
 
 

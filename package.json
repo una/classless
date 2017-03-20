@@ -1,6 +1,6 @@
 {
   "name": "classless-js",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Enforce and question your design system by checking your classes against an approved class list",
   "main": "bin/index.js",
   "scripts": {
