@@ -1,6 +1,5 @@
 const glob = require('glob');
-const fs = require('fs');
-var request = require('request');
+const request = require('sync-request');
 
 function getClassesAndIds(stylesheet) {
   const classes = [];
@@ -31,7 +30,8 @@ function getClassesAndIds(stylesheet) {
 function getAllCSSElems(cssFilePath) {
   //If the CSS file is a url, read the URL and get classes + ids
   if (cssFilePath.includes('http')) {
-    getCSSTextFromURL(cssFilePath);
+    let cssText = getCSSTextFromURL(cssFilePath);
+    return (getClassesAndIds(cssText));
   }
 
   //If the input is not a url, get all of the files in the glob and run
@@ -53,14 +53,10 @@ function getAllCSSElems(cssFilePath) {
 
 };
 
-function getCSSTextFromURL(url, ) {
-  request.get(url, function (error, response, body) {
-  if (!error && response.statusCode == 200) {
-    var cssText = body;
-    console.log(body);
-    getClassesAndIds(cssText);
-    }
-  });
+function getCSSTextFromURL(url) {
+  var res = request('GET', url);
+  let cssText = (res.getBody()).toString();
+  return cssText;
 }
 
 module.exports = {
