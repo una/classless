@@ -1,5 +1,6 @@
 const glob = require('glob');
 const fs = require('fs');
+var request = require('request');
 
 function getClassesAndIds(stylesheet) {
   const classes = [];
@@ -28,19 +29,39 @@ function getClassesAndIds(stylesheet) {
 }
 
 function getAllCSSElems(cssFilePath) {
-  let eachCSSElemArray = [];
-  const files = new glob(cssFilePath, {sync: true});
+  //If the CSS file is a url, read the URL and get classes + ids
+  if (cssFilePath.includes('http')) {
+    getCSSTextFromURL(cssFilePath);
+  }
 
-  files.forEach(file => {
-    const cssText = fs.readFileSync(file, 'utf8');
-    eachCSSElemArray.push(getClassesAndIds(cssText));
-  });
+  //If the input is not a url, get all of the files in the glob and run
+  //through their elements
+  else {
+    let eachCSSElemArray = [];
+    const files = new glob(cssFilePath, {sync: true});
 
-  const totalCSSElemArray = ([ ...new Set( [].concat( ...eachCSSElemArray ) ) ]);
+    files.forEach(file => {
+      const cssText = fs.readFileSync(file, 'utf8');
+      eachCSSElemArray.push(getClassesAndIds(cssText));
+    });
 
-  // Merge all of the elements from each CSS file into one array
-  return totalCSSElemArray;
+    const totalCSSElemArray = ([ ...new Set( [].concat( ...eachCSSElemArray ) ) ]);
+
+    // Merge all of the elements from each CSS file into one array
+    return totalCSSElemArray;
+  }
+
 };
+
+function getCSSTextFromURL(url, ) {
+  request.get(url, function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    var cssText = body;
+    console.log(body);
+    getClassesAndIds(cssText);
+    }
+  });
+}
 
 module.exports = {
   getClassesAndIds: getClassesAndIds,

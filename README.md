@@ -18,7 +18,7 @@ Classless makes sure you use less unique classes in your project and instead imp
 
 `classless.config` per-project options:
 
-- `cssPath`: Link to your CSS stylesheet(s)
+- `cssPath`: Link to your CSS stylesheet(s) -- You can link to a directory of files, but compiled CSS works best because this doesn't take into account things like Sass mixins, etc. Examples: `./bower_components/unicornDesignSystem/app/**/*.scss` or `css/**/*`
 - `htmlPath`: Link to your HTML path(s). Can be any format (i.e. `.erb`, `.hbs`, etc.)
 - `acceptedElems`: Additional accepted elements list
 
