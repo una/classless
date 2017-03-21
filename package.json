@@ -1,6 +1,6 @@
 {
   "name": "classless-js",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Enforce and question your design system by checking your classes against an approved class list",
   "main": "bin/index.js",
   "scripts": {
@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "glob": "^7.1.1",
-    "request": "^2.81.0",
     "sync-request": "^4.0.1"
   }
 }
