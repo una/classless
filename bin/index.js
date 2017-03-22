@@ -20,6 +20,8 @@ let cssElemArray = cssUtils.getAllCSSElems(cssFilePath);
 const approvedElems = config.acceptedElems;
 cssElemArray.push(approvedElems);
 
+console.log(cssElemArray);
+
 // get all of the HTML elements used
 const totalHTMLElemArray = htmlUtils.getAllHTMLElems(htmlFilePath);
 

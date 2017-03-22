@@ -1,5 +1,6 @@
 const glob = require('glob');
 const request = require('sync-request');
+const fs = require('fs');
 
 function getClassesAndIds(stylesheet) {
   const classes = [];
@@ -27,10 +28,10 @@ function getClassesAndIds(stylesheet) {
   return filteredElems;
 }
 
-function getAllCSSElems(cssFilePath) {
+function getAllCSSElems(cssPathInput) {
   //If the CSS file is a url, read the URL and get classes + ids
-  if (cssFilePath.includes('http')) {
-    let cssText = getCSSTextFromURL(cssFilePath);
+  if (cssPathInput.includes('http')) {
+    let cssText = getCSSTextFromURL(cssPathInput);
     return (getClassesAndIds(cssText));
   }
 
@@ -38,7 +39,9 @@ function getAllCSSElems(cssFilePath) {
   //through their elements
   else {
     let eachCSSElemArray = [];
-    const files = new glob(cssFilePath, {sync: true});
+    const files = new glob(cssPathInput, {sync: true});
+    const cssFilePath = cssPathInput.substr(0, cssPathInput.indexOf(','));
+    console.log(cssFilePath);
 
     files.forEach(file => {
       const cssText = fs.readFileSync(file, 'utf8');
