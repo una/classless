@@ -1,8 +1,0 @@
-<button {{action 'click'}} class="regionButton Button" disabled="{{if (or isLoaderVisible isDisabled) 'disabled'}}" tabindex="-1">
-  {{#if isLoaderVisible}}
-  	{{loading-spinner spinnerClass="regionButton__loader"}}
-  {{else}}
-    <div class="regionButton__icon icon-{{region.slug}}"></div>
-  {{/if}}
-  <span class="regionButton__label">{{region.slug}}</span>
-</button>

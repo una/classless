@@ -1,9 +1,0 @@
-{{#if model}}
-  <h1 class="monitors-header">Monitoring</h1>
-  {{#if model.activeAlerts.length}}
-    {{partial "monitors/partials/triggered-alerts-list"}}
-  {{/if}}
-  {{partial "monitors/partials/thresholds-list"}}
-{{else}}
-  {{partial "monitors/partials/thresholds-list-empty-state"}}
-{{/if}}

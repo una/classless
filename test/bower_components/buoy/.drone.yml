@@ -1,7 +1,0 @@
-build:
-  image: docker.internal.digitalocean.com/creative-eng/www:593ea29
-  pull: true
-  commands:
-    - bundle install
-    - bundle exec middleman build --clean --verbose
-    - APP=buoy ./bin/build

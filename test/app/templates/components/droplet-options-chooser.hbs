@@ -1,7 +1,0 @@
-{{#each features as |feature|}}
-  <div class="checkbox">
-    {{#tool-tip title=feature.tooltip multiline=true}}
-      {{check-box inputId=feature.inputId disabled=feature.isDisabled checked=feature.checked label=feature.label}}
-    {{/tool-tip}}
-  </div>
-{{/each}}

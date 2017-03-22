@@ -1,8 +1,0 @@
-{{#if isRequired}}
-  {{float-label-input value=value error=error pattern=pattern required=true klasses=klasses onInput="onInput" placeholder=placeholder}}
-{{else}}
-  {{float-label-input value=value klasses=klasses onInput="onInput" placeholder=placeholder}}
-{{/if}}
-{{#if isLoading}}
-  {{loading-spinner spinnerClass="searchLoader"}}
-{{/if}}

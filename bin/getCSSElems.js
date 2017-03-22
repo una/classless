@@ -7,7 +7,7 @@ function getClassesAndIds(stylesheet) {
   let temp;
 
   // Get the classes and id's
-  temp = stylesheet.match(/[\.|#]\D\w+[_|-]?(-)?\w+/g);
+  temp = stylesheet.match(/[\.|#]\w+([-]?(-|--)?\w+((-|--)\w+)?)?/g);
   if (temp) {
     elemArray.push.apply(elemArray, temp);
   }
@@ -16,7 +16,6 @@ function getClassesAndIds(stylesheet) {
   const filteredElems = elemArray.filter((v, i, a) => a.indexOf(v) === i);
 
   // Return all of the unique elements
-  // console.log(filteredElems);
   return filteredElems;
 }
 
