@@ -1,0 +1,80 @@
+@for $i from 0 through length($ws_vars) {
+
+  @if $i > 0 {
+
+    .u-ma-#{$i} {
+      margin: map-get($ws-vars, $i) !important;
+    }
+    .u-mh-#{$i} {
+      margin: 0 map-get($ws-vars, $i) !important;
+    }
+    .u-mv-#{$i} {
+      margin: map-get($ws-vars, $i) 0 !important;
+    }
+    .u-mt-#{$i} {
+      margin-top: map-get($ws-vars, $i) !important;
+    }
+    .u-mr-#{$i} {
+      margin-right: map-get($ws-vars, $i) !important;
+    }
+    .u-mb-#{$i} {
+      margin-bottom: map-get($ws-vars, $i) !important;
+    }
+    .u-ml-#{$i} {
+      margin-left: map-get($ws-vars, $i) !important;
+    }
+    .u-pa-#{$i} {
+      padding: map-get($ws-vars, $i) !important;
+    }
+    .u-ph-#{$i} {
+      padding: 0 map-get($ws-vars, $i) !important; 
+    }
+    .u-pv-#{$i} {
+      padding: map-get($ws-vars, $i) 0 !important;
+    }
+    .u-pt-#{$i} {
+      padding-top: map-get($ws-vars, $i) !important;
+    }
+    .u-pr-#{$i} {
+      padding-right: map-get($ws-vars, $i) !important;
+    }
+    .u-pb-#{$i} {
+      padding-bottom: map-get($ws-vars, $i) !important;
+    }
+    .u-pl-#{$i} {
+      padding-left: map-get($ws-vars, $i) !important;
+    }
+  } @else {
+
+    .u-ma-0 {
+      margin: 0 !important;
+    }
+    .u-mt-0 {
+      margin-top: 0 !important;
+    }
+    .u-mr-0 {
+      margin-right: 0 !important;
+    }
+    .u-mb-0 {
+      margin-bottom: 0 !important;
+    }
+    .u-ml-0 {
+      margin-left: 0 !important;
+    }
+    .u-pa-0 {
+      padding: 0 !important;
+    }
+    .u-pt-0 {
+      padding-top: 0 !important;
+    }
+    .u-pr-0 {
+      padding-right: 0 !important;
+    }
+    .u-pb-0 {
+      padding-bottom: 0 !important;
+    }
+    .u-pl-0 {
+      padding-left: 0 !important;
+    }
+  }
+}

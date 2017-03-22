@@ -1,0 +1,46 @@
+$height: 8px;
+
+.loading-indicator {
+  width: 100%;
+
+  &.done {
+    display: none;
+  }
+
+  .loading-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: $gray3;
+    height: $height;
+    border-radius: $height;
+    overflow: hidden;
+
+    &.with-back {
+      position: static;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 56px;
+        margin-top: -27px;
+        background: $white;
+        z-index: -1;
+      }
+    }
+
+    .loading-inner {
+      position: absolute;
+      left: 0;
+      width: 0;
+      height: $height;
+      background: $blue--brand;
+      border-radius: $height;
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      transition: width 1.5s ease-in-out;
+    }
+  }
+}

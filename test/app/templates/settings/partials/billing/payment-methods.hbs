@@ -1,0 +1,185 @@
+<div class="row u-mb-5 billing-settings-payments">
+  <section class="Box">
+    <h2>Payment methods</h2>
+    <p class="u-mb-5">
+      Please enter your preferred payment method below. You can use a credit card or prepay through PayPal.
+    </p>
+    <ul class="Tabs" role="tablist">
+      <li role="presentation" class="{{if (and (eq billingTab 'credit-card') (not model.pageLoadTime)) 'is-active'}}">
+        <a aria-controls="credit-card" role="tab" {{ action 'showTab' 'credit-card' }}>Credit / Debit Card</a>
+      </li>
+      <li role="presentation" class="{{if (or (eq billingTab 'paypal') model.pageLoadTime) "is-active"}}">
+        <a aria-controls="paypal" role="tab" {{ action 'showTab' 'paypal' }}>PayPal</a>
+      </li>
+      {{#if bankAccountsEnabled}}
+        <li role="presentation" class="{{if (or (eq billingTab 'ach') model.pageLoadTime) "is-active"}}">
+          <a aria-controls="ach" role="tab" {{ action 'showTab' 'ach' }}>Bank account</a>
+        </li>
+      {{/if}}
+    </ul>
+
+    <div class="Tabs-content Tabs-content--box">
+      <div role="tabpanel" class="Tabs-pane {{if (and (eq billingTab 'credit-card') (not model.pageLoadTime)) "is-active"}} cc-form">
+        {{#if displayCreditCards}}
+          <div class="row">
+            <div class="small-12 columns">
+              <h3 class="u-mb-3">
+                Credit or debit cards
+                {{#tool-tip class="tooltip-wrap btn-tooltip" multiline=true title="We accept Visa, MasterCard, American Express and Discover cards. Debit cards are only accepted in select geographies."}}
+                  <div class="Hint"></div>
+                {{/tool-tip}}
+              </h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="small-12 columns">
+              <div class="small-8 columns u-pl-0">
+                <p class="u-mb-4">Card will be charged monthly for resources used. <br>All major credit cards accepted.</p>
+              </div>
+              <div class="small-4 columns u-pr-0">
+                {{#unless model.billingState.can_add_payment_methods}}
+                  {{#tool-tip class="tooltip-wrap btn-tooltip u-floatRight" multiline=true title="Looks like you are having an issue adding a credit card. We recommend opening a support ticket to help us resolve this issue with you."}}
+                    <button class="Button u-floatRight u-mb-3 is-disabled">Add Credit Card</button>
+                  {{/tool-tip}}
+                {{else}}
+                  <button {{action 'showCCModal'}} class="Button u-floatRight u-mb-3 {{if savingCreditCard 'is-disabled'}}">Add Credit Card
+                    {{#if savingCreditCard}}
+                      {{loading-spinner plain=true}}
+                    {{/if}}
+                  </button>
+                {{/unless}}
+              </div>
+              <table class="u-ml-0">
+                <tbody>
+                  {{#each displayCreditCards as |creditCard|}}
+                    {{deletable-credit-card-item
+                      card=creditCard
+                      onDelete=(action 'deleteCC')
+                      deletingCard=deletingCreditCard
+                    }}
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        {{else}}
+          {{cc-form
+            savingCreditCard=savingCreditCard
+            onStripeSuccess=(action 'onStripeSuccess')
+            isShowingSubmitLoader=savingCreditCard
+            actionReceiver=creditCardForm
+            countries=model.countries
+            billingService=billingService
+            disableFocusFirstEl=true
+          }}
+        {{/if}}
+      </div>
+      <div role="tabpanel" class="Tabs-pane {{if (or (eq billingTab 'paypal') model.pageLoadTime) "is-active"}}">
+        <h3 class="u-mb-3">
+          PayPal payment
+        </h3>
+        {{paypal-form
+          userId=model.user.internalIdentifier
+          pageLoadTime=model.pageLoadTime
+          returnURL=paypalReturnURL
+          creditBalanceValue=formattedCredit
+        }}
+      </div>
+      {{#if bankAccountsEnabled}}
+        <div role="tabpanel" class="Tabs-pane {{if (or (eq billingTab 'ach') model.pageLoadTime) "is-active"}}">
+          <section>
+            <h3>ACH (Bank account transfer)</h3>
+            {{#if model.bankAccount}}
+              {{#if model.bankAccount.isVerified}}
+                <div class="row">
+                  <ul class="stack">
+                    <li>
+                      <div class="content">
+                        {{model.bankAccount.name}}&nbsp;{{model.bankAccount.lastFour}}
+                        <div class="u-floatRight">
+                          <button {{action 'showDeleteBankAccountModal'}} class="Button Button--red {{if deletingBankAccount 'is-disabled'}}">Remove
+                            {{#if deletingBankAccount}}
+                              {{loading-spinner plain=true}}
+                            {{/if}}
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              {{else}}
+                <p class="u-mb-5">
+                  In the next 5-7 business days, please look for two deposits between $0.01 and $1.00 and enter the two deposit amounts.
+                </p>
+                {{#form-with-validation
+                  class="u-mb-0"
+                  isInlineForm=true
+                  onSubmit="verifyBankAccount"
+                  submitButtonText="Verify"
+                  submitButtonWrapperClasses="small-2 columns"
+                  isShowingSubmitLoader=verifyingBankAccount
+                  disabled=verifyingBankAccount
+                }}
+                  <div class="small-5">
+                    {{float-label-input
+                      error="Micro deposit 1 cannot be blank"
+                      required=true
+                      value=microDeposit1
+                      placeholder="Micro deposit 1 (in cents, 0-99)"
+                      class="u-mb-0"
+                      pattern="\d{1,2}"
+                    }}
+                  </div>
+                  <div class="small-5 u-ml-2">
+                    {{float-label-input
+                      error="Micro deposit 2 cannot be blank"
+                      required=true
+                      value=microDeposit2
+                      placeholder="Micro deposit 2 (in cents, 0-99)"
+                      class="u-mb-0"
+                      pattern="\d{1,2}"
+                    }}
+                  </div>
+                {{/form-with-validation}}
+              {{/if}}
+            {{else}}
+              <p class="u-mb-5">
+                Currently available to customers with U.S. bank accounts. Your account will be charged monthly for resources used.
+              </p>
+              {{#form-with-validation
+                class="u-mb-0"
+                isInlineForm=true
+                onSubmit="addBankAccount"
+                submitButtonText="Create"
+                submitButtonWrapperClasses="small-2 columns"
+                isShowingSubmitLoader=addingBankAccount
+                disabled=addingBankAccount
+              }}
+                <div class="small-5">
+                  {{float-label-input
+                    error="Routing number cannot be blank"
+                    required=true
+                    value=routingNumber
+                    placeholder="Routing number (9 digits)"
+                    class="u-mb-0"
+                    pattern="\d{9}"
+                  }}
+                </div>
+                <div class="small-5 u-ml-2">
+                  {{float-label-input
+                    error="Account number cannot be blank"
+                    required=true
+                    value=accountNumber
+                    placeholder="Account number (12 digits)"
+                    class="u-mb-0"
+                    pattern="\d{12}"
+                  }}
+                </div>
+              {{/form-with-validation}}
+            {{/if}}
+          </section>
+        </div>
+      {{/if}}
+    </div>
+  </section>
+</div>

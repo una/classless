@@ -1,0 +1,80 @@
+<div class="u-pb-2 u-clearfix">
+  {{#link-to newMonitorLink class="Button Button--blue monitors-create-button u-ml-4 u-floatRight"}}
+    Create alert policy
+    {{#if addLoading}}
+      <div class="Loader--basic white"></div>
+    {{/if}}
+  {{/link-to}}
+  {{#dropdown-generic
+    class="monitor-setup-instructions u-floatRight u-textAlignRight columns small-6 u-ml-2 u-pt-2 u-pr-0"
+    closeOnClick=false
+    title="Setup instructions" }}
+
+    <div class="Dropdown-inner u-pa-4">
+      <p class="u-mb-2">This service requires an agent on each Droplet you wish to monitor. If you did not enable monitoring when creating your Droplet, run this command to manually install the agent:</p>
+      <div><pre class="u-mb-0 u-textAlignCenter">curl -sSL https://agent.digitalocean.com/install.sh | sh</pre></div>
+    </div>
+  {{/dropdown-generic}}
+  <h2>Alert Policies</h2>
+</div>
+
+<table class="u-mb-5 monitors-list">
+  <thead>
+    <tr>
+      <th class="table-col--monitor">Name</th>
+      <th width="15%" class="table-col">Last Alert</th>
+      <th class="table-col u-pl-0">Applied to</th>
+      <th class="table-col--action"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each model.thresholds as |threshold|}}
+      <tr>
+        <td class="table-col--monitor u-pr-2">
+          {{#link-to 'monitors.edit' threshold.id}}
+            {{#if (and editLoading (eq thresholdId threshold.id)) }}
+              <div class="Loader--basic Loader--blue u-floatLeft threshold-inline"></div>
+            {{/if}}
+            {{resource-item
+              hideIcon=(and editLoading (eq thresholdId threshold.id))
+              item=threshold
+              hideStatus=true
+              }}
+          {{/link-to}}
+        </td>
+        <td>
+          Never
+        </td>
+        <td class="table-col">
+          {{#if threshold.tags.length}}
+            <div class="token-item is-grey">
+              <span class="token-item-icon tag-icon"></span>
+              {{threshold.tags.firstObject.name}}
+            </div>
+          {{else if threshold.droplets.length}}
+            <div class="token-item is-grey">
+              <span class="token-item-icon droplet-icon"></span>
+              {{threshold.droplets.firstObject.name}}
+            </div>
+            {{#if (gt threshold.droplets.length 1) }}
+              + {{dec 1 threshold.droplets.length}}
+            {{/if}}
+          {{/if}}
+        </td>
+        <td class="table-col--action">
+          {{dropdown-menu closeOnClick=true title="More" items=menuItems action="menuItemClick" actionParams=threshold}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+{{#if (gt model.meta.pagination.pages 1)}}
+  {{paginator-full
+    linkToPage="monitors"
+    isLoading=paginating
+    pages=model.meta.pagination.pages
+    currentPage=model.meta.pagination.current_page
+    action="changePage"
+    scrollToAfterLoad="#aurora-container"
+  }}
+{{/if}}

@@ -1,0 +1,19 @@
+{{input type="checkbox" id=inputId checked=card.isSelected}}
+<span class="credit-card-checkbox"></span>
+<label for="{{inputId}}" class="credit-card-label">
+  {{#if card.type}}
+    <span class="credit-card-icon {{card.type}}"></span>
+  {{/if}}
+  <span class="credit-card-info">
+    <span class="credit-card-name">{{name}}</span>
+    <span class="credit-card-meta small">Ending in {{card.lastFour}}{{#if card.knownExpirationDate}},{{/if}}
+    {{#if card.knownExpirationDate}}
+      {{#if isExpired}}
+        Expired {{expiresDate}}
+      {{else}}
+        Expires {{expiresDate}}
+      {{/if}}
+    {{/if}}
+    </span>
+  </span>
+</label>

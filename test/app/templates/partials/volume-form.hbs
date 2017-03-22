@@ -1,0 +1,67 @@
+<div class="row u-mb-0">
+  <h3>Choose a size</h3>
+  {{#if volumeModalSubTitle}}
+    <div class="u-mb-3">
+      {{volumeModalSubTitle}}
+    </div>
+  {{/if}}
+  <div class="columns small-12">
+    {{size-chooser-list
+       sizes=volumeSizes
+       columns=4
+       noToggling=true
+       action="onSelectVolumeSize"
+       onCustomVolumeChange="onCustomVolumeChange"
+       onCustomInputValidation=onCustomInputValidation
+    }}
+  </div>
+</div>
+{{#form-with-validation disabledSubmit=addVolumeDisabled onSubmit="attachNewVolume" submitButtonClasses=(concat "create-volume-step-" step) disableFocusFirstEl=true submitButtonText=attachBtnCopy}}
+  <div class="row u-mb-5 u-mt-3">
+    <div class="small-6 columns">
+    <h3>Attach to</h3>
+      {{#if dropletFromModel}}
+        <div class="resource-item__input--single is-disabled">
+          {{resource-item
+            showClose=showCloseButton
+            expandImageName=true
+            selected=true
+            showIpMeta=showIpMeta
+            showSlugMeta=showSlugMeta
+            item=selectedDroplet
+            disabled=true
+            showTitle=true
+          }}
+        </div>
+
+      {{else}}
+        {{auto-complete
+          items=autoCompleteItems
+          isSearching=autoCompleteIsSearching
+          isShowingMore=autoCompleteIsShowingMore
+          disabledItemIndicies=disabledVolumeDropletAutoCompleteItems
+          isRequired=true
+          placeholder="Select a Droplet"
+          onSelect="onSelectVolumeDroplet"
+          onShow="onRemoveVolumeDroplet"
+        }}
+      {{/if}}
+    </div>
+
+    <div class="small-6 columns">
+    <h3>Name volume</h3>
+      {{float-label-input
+        required=true
+        pattern="[a-z](?:[a-z\-0-9]{0,62}[a-z0-9])?"
+        onInput="onVolumeNameChange"
+        setErrorMessage=setNewVolumeNameError
+        placeholder="Enter volume name"
+        value=newVolumeName
+      }}
+    </div>
+  </div>
+
+  {{#if attachingVolume}}
+    {{loading-spinner spinnerClass="attach-save-spinner"}}
+  {{/if}}
+{{/form-with-validation}}

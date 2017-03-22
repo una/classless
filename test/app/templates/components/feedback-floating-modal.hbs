@@ -1,0 +1,14 @@
+<span role="button" class="feedback-modal-btn {{if showFeedback "hide"}}" {{action 'showFeedback'}}>Feedback</span>
+<div class="feedback-modal {{if showFeedback "show"}}">
+  <a role="button" {{action 'closeModal'}} class="Icon--close Modal-close"></a>
+  <strong>Feedback</strong>
+  <p class="success {{if success "after-success"}}">Thanks for your feedback!</p>
+  <div class="msg {{if success "after-success"}}">
+    {{yield}}
+    {{float-label-textarea value=feedback placeholder="I wish this page..."}}
+    <button {{action 'sendFeedback'}} class="Button Button--blue {{if (or saving success (not feedback)) "is-disabled"}} u-pr-7 u-pl-7 u-floatRight">Submit</button>
+    {{#if saving}}
+      {{loading-spinner spinnerClass="saving-spinner"}}
+    {{/if}}
+  </div>
+</div>

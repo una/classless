@@ -1,0 +1,57 @@
+{{#if securityGroups}}
+  <section class="row u-mb-3">
+    <div class="small-3 small-offset-9 columns u-textAlignRight">
+      {{#link-to "networking.securityGroups.new" class="sg-create-button Button Button--blue"}}Create Firewall{{/link-to}}
+    </div>
+  </section>
+
+  <section class="row u-mb-8">
+    <div class="small-12 columns">
+      <table class="security-groups-list">
+        <thead>
+        <tr>
+          {{table-header noSorting=true col="sg-name" text="Name"}}
+          {{table-header noSorting=true col="sg-ip" text="Rules"}}
+          {{table-header noSorting=true col="sg-droplet-count" text="Droplets"}}
+          {{table-header noSorting=true col="sg-created-at" text="Created"}}
+          {{table-header noSorting=true col="sg-action"}}
+        </tr>
+        </thead>
+        <tbody>
+          {{#each securityGroups as |sg|}}
+          <tr>
+            <td class="sg-name">
+              <div class="Resource">
+                <div class="Resource-image">
+                  {{resource-icon resource="firewall"}}
+                </div>
+                <div class="Resource-meta u-mt-2">
+                  {{#link-to "networking.securityGroups.show" sg.id}}{{sg.name}}{{/link-to}}
+                </div>
+              </div>
+            </td>
+            <td class="sg-rules">{{sg.ruleCount}}</td>
+            <td class="sg-droplet-count">{{sg.dropletCount}}</td>
+            <td class="sg-created-at">{{date-to-human-time date=sg.createdAtISO}}</td>
+            <td class="sg-action">
+              {{dropdown-menu title="More" items=menuItems action="menuItemClick" actionParams=sg}}
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{{else}}
+  <section class="Box EmptyState firewalls-empty-state">
+    <img class="EmptyState-image"
+         src="/assets/images/empty-firewall.svg"
+         alt="No Firewalls" />
+    <h3>Firewalls</h3>
+    <p>
+      Firewalls are a way to secure your droplets. Use them if you're concerned
+      about security.
+    </p>
+    {{#link-to "networking.securityGroups.new" class="sg-create-button Button Button--blue"}}Create Firewall{{/link-to}}
+  </section>
+{{/if}}

@@ -1,0 +1,56 @@
+{{#if isEditMode}}
+  <div class="health-check-field">
+    {{float-label-input
+      value=checkInterval
+      placeholder="Check Interval (in s)"
+      customValidation=validateCheckInterval
+      setErrorMessage=setCheckIntervalErrorMessage
+      required=true
+    }}
+  </div>
+  <div class="health-check-field">
+    {{float-label-input
+      value=responseTimeout
+      placeholder="Response Timeout (in s)"
+      customValidation=validateResponseTimeout
+      setErrorMessage=setResponseTimeoutErrorMessage
+      required=true
+    }}
+  </div>
+  <div class="health-check-field">
+    {{float-label-input
+      value=unhealthyThreshold
+      placeholder="Unhealthy Threshold"
+      customValidation=validateUnhealthyThreshold
+      setErrorMessage=setHealthyThresholdErrorMessage
+      required=true
+    }}
+  </div>
+  <div class="health-check-field">
+    {{float-label-input
+      value=healthyThreshold
+      placeholder="Healthy Threshold"
+      customValidation=validateHealthyThreshold
+      setErrorMessage=setHealthyThresholdErrorMessage
+      required=true
+    }}
+  </div>
+{{else}}
+  <div class="health-check-field">
+    <strong>Check Interval</strong><br>
+    {{checkInterval}}s
+  </div>
+  <div class="health-check-field">
+    <strong>Response Timeout</strong><br>
+    {{responseTimeout}}s
+  </div>
+  <div class="health-check-field">
+    <strong>Unhealthy Threshold</strong><br>
+    {{unhealthyThreshold}}
+  </div>
+  <div class="health-check-field">
+    <strong>Healthy Threshold</strong><br>
+    {{healthyThreshold}}
+  </div>
+{{/if}}
+

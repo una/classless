@@ -1,0 +1,114 @@
+<div class="row full-width u-pt-3 Insights-fixed-filters">
+  <div class="small-4 columns">
+    {{#link-to 'droplets'}}<span class="Cloud-logo u-mr-3"></span>{{/link-to}}
+    <div class="Insights-droplet-filter u-pr-0 u-ml-7">
+      {{search-input placeholder="Filter by Droplet name or IP" isRequired=false value=dropletFilter onInput=(action 'onDropletFilterChanged')}}
+    </div>
+  </div>
+  <div class="small-2 columns u-pl-0">
+    {{auto-complete
+      name='regions'
+      items=model.regions
+      selectedItem=defaultSelectedRegion
+      placeholder="Choose a Region"
+      disabledItemIndicies=[]
+      onShow="onUnselectRegion"
+      onSelect="onSelectRegion"
+      reload=true
+    }}
+  </div>
+  <div class="columns small-6 u-textAlignRight">
+    <p class="small u-pt-3 u-floatLeft">Last updated {{date-to-human-time date=lastUpdatedTime}}</p>
+    <ul class="Action-list">
+      <li>{{#link-to 'insights-dashboard' (query-params period='hour') activeClass='active'}}6 hours{{/link-to}}</li>
+      <li>{{#link-to 'insights-dashboard' (query-params period='day') activeClass='active'}}24 hours{{/link-to}}</li>
+      <li>{{#link-to 'insights-dashboard' (query-params period='week') activeClass='active'}}7 days{{/link-to}}</li>
+      <li>{{#link-to 'insights-dashboard' (query-params period='month') activeClass='active'}}30 days{{/link-to}}</li>
+    </ul>
+    <section class="Dropdown u-textAlignRight {{if lightModeSwitchOpen 'open'}}">
+      <span role="button" class="Dropdowns Icon--gear u-ml-3" {{action 'toggleDropdown'}}></span>
+        {{#if lightModeSwitchOpen}}
+          <div class="Dropdown-content Dropdown--fromIcon">
+            <div class="Dropdown-inner">
+              <span role="button" {{action "toggleColorMode"}}>{{oppositeColorModeName}}</span>
+            </div>
+          </div>
+        {{/if}}
+    </section>
+  </div>
+</div>
+
+{{#if loading}}
+  {{loading-animation}}
+{{/if}}
+
+
+<div class="row full-width Insights-graph-container">
+  {{#unless loading}}
+  <div class="Graph">
+    {{insights-graph
+      title='Bandwidth - Inbound'
+      data=bandwidthInboundChartData
+      type='bandwidth-inbound'
+      colors=colorPalette
+      onInsertChart='onInsertChart'
+      selectedXVal=commonXVal
+      tracksExteranlXVal=true
+      showDay=showDay
+      refreshing=refreshing
+    }}
+  </div>
+  <div class="Graph">
+    {{insights-graph
+      title='Bandwidth - Outbound'
+      data=bandwidthOutboundChartData
+      type='bandwidth-outbound'
+      colors=colorPalette
+      onInsertChart='onInsertChart'
+      selectedXVal=commonXVal
+      tracksExteranlXVal=true
+      showDay=showDay
+      refreshing=refreshing
+    }}
+  </div>
+  <div class="Graph">
+    {{insights-graph
+      title='Disk - Read'
+      data=diskReadChartData
+      type='disk-read'
+      colors=colorPalette
+      onInsertChart='onInsertChart'
+      selectedXVal=commonXVal
+      tracksExteranlXVal=true
+      showDay=showDay
+      refreshing=refreshing
+    }}
+  </div>
+  <div class="Graph">
+    {{insights-graph
+      title='Disk - Write'
+      data=diskWriteChartData
+      type='disk-write'
+      colors=colorPalette
+      onInsertChart='onInsertChart'
+      selectedXVal=commonXVal
+      tracksExteranlXVal=true
+      showDay=showDay
+      refreshing=refreshing
+    }}
+  </div>
+  <div class="Graph">
+    {{insights-graph
+      title='CPU'
+      data=cpuChartData
+      type='cpu'
+      colors=colorPalette
+      onInsertChart='onInsertChart'
+      selectedXVal=commonXVal
+      tracksExteranlXVal=true
+      showDay=showDay
+      refreshing=refreshing
+    }}
+  </div>
+  {{/unless}}
+</div>

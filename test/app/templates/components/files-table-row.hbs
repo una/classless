@@ -1,0 +1,85 @@
+<td>
+  {{#if item.isRenaming}}
+    {{editable-resource-item
+      item=item
+      validPattern="[a-zA-Z0-9\.\-_].*[a-zA-Z0-9\.\-_]"
+      maxlength=255
+      submitEdit="submitEdit"
+      cancelEdit="cancelEdit"
+    }}
+  {{else}}
+    {{resource-item
+      item=item
+      savingToolTip="Renaming Load Balancer"
+      isEditable=isEditable
+      onTitleClick=(if item.isDir "openDir")
+    }}
+  {{/if}}
+  {{#if item.loadingDir}}{{loading-spinner}}{{/if}}
+  {{#if showInfo}}
+    <div class="file-info {{unless item.metadata "loading"}}">
+      {{#if item.metadata}}
+        <table>
+          {{#each-in metadata as |key value|}}
+            {{#if value}}
+              <tr>
+                <td>{{key}}</td><td>{{value}}</td>
+              </tr>
+            {{/if}}
+          {{/each-in}}
+        </table>
+      {{else}}
+        {{loading-spinner message="Loading"}}
+      {{/if}}
+    </div>
+  {{/if}}
+</td>
+<td>
+  {{bytes-to-human-size b=item.size precision=1}}
+</td>
+<td>
+  {{#if item.isDir}}
+    &mdash;
+  {{else}}
+    {{date-to-human-time date=item.lastModified}}
+  {{/if}}
+</td>
+<td class="action-td">
+  {{#unless isReadOnly}}
+    {{#if item.isDeletingFile}}
+      {{loading-spinner message="Deleting"}}
+    {{else if item.isMovingFile}}
+      {{loading-spinner message="Moving"}}
+    {{else if item.isDownloading}}
+      {{loading-spinner message="Downloading"}}
+    {{else if (or item.isSavingFile item.isSavingMeta)}}
+      {{loading-spinner message="Saving"}}
+    {{else}}
+      {{#slide-out-dropdown-menu
+        title="More"
+        action="menuItemClick"
+        closeOnClick=true
+        actionParams=item
+        items=menuItems
+        deleteAction="deleteItem"
+        isDisabled=hasMultipleSelections
+      }}
+        <div class="dropdown-view dropdown-view--manage-permissions wait-for-load">
+          <p class="dropdown__headline">Manage Permissions</p>
+          <p class="radio">
+            {{radio-button checked=acl value='private' id=(concat 'private' myId)}}
+            <span></span>
+            <label for="{{concat 'private' myId}}">Private</label>
+            {{radio-button checked=acl value='public-read' id=(concat 'public' myId)}}
+            <span class="public-radio"></span>
+            <label class="public-radio" for="{{concat 'public' myId}}">Public</label>
+          </p>
+          <button class="Button Button--fullWidth Button--blue" role="button" {{action 'updatePermissions'}}>Update</button>
+          {{#if item.isSavingAcl}}
+            {{loading-spinner spinnerClass="acl-button-spinner white"}}
+          {{/if}}
+        </div>
+      {{/slide-out-dropdown-menu}}
+    {{/if}}
+  {{/unless}}
+</td>

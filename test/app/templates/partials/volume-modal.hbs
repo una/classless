@@ -1,0 +1,33 @@
+{{#modal-window showCancel=false showSave=false size="large" onHide="onAttachModalHide" title=volumeModalTitle contentClasses="u-pl-2 u-pr-2 attach-volume-modal" bodyClasses="u-pt-0" disableFirstInputFocus=true}}
+  {{#if showTabs}}
+    {{partial 'partials/volume-tabs'}}
+  {{/if}}
+  <div class="Tabs-content {{unless showTabs "u-mt-4"}}">
+    {{#if (eq storageTab 'new')}}
+      <div id="new-volume">
+        {{partial 'partials/volume-form'}}
+      </div>
+    {{else if (eq storageTab 'snapshots')}}
+      <div id="volume-snapshots">
+        {{#if (eq step 1)}}
+          {{partial 'partials/volume-snapshot'}}
+
+          <button {{action 'attachVolumeSnapshot'}} class="Button Button--blue Button--large attach-volume-snapshot-btn {{if (gt volumeSnapshots.meta.pagination.pages 1) "u-mt-1" "u-mt-3"}} u-floatRight {{if (not selectedVolume)  "is-disabled"}}">Next</button>
+        {{else}}
+          {{partial 'partials/volume-form'}}
+          <div role="button" class="Icon--arrowLongLeft arrow-icon snapshot-back" {{action 'backToSnapshots'}}>Back to snapshots list</div>
+        {{/if}}
+      </div>
+    {{else if (eq storageTab 'existing')}}
+      <div id="existing-volume">
+        {{partial 'partials/volume-unattached'}}
+
+        <button {{action 'attachExistingVolume'}} class="Button Button--blue Button--large u-mt-3 Button--fullWidth {{if (or attachingVolume (not selectedVolume))  "is-disabled"}}">Attach</button>
+
+        {{#if attachingVolume}}
+          {{loading-spinner spinnerClass="attach-existing-save-spinner"}}
+        {{/if}}
+      </div>
+    {{/if}}
+  </div>
+{{/modal-window}}

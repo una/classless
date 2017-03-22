@@ -1,0 +1,42 @@
+<section class="Box u-mt-5">
+  <section class="row u-mt-2">
+    <div class="small-9 columns">
+      Rules control what traffic is allowed to enter or leave a network
+      interface.
+    </div>
+  </section>
+
+  <section class="row u-mt-5">
+    <div class="columns">
+      <h2>Inbound</h2>
+      {{security-groups/rules
+        type="inbound"
+        rules=model.inbound
+        onRuleAdd=(action "onRuleAdd")
+        onRuleChange=(action "onRuleChange")
+        onRuleRemove=(action "onRuleRemove")
+        onRuleSave=(action "onRuleSave")
+        hasMaxRules=hasMaxRules
+        itemEditable=true
+        deleteDisabled=deleteDisabled
+      }}
+    </div>
+  </section>
+
+  <section class="row u-mt-5">
+    <div class="columns">
+      <h2>Outbound</h2>
+      {{security-groups/rules
+        type="outbound"
+        rules=model.outbound
+        onRuleAdd=(action "onRuleAdd")
+        onRuleChange=(action "onRuleChange")
+        onRuleRemove=(action "onRuleRemove")
+        onRuleSave=(action "onRuleSave")
+        hasMaxRules=hasMaxRules
+        itemEditable=true
+        deleteDisabled=deleteDisabled
+      }}
+    </div>
+  </section>
+</section>

@@ -1,0 +1,30 @@
+{{#modal-window size="large" onHide="onModalHide" showCancel=false showSave=false title=modalTitle}}
+  <div class="row small-12 u-dividerBottomSmall u-mb-3">
+    <h3>Client ID</h3>
+    <p class="is-sensitive">{{model.uid}}</p>
+  </div>
+  <div class="row u-dividerBottomSmall u-mb-3">
+    <h3>Client Secret</h3>
+    <p><span id="application-secret" class="is-sensitive">{{model.secret}}</span></p>
+  </div>
+  <div class="row">
+    <h3>Link to authorization code</h3>
+    <pre><a target="_blank" rel="noopener noreferrer" href="{{model.authorizationUrl}}">{{model.authorizationUrl}}</a></pre>
+  </div>
+
+  <div class="row u-mt-4">
+    <a role="button" class="Button Button--red u-mr-5 api-view-button {{if model.isRevoking "is-disabled"}}" {{action 'revoke'}}>
+      Revoke all user tokens
+    </a>
+    {{#if model.isRevoking}}
+      {{loading-spinner plain=true spinnerClass="revoking-loader"}}
+    {{/if}}
+    <a role="button" class="Button api-view-button {{if model.isResettingSecret "is-disabled"}}" {{action 'reset'}}>
+      Reset client secret
+    </a>
+    {{#if model.isResettingSecret}}
+      {{loading-spinner plain=true spinnerClass="resetting-loader"}}
+    {{/if}}
+  </div>
+
+{{/modal-window}}

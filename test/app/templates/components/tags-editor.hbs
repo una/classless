@@ -1,0 +1,26 @@
+<p>{{subHeader}}</p>
+<div class="tags-editor">
+  <ul>
+    {{#each tags as |tag index|}}
+      {{token-item
+        text=tag.name
+        isGrey=true
+        clickToken=(action "clickTag")
+        blurToken=(action "blurTag")
+        focusToken=(action "focusTag")
+        removeToken=(action "removeTag")
+        index=index
+      }}
+    {{/each}}
+    {{token-input
+      placeholder="Type tags here"
+      addToken=(action "addToken")
+      removePreviousToken=(action "removePreviousToken")
+      validateToken=validateTag
+      queryOnInput=queryOnInput
+      searchResults=searchResults
+      type="text"
+      onFocusIn=(action "onFocusInTextInput")
+    }}
+  </ul>
+</div>

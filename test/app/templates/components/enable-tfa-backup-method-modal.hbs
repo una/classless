@@ -1,0 +1,29 @@
+<div class="Modal-dialog">
+  <div class="Modal-content tfa-backup">
+    <div class="Modal-header u-pb-0 u-clearfix">
+      <a class="Icon--close Modal-close" data-dismiss="modal" aria-label="Close"></a>
+      {{#if titleImage}}
+        <img src="{{titleImage}}" alt="{{titleImageAlt}}" class="Icon--title">
+      {{/if}}
+      <h2 class="modal-title">{{title}}</h2>
+    </div>
+
+    <div class="Modal-body u-pt-0 u-clearfix">
+      {{#if subtitle}}
+        <h3 class="modal-subtitle u-pt-2">{{subtitle}}</h3>
+      {{/if}}
+      <p>If you lose access to your default method, you can use this backup to gain access to your account.</p>
+      {{#form-with-validation onSubmit=(action "onSubmit") submitButtonText="Continue" className="u-mb-0"}}
+        {{#each availableBackupMethods as |method|}}
+          <div role="button" class="radio-tab u-mb-3 {{if (eq method.value selectedMethod) 'selected'}}" {{action "selectTab" method.value}}>
+            {{#if method.image}}
+              <img src="{{method.image}}" alt="{{method.label}}" class="u-mb-1"/><br/>
+            {{/if}}
+            {{method.label}}
+            <span>{{method.description}}</span>
+          </div>
+        {{/each}}
+      {{/form-with-validation}}
+    </div>
+  </div>
+</div>

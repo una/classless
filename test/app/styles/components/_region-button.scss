@@ -1,0 +1,44 @@
+.aurora-region-button {
+  .regionButton {
+    padding: 8px 6px;
+    width: 83px;
+    margin-bottom: 10px;
+    float: left;
+    margin-right: 3px;
+    color: $gray8;
+    height: 32px;
+    line-height: 1;
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    &[disabled] {
+      color: $gray6;
+    }
+  }
+
+  .regionButton__icon {
+    border-radius: 2px;
+    display: inline-block;
+    float: left;
+    margin-right: 5px;
+  }
+
+  .regionButton__label {
+    display: inline-block;
+    font-size: 12px;
+    float: left;
+    padding: 2px 0 0;
+    text-transform: uppercase;
+  }
+
+  .regionButton__loader {
+    float: left;
+    display: inline-block;
+    margin-right: 11px;
+    margin-left: 7px;
+    height: 12px;
+    width: 12px;
+  }
+}

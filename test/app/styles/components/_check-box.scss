@@ -1,0 +1,8 @@
+//override default buoy checkbox behavior
+input[type='checkbox']:focus + span + label {
+  color: $gray8;
+}
+
+input[type='checkbox']:checked + span + label {
+  color: $blue--brand;
+}

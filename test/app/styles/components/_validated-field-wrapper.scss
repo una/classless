@@ -1,0 +1,22 @@
+.ValidatedInput.HasWarning .target-selector {
+  border-color: $blue--brand;
+}
+
+.ValidatedInput.HasError .target-selector {
+  border-color: $red;
+}
+
+.ValidationMessage {
+  display: block;
+  font-size: 14px;
+  font-weight: map-get($font-weight, bold);
+  margin-bottom: 8px;
+}
+
+.ValidationError {
+  color: $red;
+}
+
+.ValidationWarning {
+  color: $blue--brand;
+}

@@ -1,0 +1,49 @@
+<div class="Modal-dialog">
+  <div class="Modal-content {{contentClasses}}">
+    <div class="Modal-header u-pb-0">
+      <a class="Icon--close Modal-close" data-dismiss="modal" aria-label="Close"></a>
+      <h2 class="modal-title">{{titleText}}</h2>
+    </div>
+
+    <div class="Modal-body u-clearfix {{bodyClasses}}">
+      {{yield}}
+    </div>
+
+    {{#if (or showSave showCancel)}}
+      <div class="Modal-footer row {{footerClasses}}">
+        {{#if hasShowNoMore}}
+          <div class="small-6 columns u-pl-0">
+            <div class="checkbox">
+              {{input id="dont-show" type="checkbox" checked=shouldOmitModal}}
+              <span></span>
+              <label for="dont-show">Don't show me this message again.</label>
+            </div>
+          </div>
+          <div class="columns small-6 actions">
+            {{#if showCancel}}
+              <button class="Button" data-dismiss="modal">{{cancelText}}</button>
+            {{/if}}
+            {{#if showSave}}
+              <button {{action "save"}} class="Button {{saveClasses}}" data-dismiss="modal">{{saveText}}</button>
+            {{/if}}
+          </div>
+        {{else}}
+          {{#if showCancel}}
+            <div class="small-6 columns u-pl-0">
+              <button class="Button Button--fullWidth u-mt-4" data-dismiss="modal">
+                {{cancelText}}
+              </button>
+            </div>
+          {{/if}}
+          {{#if showSave}}
+            <div class="small-6 columns u-pl-0 {{saveColumnClasses}}">
+              <button class="Button Button--fullWidth u-mt-4 {{saveClasses}}" {{action 'save'}} data-dismiss="modal">
+                {{saveText}}
+              </button>
+            </div>
+          {{/if}}
+        {{/if}}
+      </div>
+    {{/if}}
+  </div>
+</div>

@@ -1,0 +1,176 @@
+---
+title: Tabs
+---
+
+<div class="row u-mb-5">
+  <div class="small-12 columns">
+    <h1>Tabs</h1>
+  </div>
+</div>
+
+<div class="row u-mb-5">
+  <div class="small-12 columns"> 
+    <h2>Box Tabs</h2>
+    <p>Box tabs are used to display different content for an item. For example, on the Create Droplet screen, there are multiple tabs for different distribution types. Because we can not send the user to another page mid-creation, tabs are the perfect option.</p>
+  </div>
+</div>
+
+<div class="row u-mb-5">
+  <div class="small-12 columns"> 
+    <ul class="Tabs" role="tablist">
+      <li role="presentation" class="is-active">
+        <a href="#box1" aria-controls="box1" role="tab" data-toggle="tab">Box #1</a>
+      </li>
+      <li role="presentation">
+        <a href="#box2" aria-controls="box2" role="tab" data-toggle="tab">Box #2</a>
+      </li>
+      <li role="presentation">
+        <a href="#box3" aria-controls="box3" role="tab" data-toggle="tab">Box #3</a>
+      </li>
+    </ul>
+
+    <div class="Tabs-content Tabs-content--box">
+      <div role="tabpanel" class="Tabs-pane is-active" id="box1">
+        Box #1
+      </div>
+      <div role="tabpanel" class="Tabs-pane" id="box2">
+        Box #2
+      </div>
+      <div role="tabpanel" class="Tabs-pane" id="box3">
+        Box #3
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row u-mb-7">
+   <div class="small-12 columns">
+    <pre>
+      <code><%= display_code('
+<ul class="Tabs" role="tablist">
+  <li role="presentation" class="is-active">
+    <a href="#box1" aria-controls="box1" role="tab" data-toggle="tab">Box #1</a>
+  </li>
+  <li role="presentation">
+    <a href="#box2" aria-controls="box2" role="tab" data-toggle="tab">Box #2</a>
+  </li>
+  <li role="presentation">
+    <a href="#box3" aria-controls="box3" role="tab" data-toggle="tab">Box #3</a>
+  </li>
+</ul>
+
+<div class="Tabs-content Tabs-content--box">
+  <div role="tabpanel" class="Tabs-pane is-active" id="box1">
+    Box #1
+  </div>
+  <div role="tabpanel" class="Tabs-pane" id="box2">
+    Box #2
+  </div>
+  <div role="tabpanel" class="Tabs-pane" id="box3">
+    Box #3
+  </div>
+</div>') %></code>
+    </pre>
+   </div>
+</div>
+
+<div class="row u-mb-7">
+  <div class="small-12 columns u-mb-5">
+    <h2>Side Nav Tabs</h2>
+    <p>This option is great for something like our settings page layout where a side nav is needed, but we don't want to send the user to a new page. The side nav tabs look and feel just like our standard side nav, with the exception that clicking another tab does not require a page refresh.</p>
+  </div>
+  <div class="small-3 columns">
+    <nav class="SideNav">
+    <h3>Droplet Settings</h3>
+    <ul>
+      <li class="is-active"><a href="#access" role="tab" data-toggle="tab">Access</a></li>
+      <li><a href="#power" role="tab" data-toggle="tab">Power</a></li>
+      <li><a href="#resize" role="tab" data-toggle="tab">Resize</a></li>
+      <li><a href="#snapshots" role="tab" data-toggle="tab">Snapshots</a></li>
+    </ul>
+  </nav>
+  </div>
+  <div class="small-9 columns">
+    <div class="Tabs-content">
+      <div role="tabpanel" class="Tabs-pane is-active" id="access">
+        <div class="Box">
+          <h3>This is the Access Tab</h3>
+          <p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec id elit non mi porta gravida at eget metus.</p>
+          <button class="Button Button--blue u-mt-3">Access Button</button>
+        </div>
+      </div>
+      <div role="tabpanel" class="Tabs-pane" id="power">
+        <div class="Box">
+          <h3>This is the Power Tab</h3>
+          <p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec id elit non mi porta gravida at eget metus.</p>
+          <button class="Button Button--blue u-mt-3">Power Button</button>
+        </div>
+      </div>
+      <div role="tabpanel" class="Tabs-pane" id="resize">
+        <div class="Box">
+          <h3>This is the Resize Tab</h3>
+          <p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec id elit non mi porta gravida at eget metus.</p>
+          <button class="Button Button--blue u-mt-3">Resize Button</button>
+        </div>
+      </div>
+      <div role="tabpanel" class="Tabs-pane" id="snapshots">
+        <div class="Box">
+          <h3>This is the Snapshots Tab</h3>
+          <p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec id elit non mi porta gravida at eget metus.</p>
+          <button class="Button Button--blue u-mt-3">Snapshots Button</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row u-mb-7">
+   <div class="small-12 columns">
+    <pre>
+      <code><%= display_code('
+  <div class="small-3 columns">
+    <nav class="SideNav">
+    <h3>Droplet Settings</h3>
+    <ul>
+      <li><a href="#access" role="tab" data-toggle="tab">Access</a></li>
+      <li><a href="#power" role="tab" data-toggle="tab">Power</a></li>
+      <li><a href="#resize" role="tab" data-toggle="tab">Resize</a></li>
+      <li><a href="#snapshots" role="tab" data-toggle="tab">Snapshots</a></li>
+    </ul>
+  </nav>
+  </div>
+  <div class="small-9 columns">
+    <div class="Tabs-content">
+      <div role="tabpanel" class="Tabs-pane" id="access">
+        <div class="Box">
+          <h3>This is the Access Tab</h3>
+          <p>Integer posuere...</p>
+          <button class="Button Button--blue u-mt-3">Access Button</button>
+        </div>
+      </div>
+      <div role="tabpanel" class="Tabs-pane" id="power">
+        <div class="Box">
+          <h3>This is the Power Tab</h3>
+          <p>Integer posuere...</p>
+          <button class="Button Button--blue u-mt-3">Power Button</button>
+        </div>
+      </div>
+      <div role="tabpanel" class="Tabs-pane" id="resize">
+        <div class="Box">
+          <h3>This is the Resize Tab</h3>
+          <p>Integer posuere...</p>
+          <button class="Button Button--blue u-mt-3">Resize Button</button>
+        </div>
+      </div>
+      <div role="tabpanel" class="Tabs-pane" id="snapshots">
+        <div class="Box">
+          <h3>This is the Snapshots Tab</h3>
+          <p>Integer posuere...</p>
+          <button class="Button Button--blue u-mt-3">Snapshots Button</button>
+        </div>
+      </div>
+    </div>
+  </div>') %></code>
+    </pre>
+   </div>
+</div>

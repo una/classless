@@ -1,0 +1,67 @@
+  <div class="row volume-row u-mb-7">
+    <div class="columns small-12">
+      <div class="volume-header-wrap">
+        <h2 class="beta-new">Add block storage</h2>
+        <span class="volume-header-subtext">Currently only available in FRA1, NYC1, SFO2 and SGP1.</span>
+      </div>
+      {{#if (gte totalVolumeCount volumeLimit)}}
+        {{#if overLimitOpen}}
+          {{modal-limit-increase-form limitCount=volumeLimit}}
+        {{else}}
+          <button class="Button attach-volume-button u-mt-3" {{action "showOverLimit"}}>Add Volume</button>
+        {{/if}}
+      {{else}}
+        {{#if volumes.length}}
+          <div class="row u-mb-3">
+            <div class="columns small-12">
+
+              {{#if unattachedVolumes.length}}
+                {{partial 'partials/volume-tabs'}}
+                <div class="Tabs-content">
+                  {{#if (eq storageTab 'new')}}
+                    {{size-chooser-list
+                       sizes=defaultVolumeSizes
+                       columns=6
+                       noToggling=true
+                       action="onSelectVolumeSize"
+                       onCustomVolumeChange="onCustomVolumeChange"
+                       onCustomInputValidation=onCustomInputValidation
+                    }}
+                  {{else if (eq storageTab 'existing')}}
+                    {{partial 'partials/volume-unattached'}}
+                  {{/if}}
+                </div>
+              {{else}}
+                {{size-chooser-list
+                   sizes=defaultVolumeSizes
+                   columns=6
+                   noToggling=true
+                   action="onSelectVolumeSize"
+                   onCustomVolumeChange="onCustomVolumeChange"
+                   onCustomInputValidation=onCustomInputValidation
+                }}
+              {{/if}}
+            </div>
+          </div>
+          <button class="Button attach-volume-button" {{action "removeVolume"}}>Remove Volume</button>
+
+        {{else}}
+          {{#if volumesEnabled}}
+            <button class="Button attach-volume-button u-mt-3" {{action "showVolumeSizeChooser"}}>Add Volume</button>
+          {{else}}
+            {{#tool-tip multiline=true title="Volumes are not available in the regions that the selected image is available in."}}
+              <button class="Button attach-volume-button u-mt-3 is-disabled">Add Volume</button>
+            {{/tool-tip}}
+          {{/if}}
+        {{/if}}
+      {{/if}}
+    </div>
+  </div>
+
+
+  {{#if showConfirmRemoveVolumesModal}}
+    {{#modal-window title="Remove volumes" contentClasses="confirm-small" size="small" saveText="Remove Volumes" saveClasses="Button--red" onHide="onHideConfirmRemoveVolumesModal"}}
+      <p class="u-grey">Selecting this image will remove the volumes you have added.</p>
+      <p class="u-grey">Currently, volumes are only available in select regions and this image is not available there.</p>
+    {{/modal-window}}
+  {{/if}}

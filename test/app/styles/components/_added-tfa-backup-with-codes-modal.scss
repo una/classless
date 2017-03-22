@@ -1,0 +1,58 @@
+.backup-codes {
+  .click-to-copy {
+    position: relative;
+
+    .Label {
+      opacity: 0.001;
+      position: absolute;
+      right: 0;
+      top: 50%;
+    }
+  }
+
+  .resource-icon {
+    display: inline-flex;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  .recovery-code-box {
+    padding: 0;
+    margin-bottom: 0.8rem;
+
+    .recovery-code-title {
+      padding: 10px 17px;
+    }
+
+    .recovery-code-codes {
+      background-color: $grey_1;
+      border-top: 2px solid $grey_2;
+
+      .codes {
+        list-style: none;
+        font-family: monospace;
+        font-size: 18px;
+        width: 100%;
+        height: 168px;
+        column-count: 4;
+
+        li {
+          text-align: center;
+          padding: 5px 0 0;
+          font-weight: map-get($font-weight, light);
+        }
+
+        &.placeholder {
+          height: 176px;
+          position: relative;
+
+          .Loader--basic {
+            position: absolute;
+            top: 50%;
+            right: 50%;
+          }
+        }
+      }
+    }
+  }
+}

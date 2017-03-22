@@ -1,0 +1,136 @@
+.monitor-add-edit .Chart-d3 {
+  padding: 1.4rem 1rem 0;
+  min-height: 210px;
+}
+
+.Chart-d3.Threshold-chart {
+
+  // Red threshold area
+  .threshold-area {
+    stroke: none;
+    fill: rgba($red--brand, 0.1);
+    pointer-events: none;
+  }
+
+  // Red threshold line
+  .threshold-border {
+    stroke: $red--brand;
+    stroke-dasharray: 4 4;
+    shape-rendering: crispEdges;
+    pointer-events: none;
+  }
+
+  path.line {
+    transition: opacity 0.12s ease-out;
+  }
+
+  .lines > g {
+    .mouse-tracking-dot {
+      stroke: none;
+      opacity: 0.001;
+      transition: opacity 0.12s ease-out;
+      /* stylelint-disable-next-line */
+      r: 3px;
+    }
+
+    &.highlighted {
+      .mouse-tracking-dot {
+        opacity: 0.999;
+      }
+    }
+  }
+
+  .highlighted .line {
+    stroke-width: 1.5;
+  }
+
+  .chart-empty {
+    display: none;
+    visibility: hidden;
+  }
+
+  .empty {
+    .chart-empty {
+      display: block;
+      visibility: visible;
+      height: 158px;
+      text-align: center;
+      padding-top: 4rem;
+    }
+
+    svg {
+      display: none;
+    }
+
+    .chart-tooltip .empty-state {
+      display: none;
+    }
+  }
+
+  .chart-tooltip {
+    color: $gray9;
+    font-feature-settings: 'tnum';
+    font-size: 0.9rem;
+    pointer-events: none;
+    position: relative;
+    left: -1rem;
+    padding: 0.7rem 1.5rem 1rem 5.3rem;
+    width: calc(100% + 2rem);
+
+    .empty-state {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: $white;
+      opacity: 0.01;
+      transition: opacity 0.1s ease-in-out;
+      color: $gray6;
+      box-sizing: border-box;
+      padding: 1.5rem 0;
+      text-align: center;
+      z-index: 1;
+    }
+
+    &.empty {
+      min-height: 4.3rem;
+
+      .empty-state {
+        opacity: 0.99;
+      }
+    }
+
+    .header {
+      font-size: 0.85rem;
+      margin-bottom: 0;
+    }
+
+    > .item {
+      > span {
+        display: inline-block;
+      }
+
+      .value,
+      .unit {
+        font-size: 0.85rem; // Numbers need to be a little smaller to optically match metric names
+      }
+
+      .color-bullet {
+        display: inline-block;
+        width: 0.5rem;
+        height: 0.5rem;
+        margin-right: 0.1rem;
+        border-radius: 50%;
+        vertical-align: middle;
+        position: relative;
+        top: -1px;
+      }
+
+      .droplet-name {
+        max-width: 180px;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}

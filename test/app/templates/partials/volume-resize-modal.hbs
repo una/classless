@@ -1,0 +1,27 @@
+{{#modal-window showCancel=false title="Increase volume size" onHide="onResizeModalHide" showSave=false bodyClasses="u-pt-1 u-pb-5" contentClasses="u-pl-2 u-pr-2 resize-modal" size="large" disableFirstInputFocus=true }}
+  <div class="row u-mb-4">
+    <div class="columns small-12"> 
+      <p class="u-grey">Select or enter a new size for your volume. Must be greater than {{modalResizeVolume.sizeGigabytes}} GB. This change is not reversible</p>
+    </div>
+  </div> 
+  <div class="row u-mb-0">
+
+    <div class="columns small-12">
+      {{size-chooser-list
+        sizes=resizeSizes
+        columns=4
+        noToggling=true
+        value=100
+        action="onResizeSizeChange"
+        onCustomVolumeChange="onCustomVolumeChange"
+        onCustomInputValidation=onCustomInputValidation
+      }}
+    </div>
+  </div>
+  <div class="row u-mb-0">
+    <div class="columns small-12">
+    	<button {{action 'resizeVolume'}} class="Button u-fr Button--blue Button--large u-mt-3 Button--fullWidth {{if invalidResizeSize "is-disabled"}}">Resize volume</button>
+    </div>
+  </div>
+
+{{/modal-window}}

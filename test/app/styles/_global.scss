@@ -1,0 +1,209 @@
+h1,
+h2,
+h3,
+h4,
+h5 {
+  width: 100%;
+  word-break: break-all;
+}
+
+table {
+  table-layout: fixed;
+  line-height: normal;
+  border-radius: $table-border-radius;
+  border-style: hidden;
+  border-collapse: collapse;
+  box-shadow: 0 0 0 $table-border-width $table-border-color;
+  margin-left: $table-border-width;
+  width: calc(100% - #{$table-border-width} * 2);
+
+  &.table-auto {
+    table-layout: auto;
+  }
+
+  th {
+    padding: 5px 0;
+  }
+
+  tr {
+    transition: background 0.4s;
+
+    &.highlight-new {
+      background: $blue--light-1;
+    }
+  }
+
+  thead:first-child tr:first-child {
+    background: $grey_1;
+    border: 2px solid $table-border-color;
+
+    th:first-of-type {
+      padding-left: $table-padding;
+      border-top-left-radius: $table-border-radius;
+    }
+
+    th:last-of-type {
+      padding-right: $table-padding;
+      border-top-right-radius: $table-border-radius;
+    }
+  }
+
+  tbody td:first-of-type {
+    padding-left: $table-padding;
+  }
+
+  tbody td:last-of-type {
+    padding-right: $table-padding;
+  }
+
+  tbody:last-child tr:last-child {
+    td {
+      padding-bottom: $table-padding;
+    }
+
+    border-bottom: 2px solid $table-border-color;
+  }
+}
+
+form {
+  margin-bottom: 1em;
+}
+
+.is-disabled {
+  pointer-events: none;
+}
+
+a {
+  border-bottom: none; //buoy override
+}
+
+.clickable {
+  cursor: pointer;
+  position: relative;
+}
+
+textarea {
+  resize: none;
+}
+
+.unbuttonized {
+  background-color: $white;
+  padding: 0;
+  line-height: inherit;
+  text-transform: inherit;
+  border: none;
+  color: inherit;
+}
+
+#main.cloud-container {
+  padding-top: $nav_height;
+
+  &.nav-has-loaded {
+    padding-top: 0;
+  }
+}
+
+.trailingLabelBox__beta--blue {
+  @extend %font--bold;
+
+  content: 'Beta';
+  text-transform: uppercase;
+  padding: 2px 9px;
+  background: $blue--brand;
+  color: $white;
+  border-radius: 2px;
+  font-size: 12px;
+  margin: -3px 0 0 12px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.trailingLabelBox__beta--grey {
+  @extend .trailingLabelBox__beta--blue;
+
+  background: $gray3;
+  color: $gray7;
+}
+
+.Box.beta h2::after,
+h2.beta::after {
+  @extend .trailingLabelBox__beta--blue;
+}
+
+.Box.beta-new h2::after,
+h2.beta-new::after {
+  @extend .trailingLabelBox__beta--blue;
+
+  content: 'New!';
+  text-transform: uppercase;
+  background: $gray3;
+  color: $gray7;
+}
+
+.trailingLabel__beta--blue {
+  @extend %font--semibold;
+
+  content: 'Beta';
+  text-transform: uppercase;
+  display: inline-block;
+  margin: 1px 0 0 2px;
+  font-size: 10px;
+  letter-spacing: 0.35px;
+}
+
+#aurora-container {
+  min-width: 1000px;
+}
+
+.EmptyState-image {
+  height: 150px;
+}
+
+//typekit: prevent flash of unstyled text
+.wf-loading * {
+  visibility: hidden;
+}
+
+#aurora-container.owns-css {
+  padding-bottom: 150px;
+}
+
+.breadcrumbs {
+  * {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  a {
+    color: $gray7;
+  }
+
+  .breadcrumb--arrow::before {
+    @extend %font--regular;
+
+    color: $gray7;
+    font-size: 6px;
+  }
+
+  .breadcrumb--current {
+    color: $blue--brand;
+  }
+
+  margin-bottom: 1em;
+}
+
+// new style Buoy override for Aurora
+.Box {
+  border: none;
+  padding: 0;
+
+  // EmptyState boxes, settings page have borders
+  // specify box border class as .Box--border
+  [class^='settings'] &,
+  .settings &,
+  &.EmptyState,
+  &--border {
+    border: 2px solid $table-border-color;
+    padding: 2rem;
+  }
+}

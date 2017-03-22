@@ -1,0 +1,99 @@
+<div class="nav_controls">
+  <div class="row">
+    <div class="columns {{if model.navMessageToDisplay 'small-8' 'small-9'}}">
+      <div class="logo-wrapper">
+        {{#if (or model.isInBadStanding model.isArchived)}}
+          {{#relative-link shortContextId=model.shortCurrentContextId href=logoLink class="Logo"}}DigitalOcean{{/relative-link}}
+        {{else}}
+          {{#if model.isOnboarded}}
+            {{#link-to "droplets" class=(if (or isOauthAuthPage isTeamCreationPage) 'Logo with-name' 'Logo')}}DigitalOcean{{/link-to}}
+          {{else}}
+            {{#link-to "welcome" class='Logo'}}DigitalOcean{{/link-to}}
+          {{/if}}
+        {{/if}}
+      </div>
+      {{#if (or model.isInBadStanding isOauthAuthPage isTeamCreationPage model.isArchived (not model.isOnboarded))}}
+        {{#if model.isSketchy}}
+          {{#link-to "sketchy" class="navLink"}}{{sketchyLinkText}}{{/link-to}}
+        {{/if}}
+        {{#if model.isAdminLocked}}
+          {{#link-to "admin_locked" class="navLink"}}Locked{{/link-to}}
+        {{/if}}
+        {{#if model.isAbuse}}
+          {{#link-to "abuse_account" class="navLink"}}Locked{{/link-to}}
+        {{/if}}
+        {{#if model.isArchived}}
+          {{#link-to "archived_account" class="navLink"}}{{archivedLinkText}}{{/link-to}}
+        {{/if}}
+        {{#unless (or model.isInBadStanding model.isOnboarded model.isArchived)}}
+          {{#if (is-current-path 'welcome' currentLocationPath)}}
+            {{#link-to "welcome" class="navLink active"}}Welcome{{/link-to}}
+          {{else}}
+            {{#link-to "welcome" class="navLink"}}Welcome{{/link-to}}
+          {{/if}}
+        {{/unless}}
+      {{else}}
+        {{#if (or (is-current-path 'droplets' currentLocationPath) (is-current-path 'volumes' currentLocationPath))}}
+          {{#link-to "droplets" class="navLink active" invokeAction=(action 'reload' 'droplets')}}Droplets{{/link-to}}
+        {{else}}
+          {{#link-to "droplets" class="navLink" invokeAction=(action 'reload' 'droplets')}}Droplets{{/link-to}}
+        {{/if}}
+
+        {{#if objectStorage}}
+          {{#if (is-current-path 'spaces' currentLocationPath)}}
+            {{#link-to "spaces" class="navLink active" invokeAction=(action 'reload' 'spaces')}}Spaces{{/link-to}}
+          {{else}}
+            {{#link-to "spaces" class="navLink" invokeAction=(action 'reload' 'spaces')}}Spaces{{/link-to}}
+          {{/if}}
+        {{/if}}
+
+        {{#if (is-current-path 'images' currentLocationPath)}}
+          {{#link-to "images" class="navLink active" invokeAction=(action 'reload' 'images.snapshots')}}Images{{/link-to}}
+        {{else}}
+          {{#link-to "images" class="navLink" invokeAction=(action 'reload' 'images.snapshots')}}Images{{/link-to}}
+        {{/if}}
+        {{#if (is-current-path 'networking' currentLocationPath)}}
+          {{#link-to "networking" class="navLink active" invokeAction=(action 'reload' 'networking')}}Networking{{/link-to}}
+        {{else}}
+          {{#link-to "networking" class="navLink" invokeAction=(action 'reload' 'networking')}}Networking{{/link-to}}
+        {{/if}}
+
+        {{#if monitoringPreferences}}
+          {{#link-to 'monitors' class="navLink" invokeAction=(action 'reload' 'monitors')}}Monitoring<sup class="u-uppercase">Beta</sup>{{/link-to}}
+        {{/if}}
+
+        {{#link-to "api" class="navLink"}}API{{/link-to}}
+      {{/if}}
+
+      {{#unless (or isOauthAuthPage isTeamCreationPage)}}
+        {{#link-to "support.suggestions" current-when="support.tickets support.suggestions support" class="navLink" invokeAction=(action 'reload' 'support.suggestions')}}Support{{/link-to}}
+      {{/unless}}
+
+    </div>
+    {{!-- Only render portion of nav once User model is initialized  --}}
+    {{#if model.id}}
+      <div class="columns {{if model.navMessageToDisplay 'small-4' 'small-3'}} stackRight">
+        {{
+          navigation-dropdown-menu
+          model=model
+          pendingNotifications=pendingNotifications
+          pendingNotificationsCount=pendingNotificationsCount
+          closeOnClick=true
+          switchContext="switchContext"
+        }}
+        {{#if model.navMessageToDisplay}}
+          <span class="nav-user-message">{{model.navMessageToDisplay}}</span>
+        {{/if}}
+        {{#unless (or isReadOnly model.isInBadStanding model.isArchived isOauthAuthPage isTeamCreationPage (is-current-path 'droplets/new' currentLocationPath) (is-current-path 'hold' currentLocationPath) (not model.isOnboarded))}}
+          {{#if dropletCreateEventsDisabled}}
+            {{#tool-tip class="disabled-create-droplet-button" data-placement="bottom" title="Droplet creates are temporarily unavailable while DigitalOcean is under maintenance." multiline=true}}
+              {{#link-to "droplet_create" class="create_droplet Button Button--green u-mr-3 is-disabled"}}Create Droplet{{/link-to}}
+            {{/tool-tip}}
+          {{else}}
+            {{#link-to "droplet_create" class="create_droplet Button Button--green u-mr-3"}}Create Droplet{{/link-to}}
+          {{/if}}
+        {{/unless}}
+      </div>
+    {{/if}}
+  </div>
+</div>

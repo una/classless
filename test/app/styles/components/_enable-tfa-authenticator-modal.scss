@@ -1,0 +1,18 @@
+.qrCodeHolder {
+  canvas,
+  .placeholder {
+    width: 159px;
+    height: 159px;
+  }
+
+  .placeholder {
+    display: inline-block;
+    position: relative;
+
+    .Loader--basic {
+      position: absolute;
+      top: 50%;
+      margin-top: -0.75rem;
+    }
+  }
+}

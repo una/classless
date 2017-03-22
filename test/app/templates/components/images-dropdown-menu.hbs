@@ -1,0 +1,24 @@
+<div role="button" class="distro-dropdown-trigger" {{action 'toggle'}}>
+  <span class="version-name">
+    {{#if (and (eq selectedDistro.id distro.id) distroVersion)}}
+      {{distroVersion.name}}
+    {{else}}
+      Select version
+    {{/if}}
+  </span>
+  <span class="distro-select">
+    <span class="Icon--arrowDown"></span>
+  </span>
+</div>
+<div class="Dropdown-content">
+  <ul class="Dropdown-inner">
+    {{#each distro.images as |image|}}
+      <li class="Dropdown-option">
+        <a role="button" class="{{if (eq distroVersion image) 'selected'}}" {{action 'selectImage' distro image}}>
+          <p class="distro-image-name small">{{image.name}}</p>
+          <span class="Icon--check {{if (eq distroVersion image) 'Icon--green'}}"></span>
+        </a>
+      </li>
+    {{/each}}
+  </ul>
+</div>

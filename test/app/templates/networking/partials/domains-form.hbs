@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="small-12 columns">
+    {{#form-with-validation
+      onSubmit="onCreateRecord"
+      submitButtonClasses="save-btn"
+      isInlineForm=true
+      disableFocusFirstEl=true
+      revalidateOnPropertyChange=domainName
+      submitButtonText="Add Domain"
+      className="domains-create-domain-form"
+      isShowingSubmitLoader=isCreatingRecord
+      spinnerClasses="save-spinner"
+    }}
+      <div class="createDomain--input {{if droplet "hasResource"}}">
+        {{float-label-input
+          type="text"
+          value=domainName
+          required=true
+          placeholder=(t "domains.form.placeholder.name")
+          pattern="\S+\.\S+"
+          error="Invalid hostname"
+        }}
+      </div>
+    {{/form-with-validation}}
+    {{#if droplet}}
+      <div class="resource-container Icon--arrowLongRight">
+        {{resource-item
+          item=droplet
+          onClose="removeDroplet"
+          showIpMeta=true
+          showClose=true
+        }}
+      </div>
+    {{/if}}
+  </div>
+</div>

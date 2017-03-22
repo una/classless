@@ -1,0 +1,34 @@
+{{#modal-window
+  title="Update Droplet"
+  size="medium"
+  droplet=droplet
+  showSave=false
+  showCancel=false
+  onHide=(action "onHideModal")
+  onShow=(action "onShowModal")
+}}
+<div class="row">
+  <div class="small-12 columns">
+    <div class="u-textAlignCenter">
+      <img class="EmptyState-image u-mb-4" src="/assets/images/empty-state-droplet.svg" alt="Update Droplet to Graphs BETA for additional metrics.">
+    </div>
+    {{#if monitoringEnabled}}
+      <p class="u-mb-4">This Droplet is ready to be updated to the Monitoring<sup class="u-uppercase">Beta</sup> by installing the DO Agent. Follow the instructions below:</p>
+    {{else}}
+      <p class="u-mb-4">Graphs<sup class="u-uppercase">Beta</sup> is now available! Update your Droplet by installing the DO Agent to view new metrics including disk usage and memory.</p>
+    {{/if}}
+    <p class="u-mb-0">1. Log into your Droplet</p>
+    <div class="u-code-block u-mt-1">
+      $ ssh root@{{droplet.ipAddress}}
+      {{click-to-copy text=(concat "ssh root@" droplet.ipAddress)}}
+    </div>
+    <p class="u-mb-0">2. Run this command to install the DO Agent</p>
+    <div class="u-code-block u-mt-1">
+      $ curl -sSL https://agent.digitalocean.com/install.sh | sh
+      {{click-to-copy text="curl -sSL https://agent.digitalocean.com/install.sh | sh"}}
+    </div>
+    <p class="u-mt-4">This update takes a few minutes, we'll let you know when it's complete.</p>
+    <p class="u-mt-4">{{#community-link slug="how-to-install-and-use-the-digitalocean-agent-for-additional-droplet-graphs"}}Learn more about installing the DO Agent.{{/community-link}}</p>
+  </div>
+</div>
+{{/modal-window}}

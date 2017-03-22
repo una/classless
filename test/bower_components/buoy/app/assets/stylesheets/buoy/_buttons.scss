@@ -1,0 +1,185 @@
+// input[type=submit] {
+//   -webkit-appearance: none;
+// }
+
+.Button {
+  border-radius: $border_radius;
+  @include user-select(none);
+  font-weight: 600;
+  @include transition(all, 0.2s, ease-in-out);
+  background: $grey_3;
+  color: $grey_8;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid $grey_3;
+  padding: 0 1.6rem;
+  font-size: 0.9rem;
+  height: 3rem;
+  line-height: 3rem;
+  -webkit-appearance: none;
+
+  &:not(.Button--noHover):hover {
+    background: $grey_4;
+    border: 1px solid transparent;
+  }
+
+  &:focus {
+    outline: 0;
+    box-shadow: 0 0 0 1px white, 0 0 2px 2px $focus;
+  }
+}
+
+.Button--fullWidth {
+  width: 100%;
+  padding: 0;
+  &.Button--withIcon  {
+    position: relative;
+    &:before {
+      position: absolute;
+      right: 1.5rem;
+      top: 1.1rem;
+    }
+  }
+}
+
+.Button--withIcon {
+  &:before {
+    font-size: .8em;
+    line-height: 1.2;
+  }
+}
+
+.Button--blue {
+  color: $white;
+  background: $blue;
+  border-color: $blue;
+  &:not(.Button--noHover):hover {
+    background: $blue_hover;
+    color: $white;
+    border: 1px solid transparent;
+  }
+}
+
+.Button--iconCircle {
+  border-radius: 50%;
+}
+
+.Button--icon {
+  padding: .4rem;
+  line-height: normal;
+  margin: 0 .1rem;
+  height: auto;
+
+  &:before {
+    width: .75rem;
+    height: .75rem;
+    font-size: .75rem;
+    display: block;
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.Button--withIcon {
+  &:before {
+    margin-right: .6rem;
+    display: inline-block;
+  }
+}
+
+.Button--green {
+  color: white;
+  background: $green;
+  border: 1px solid $green;
+
+  &:not(.Button--noHover):hover {
+    background: $green_hover;
+    border: 1px solid $green_hover;
+  }
+
+  &.Button--outline {
+    color: $green;
+
+    &:not(.Button--noHover):hover {
+      background: $green;
+      border: 1px solid $green;
+    }
+  }
+}
+
+.Button--red {
+  color: white;
+  background: $red;
+  border: 1px solid $red;
+
+  &:not(.Button--noHover):hover {
+    background: $red_hover;
+  }
+
+  &.Button--outline {
+    color: $red;
+
+    &:not(.Button--noHover):hover {
+      background: $red;
+      border: 1px solid $red;
+    }
+  }
+}
+
+.Button--outline {
+  background: none;
+  color: $blue;
+
+  &:not(.Button--noHover):hover {
+    background: $blue;
+    color: $white;
+  }
+}
+
+.Button.is-disabled, .Button[disabled] {
+  background: $grey_2;
+  border: 1px solid $grey_2;
+  color: $grey_6;
+  cursor: not-allowed;
+
+  &:hover {
+    border: 1px solid $grey_2;
+  }
+
+  &:not(.Button--noHover):hover {
+    background: $grey_2;
+    color: $grey_6;
+  }
+}
+
+.Button--grey {
+  background: $grey_4;
+  border: 1px solid $grey_4;
+  color: $grey_7;
+
+  &:not(.Button--noHover):hover {
+    background: darken($grey_4, 3);
+    color: $grey_7;
+  }
+
+  &.Button--outline {
+    color: $grey_7;
+    background:none;
+
+    &:not(.Button--noHover):hover {
+      background: $grey_2;
+      border: 1px solid $grey_4;
+    }
+  }
+}
+
+.Button--noHover:hover {
+  cursor: default;
+}

@@ -1,0 +1,173 @@
+.Dropdown {
+  position: relative;
+  word-break: break-word;
+
+  a {
+    &.Button {
+      padding-right: 3rem;
+      &.Button--icon {
+        padding-right: 0.4rem;
+      }
+    }
+  }
+
+  .Button {
+    position: relative;
+    &:not(.Button--icon) {
+      &:before {
+        position: absolute;
+        right: 1.2rem;
+        top: 1.1rem;
+      }
+    }
+  }
+
+  .is-flipped {
+    @include rotate(0);
+    &:before {
+      @include rotate(180);
+    }
+
+    &.Button {
+      &:before {
+        top: .9rem;
+      }
+    }
+  }
+
+  &.open {
+    overflow: visible;
+
+    .Dropdown-content {
+      max-height: 400px;
+      opacity: 1;
+      border: 2px solid $grey_3;
+      overflow: visible;
+    }
+  }
+
+  p {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+
+}
+
+.Button--iconOnly {
+  + .dropdown {
+    &:before {
+      right: 5px;
+    }
+
+    &:after {
+      right: 7px;
+    }
+  }
+}
+
+.Dropdown-content {
+  width: 100%;
+  position: absolute;
+  right: -0.5rem;
+  top: calc(100% + .8rem);
+  max-height: 0;
+  overflow: hidden;
+  background: $white;
+  min-width: 270px;
+  border-radius: $border_radius;
+  z-index: 1;
+
+  &.Dropdown--fromIcon {
+    right: -1.25rem;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    right: 23px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid $grey_2;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: -7px;
+    right: 25px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid $white;
+  }
+}
+.Dropdown-header {
+  border-bottom: 2px solid $grey_2;
+  padding: $ws-3;
+  text-align: left;
+
+  > * {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.Dropdown-inner {
+  padding: $ws-3;
+  text-align: left;
+}
+
+ul.Dropdown-inner {
+  padding: 0;
+  overflow: auto;
+  list-style: none;
+  max-height: 330px;
+  li {
+    border-bottom: 1px solid $grey_2;
+    text-align: left;
+    float: left;
+    width: 100%;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    a {
+      display: block;
+      border: 0;
+      padding: $ws-1 $ws-3;
+
+      &:hover {
+        background: $grey_1;
+      }
+
+      span {
+        font-size: .7rem;
+        float: right;
+        position: relative;
+        top: 7px;
+        color: $grey_4;
+      }
+    }
+
+    &.is-active {
+      cursor: not-allowed;
+      a {
+        color: $grey_7;
+        background: $grey_1;
+
+        p {
+          color: $grey_7;
+        }
+
+        span {
+          color: $green;
+        }
+      }
+    }
+  }
+}

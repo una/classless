@@ -1,0 +1,529 @@
+nav.nav-bar {
+  width: 100%;
+  background: $white;
+  top: 0;
+  z-index: 11;
+  height: $nav_height;
+}
+
+.nav_controls {
+  box-sizing: border-box;
+  position: relative;
+  margin: 0 auto;
+  width: 1000px;
+
+  .Logo {
+    background-image: url('/assets/images/cloud-logo.svg');
+    width: 30px;
+    height: 30px;
+    text-indent: -9999px;
+    margin-top: 24px;
+    display: block;
+    float: left;
+    border: 0;
+    position: relative;
+
+    &.with-name {
+      background-image: url('/assets/images/cloud-logo-wordmark.svg');
+      width: 178px;
+    }
+  }
+
+  #notification-count {
+    @extend %font--semibold;
+
+    position: absolute;
+    top: 16px;
+    left: 39px;
+    width: 23px;
+    height: 23px;
+    background: $red--brand_hover;
+    text-align: center;
+    border-radius: 50%;
+    color: $white;
+    border: 2px solid $white;
+    line-height: 20px;
+    opacity: 1;
+    font-size: 13px;
+  }
+
+  .navLink {
+    @extend %font--semibold;
+
+    display: block;
+    float: left;
+    color: $gray8;
+    margin-right: 25px;
+    line-height: 80px;
+    padding: 0;
+    border-bottom: 0;
+    position: relative;
+
+    &.active,
+    &.active:focus {
+      color: $blue--brand;
+    }
+
+    &:hover,
+    &:focus {
+      outline: 0;
+      color: $focus;
+
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        background: $focus;
+        width: 100%;
+        height: 2px;
+        bottom: 23px;
+      }
+    }
+
+    &:first-of-type {
+      margin-left: 25px;
+    }
+
+    &.help {
+      float: right;
+      margin: 0 30px;
+    }
+  }
+
+  sup {
+    font-size: 0.6rem;
+    top: -0.5rem;
+  }
+
+  /* remove active state when transitioning out */
+  .navLink.ember-transitioning-out:focus {
+    color: $gray8;
+
+    &::before {
+      width: 0;
+    }
+  }
+
+  .disabled-create-droplet-button {
+    float: right;
+  }
+
+  .nav-user-message {
+    float: right;
+    color: $green--brand;
+    margin-right: 20px;
+    line-height: 80px;
+  }
+
+  a.create_droplet {
+    margin-top: 20px;
+    height: 2.6rem;
+    line-height: 2.6rem;
+    float: right;
+    padding: 0 1.3rem;
+  }
+
+  .account-dropdown {
+    float: right;
+    margin-top: 20px;
+    padding: 0;
+    width: 51px;
+    height: 2.6rem;
+
+    &.teams-dropdown {
+      width: 52px;
+
+      .dropdown-title {
+        padding-top: 2px;
+
+        .pending-dot {
+          position: absolute;
+          top: 0;
+          right: 10px;
+          background-color: $red--brand_hover;
+          border-radius: 50%;
+          width: 12px;
+          height: 12px;
+          box-shadow: 0 0 0 4px white;
+        }
+
+        .Icon--arrowDown,
+        .Icon--arrowUp {
+          right: -5px;
+          color: $gray6;
+        }
+      }
+
+      .avatar {
+        border-radius: 50%;
+        height: 38px;
+        width: 38px;
+        box-shadow: 0 0 0 2px white;
+        position: relative;
+        vertical-align: top;
+        margin: 0;
+      }
+
+      .avatar-overlay {
+        position: absolute;
+        opacity: 0.1;
+        z-index: 1;
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+    }
+
+    .dropdown-title {
+      padding: 0;
+      cursor: pointer;
+      line-height: 2.6rem;
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+
+      span.pending-dot {
+        position: absolute;
+        top: -5px;
+        right: -6px;
+        background-color: $red--brand_hover;
+        border-radius: 50%;
+        width: 12px;
+        height: 12px;
+        box-shadow: 0 0 0 4px white;
+      }
+
+      .Icon--gear {
+        color: $gray9;
+        font-size: 0.85rem;
+        height: 2.6rem;
+        z-index: 2;
+        position: relative;
+        right: 7px;
+
+        &::before {
+          line-height: 2.6rem;
+        }
+      }
+
+      .Icon--arrowDown,
+      .Icon--arrowUp {
+        color: $gray9;
+        font-size: 0.6rem;
+        line-height: 2.6rem;
+        height: 2.6rem;
+        position: absolute;
+        top: 0;
+        right: 10px;
+        margin: 0;
+
+        &::before {
+          line-height: 2.6rem;
+        }
+      }
+    }
+
+    .dropdown-title.Open + .menu-dropdown {
+      pointer-events: auto;
+      opacity: 0.999;
+      transform: translate3d(-50%, 0, 0);
+    }
+
+    .dropdown-title + .menu-dropdown-teams {
+      transform: translate3d(0, 0, 0);
+    }
+
+    .dropdown-title.Open + .menu-dropdown-teams {
+      transform: translate3d(0, 10px, 0);
+    }
+
+    .menu-dropdown {
+      display: block;
+      position: absolute;
+      border-radius: 3px;
+      left: 50%;
+      margin: 0;
+      line-height: 1rem;
+
+      @media screen and (max-width: 1150px) {
+        margin-right: 0;
+        right: 0;
+      }
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-color: transparent;
+        border-top: 0;
+      }
+
+      &::before {
+        top: -8px;
+        right: 50%;
+        border-bottom-color: $gray4;
+        border-width: 7px;
+        z-index: 0;
+
+        @media screen and (max-width: 1150px) {
+          right: 16px;
+          margin-right: 0;
+        }
+      }
+
+      &::after {
+        right: 50%;
+        top: -6px;
+        border-bottom-color: $white;
+        border-width: 7px;
+        margin-left: -7px;
+
+        @media screen and (max-width: 1150px) {
+          right: 16px;
+          margin-right: 0;
+        }
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      &.menu-dropdown-teams {
+        right: 0;
+        left: inherit;
+        z-index: 3;
+
+        &::before,
+        &::after {
+          display: none;
+        }
+
+        .context-list {
+          max-height: 300px;
+          position: relative;
+          margin: 5px;
+
+          ::-webkit-scrollbar {
+            display: none;
+          }
+
+          li.nav-li,
+          &:first-child,
+          &:nth-last-child(2),
+          &:last-child {
+            padding: 0;
+            border: none;
+          }
+
+          .nav-item .action-item {
+            padding-left: 0;
+          }
+
+          &.context-list-overflow {
+            section {
+              max-height: inherit;
+              overflow-y: scroll;
+              overflow-x: hidden;
+            }
+
+            &::before {
+              z-index: 1;
+              content: '';
+              position: absolute;
+              bottom: -1px;
+              left: 0;
+              height: 40px;
+              width: 100%;
+              background: linear-gradient(rgba(255, 255, 255, 0), white);
+            }
+          }
+
+          section {
+            &:first-child {
+              border-bottom: none;
+            }
+
+            &:last-child {
+              border-top: none;
+            }
+          }
+        }
+
+        .ellipsis-text {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        section {
+          max-height: inherit;
+
+          &:first-child {
+            border-bottom: 1px solid $gray4;
+          }
+
+          &:last-child,
+          &.create-a-team-section {
+            border-top: 1px solid $gray4;
+          }
+
+          &.dropdown-last-section {
+            .nav-item {
+              .action-item {
+                padding: 6px 12px;
+              }
+
+              padding-left: 4px;
+
+              &:first-child {
+                padding-top: 8px;
+              }
+
+              &:last-child {
+                border: none;
+                padding-bottom: 8px;
+              }
+            }
+          }
+
+          .nav-li:last-child .nav-item {
+            border: none;
+            z-index: 2;
+          }
+
+          .nav-item {
+            position: relative;
+            display: inline-flex;
+            min-width: 210px;
+            max-width: 260px;
+            width: 100%;
+            padding: 0;
+            align-items: flex-start;
+
+            &.context-item {
+              align-items: baseline;
+              padding: 2px 0;
+            }
+
+            .avatar {
+              height: 30px;
+              width: 30px;
+              margin: 6px 9px;
+            }
+
+            .user-info {
+              width: 78%;
+              margin: 5px 0;
+
+              .ellipsis-text {
+                width: 100%;
+              }
+
+              .user-name {
+                height: initial;
+                padding-top: 0;
+                margin-bottom: -2px;
+                padding-bottom: 0;
+              }
+
+              .user-email {
+                color: $gray7;
+                height: initial;
+                font-size: 12px;
+                padding: 0;
+                margin-top: -2px;
+              }
+            }
+
+            .context-avatar {
+              width: 60px;
+              padding: 3px;
+              position: relative;
+
+              .avatar-image {
+                display: inline-table;
+                height: 30px;
+                width: 30px;
+                min-width: 30px;
+                min-height: 30px;
+                line-height: 30px;
+
+                .initials {
+                  font-size: 11px;
+                }
+              }
+
+              .avatar-small {
+                height: 14px;
+                width: 14px;
+                bottom: 2px;
+                right: 2px;
+              }
+            }
+
+            &:focus {
+              outline: none;
+            }
+
+            &.current-context {
+              background-color: $blue--light-1;
+              border-radius: 5px;
+
+              .avatar-small,
+              .avatar-image,
+              .avatar {
+                box-shadow: 0 0 0 2px $blue--light-1;
+              }
+            }
+
+            &.create-a-team .action-item {
+              color: $blue--brand;
+
+              &:hover {
+                color: $blue--brand_hover;
+              }
+            }
+
+            .action-item {
+              @extend %font--regular;
+
+              width: 100%;
+              display: block;
+              padding: 8px 12px;
+              border-top: none;
+              color: $gray9;
+              border-bottom: none;
+              text-align: left;
+              line-height: normal;
+              height: inherit;
+
+              &:focus {
+                outline: none;
+              }
+
+              &:hover {
+                cursor: pointer;
+              }
+            }
+
+            &.notifications {
+              border-top: none;
+
+              span.notification-count {
+                @extend %font--semibold;
+
+                background-color: $red--brand_hover;
+                border-radius: 10px;
+                margin-left: 5px;
+                color: $white;
+                padding: 2px 7px 1px;
+                font-size: 13px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

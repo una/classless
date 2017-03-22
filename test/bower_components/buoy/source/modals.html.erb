@@ -1,0 +1,187 @@
+---
+title: Modals
+---
+
+<div class="row u-mb-7">
+  <div class="small-12 columns">
+    <h1>Modals</h1>
+    
+
+    <p>Modals must be wrapped in <code>.Modal</code> where the <code>id</code> matches the trigger's <code>data-target</code> attribute.  Modals can optionally include a <code>.Modal-header</code> and <code>.Modal-footer</code>.</p>
+
+    <p>Modals come in three sizes and a number of different shapes. Modal sizes are as follows: <code>Modal--small</code> : <code>400px</code>, <code>Modal--medium</code> : <code>600px</code>, and <code>Modal--large</code> : <code>800px</code>.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+
+    <h2>Large Modal</h2>
+
+    <div class="example">
+      <a class="Button" data-toggle="modal" data-target="#modalA">Launch Modal</a>
+    </div>
+    <div class="Modal fade Modal--large" id="modalA" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="Modal-dialog">
+        <div class="Modal-content">
+          <div class="Modal-header">
+            <a class="Icon--close Modal-close" data-dismiss="modal" aria-label="Close" span aria-hidden="true"></a>
+            <h2 class="u-mb-0">I'm a Large Modal</h2>
+          </div>
+          <div class="Modal-body">
+            <p>And this is all of my text! Curabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo. Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Cam sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+            <ul>
+              <li>List Items</li>
+              <li>List Items</li>
+              <li>List Items</li>
+              <li>List Items</li>
+            </ul>
+          </div>
+          <div class="Modal-footer u-textAlignLeft">
+            <button class="Button Button--blue">Button</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row u-mb-7">
+   <div class="small-12 columns">
+    <pre>
+      <code><%= display_code('
+<a class="Button" data-toggle="modal" data-target="#modalA">Launch Modal</a>
+<div class="Modal fade Modal--large" id="modalA" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="Modal-dialog">
+    <div class="Modal-content">
+      <div class="Modal-header">
+        <a class="Icon--close Modal-close" data-dismiss="modal" aria-label="Close" span aria-hidden="true"></a>
+        <h2 class="u-mb-0">Large Modal</h2>
+      </div>
+      <div class="Modal-body">
+        <p>...</p>
+      </div>
+      <div class="Modal-footer u-textAlignLeft">
+        <button class="Button Button--blue">Button</button>
+      </div>
+    </div>
+  </div>
+</div>') %></code>
+    </pre>
+   </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+
+    <h2>Medium Modal</h2>
+
+    <div class="example">
+      <a class="Button" data-toggle="modal" data-target="#modalC">Launch Modal</a>
+    </div>
+    <div class="Modal fade Modal--medium" id="modalC" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="Modal-dialog">
+        <div class="Modal-content">
+          <div class="Modal-header">
+            <a class="Icon--close Modal-close" data-dismiss="modal" aria-label="Close" span aria-hidden="true"></a>
+            <h2 class="u-mb-0">Confirm Email Pls?</h2>
+          </div>
+          <div class="Modal-body">
+            <div class="row">
+              <div class="small-12 columns">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget bibendum tellus, eu auctor risus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut ullamcorper risus.</p>
+              </div>
+            </div>
+          </div>
+          <div class="Modal-footer">
+            <a href="#" class="Button is-disabled" data-dismiss="modal">Cancel</a>
+            <a href="#" class="Button Button--green">Send Invites</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row u-mb-7">
+   <div class="small-12 columns">
+    <pre>
+      <code><%= display_code('
+<a class="Button" data-toggle="modal" data-target="#modalC">Launch Modal</a>
+<div class="Modal fade Modal--medium" id="modalC" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="Modal-dialog">
+    <div class="Modal-content">
+      <div class="Modal-header">
+        <a class="Icon--close Modal-close" data-dismiss="modal" aria-label="Close" span aria-hidden="true"></a>
+        <h2 class="u-mb-0">Medium Modal</h2>
+      </div>
+      <div class="Modal-body">
+        <div class="row">
+          <div class="small-12 columns">
+            <p>...</p>
+          </div>
+        </div>
+      </div>
+      <div class="Modal-footer">
+        <a href="#" class="Button is-disabled" data-dismiss="modal">Cancel</a>
+        <a href="#" class="Button Button--green">Send Invites</a>
+      </div>
+    </div>
+  </div>
+</div>') %></code>
+    </pre>
+   </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+
+    <h2>Small Modal</h2>
+
+    <div class="example">
+      <a class="Button " data-toggle="modal" data-target="#modalB">Launch Modal</a>
+    </div>
+    <div class="Modal fade Modal--small" id="modalB" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="Modal-dialog">
+        <div class="Modal-content">
+          <div class="Modal-header">
+            <a class="Icon--close Modal-close" data-dismiss="modal" aria-label="Close" span aria-hidden="true"></a>
+            <h2 class="u-mb-0">Confirm Email Pls?</h2>
+          </div>
+          <div class="Modal-body">
+            <p>Thanks We've just sent an email confirmation link to <a href="#">jesse@digitalocean.com</a></p>
+          </div>
+          <div class="Modal-footer">
+            <a class="Button Button--large Button--withIcon Button--withIconLeft Icon--heart Button--fullWidth">Open Gmail Inbox</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row u-mb-7">
+   <div class="small-12 columns">
+    <pre>
+      <code><%= display_code('
+<a class="Button" data-toggle="modal" data-target="#modalB">Launch Modal</a>
+<div class="Modal fade Modal--small" id="modalB" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="Modal-dialog">
+    <div class="Modal-content">
+      <div class="Modal-header">
+        <a class="Icon--close Modal-close" data-dismiss="modal" aria-label="Close" span aria-hidden="true"></a>
+        <h2 class="u-mb-0">Small Modal</h2>
+      </div>
+      <div class="Modal-body">
+        <p>...</p>
+      </div>
+      <div class="Modal-footer">
+        <a class="Button Button--large Button--withIcon Button--withIconLeft Icon--heart Button--fullWidth">Button Copy</a>
+      </div>
+    </div>
+  </div>
+</div>') %></code>
+    </pre>
+   </div>
+</div>

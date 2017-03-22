@@ -1,0 +1,50 @@
+{{#modal-window
+  title="New SSL certificate"
+  showSaveButton=false
+  showCancelButton=false
+  onHide="onHide"
+  bodyClasses="u-pt-0"
+  contentClasses="lb-create-certificate"
+}}
+  {{#form-with-validation
+    class="u-mb-0"
+    onSubmit="createCertificate"
+    submitButtonText="Save SSL Certificate"
+    isShowingSubmitLoader=isSubmitting
+  }}
+    <p>
+      <a target="_blank" rel="noopener noreferrer" href="https://www.digitalocean.com/community/tutorials/how-to-configure-ssl-termination-on-digitalocean-load-balancers">
+        How to create an SSL certificate
+      </a>
+    </p>
+    {{float-label-input
+      value=name
+      required=true
+      placeholder="Name"
+      customValidation=validateName
+      setErrorMessage=setNameErrorMessage
+      maxlength="255"
+    }}
+
+    {{float-label-textarea
+      class="is-sensitive"
+      value=leafCertificate
+      required=true
+      placeholder="Certificate"
+    }}
+
+    {{float-label-textarea
+      class="is-sensitive"
+      value=privateKey
+      required=true
+      placeholder="Private key"
+    }}
+
+    {{float-label-textarea
+      class="is-sensitive"
+      value=certificateChain
+      required=true
+      placeholder="Certificate chain"
+    }}
+  {{/form-with-validation}}
+{{/modal-window}}

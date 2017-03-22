@@ -3,25 +3,17 @@ const request = require('sync-request');
 const fs = require('fs');
 
 function getClassesAndIds(stylesheet) {
-  const classes = [];
-  const ids = [];
+  const elemArray = [];
   let temp;
 
-  // Get the classes
-  temp = stylesheet.match(/\.\D\w+/g);
+  // Get the classes and id's
+  temp = stylesheet.match(/[\.|#]\D\w+[_|-]?(-)?\w+/g);
   if (temp) {
-    classes.push.apply(classes, temp);
-  }
-
-  // Get the IDs
-  temp = stylesheet.match(/\#\D\w+/g);
-  if (temp) {
-    ids.push.apply(ids, temp);
+    elemArray.push.apply(elemArray, temp);
   }
 
   // Combine classes and ID's and filter for unique ones
-  const filteredElems = classes.concat(ids)
-    .filter((v, i, a) => a.indexOf(v) === i);
+  const filteredElems = elemArray.filter((v, i, a) => a.indexOf(v) === i);
 
   // Return all of the unique elements
   // console.log(filteredElems);
@@ -41,7 +33,7 @@ function getAllCSSElems(cssPathInput) {
     let eachCSSElemArray = [];
     const files = new glob(cssPathInput, {sync: true});
     const cssFilePath = cssPathInput.substr(0, cssPathInput.indexOf(','));
-    console.log(cssFilePath);
+    // console.log(cssFilePath);
 
     files.forEach(file => {
       const cssText = fs.readFileSync(file, 'utf8');

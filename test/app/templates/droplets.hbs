@@ -1,0 +1,16 @@
+<div class="row droplet-header">
+  <div class="small-12 columns">
+    <h1>{{t "droplets.index.title"}}</h1>
+  </div>
+  <div class="small-12 columns">
+    <ul class="Tabs u-mb-4 droplet-tabs" role="tablist">
+      {{#link-to "droplets.index" tagName="li" activeClass="is-active"}}<a>{{t "droplets.index.tabs.droplets"}}</a>{{/link-to}}
+      {{#link-to "droplets.volumes" tagName="li" activeClass="is-active"}}<a>{{t "droplets.index.tabs.volumes"}}</a>{{/link-to}}
+      {{#if insightsDashboard}}
+        <a role="button" {{action 'showInsightsDashboard'}} class="u-floatRight metrics-link">{{t "droplets.index.links.metrics"}}<span class="Icon--newWindow"></span></a>
+      {{/if}}
+    </ul>
+  </div>
+</div>
+
+{{outlet}}

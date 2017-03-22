@@ -1,0 +1,411 @@
+{{#unless model.team}}
+  <section class="Box u-mb-5">
+    {{#if model.user.tfaMethod}}
+      <h2 class="columns u-mb-4">Two-factor authentication</h2>
+      <section class="row">
+        <div class="columns small-7">
+          <p class="columns u-mb-1"><strong>Default method: {{model.user.tfaMethod.name}}</strong></p>
+          <p class="columns">{{tfaMethodDescription}}</p>
+        </div>
+        <div class="u-floatRight u-mr-3">
+          {{hoverable-button
+            text="Two-factor Authentication"
+            defaultClasses="Button--outline Button--green"
+            hoverClasses="Button--red"
+            click=(action "showDisable2FAModal")
+            loading=disabling2FA
+          }}
+        </div>
+      </section>
+      <div class="row">
+        <div class="columns small-12">
+          <hr class="u-ml-0 u-mr-0"/>
+        </div>
+      </div>
+      <section class="row">
+        <div class="columns small-7">
+          <p class="columns u-mb-1">
+            <strong>
+              {{#if model.user.tfaBackupMethod}}
+                Backup method: {{model.user.tfaBackupMethod.name}}
+              {{else}}
+                <span>Backup method</span>
+                <span class="Badge u-ml-2">Recommended</span>
+              {{/if}}
+            </strong>
+          </p>
+          <p class="columns">
+            {{#if model.user.tfaBackupMethod}}
+              {{tfaBackupMethodDescription}}
+            {{else}}
+              If you lose access to your default method, you can use this method to gain access to your account.
+            {{/if}}
+          </p>
+          {{#if (eq model.user.tfaBackupMethod.type 'recovery_codes')}}
+            <p class="columns"><a {{action 'regenerate2FABackupCodes'}} role="button">Regenerate codes</a></p>
+          {{/if}}
+        </div>
+        <div class="u-floatRight u-mr-3">
+          {{#if model.user.tfaBackupMethod}}
+            {{hoverable-button
+              text="Backup Method"
+              defaultClasses="Button--outline Button--green"
+              hoverClasses="Button--red"
+              click=(action "showDisable2FABackupModal")
+              loading=disabling2FABackup
+            }}
+          {{else}}
+            <a {{action 'add2FABackupMethod'}} class="Button Button--blue" role="button">Add Backup Method</a>
+          {{/if}}
+        </div>
+      </section>
+    {{else}}
+      <div class="row">
+        <div class="small-2 columns u-textAlignCenter">
+          <img src="/assets/images/unlocked.png" alt="Unlocked account" class="avatar-small u-mt-2">
+        </div>
+        <div class="small-10 columns">
+          <h2>Secure your account</h2>
+          <p>Two-factor authentication adds an extra layer of security to your account. To log in, you'll need to provide a code along with your username and password. This lets us know it's actually you.</p>
+          <section><a {{action 'enable2FA'}} class="Button Button--blue" role="button">Enable Two-Factor Authentication</a></section>
+        </div>
+      </div>
+    {{/if}}
+  </section>
+{{/unless}}
+{{#if model.sshKeys}}
+  <div id="keys" class="u-mb-5 settings-security-keys">
+    <section>
+      <div class="small-5 columns">
+        <h2>SSH keys</h2>
+      </div>
+      <div class="u-floatRight">
+          <a {{action 'showSshKeyCreateModal'}} class="Button u-mb-3" role="button">Add SSH Key</a>
+      </div>
+    </section>
+    <table class="ssh-keys-table">
+      <thead>
+        <tr>
+          {{table-header noSorting=true isLoading=false col="name" text="Name"}}
+          {{table-header noSorting=true isLoading=false col="fingerprint" text="Fingerprint"}}
+          {{table-header col="action" noSorting=true}}
+        </tr>
+      </thead>
+      <tbody>
+        {{#each model.sshKeys as |sshKey|}}
+          <tr>
+            <td class="name">
+              {{#ellipsis-text text=sshKey.name}}
+                {{sshKey.name}}
+              {{/ellipsis-text}}
+            </td>
+            <td class="fingerprint">
+              {{#ellipsis-text text=sshKey.fingerprint}}
+                {{#click-to-copy text=sshKey.fingerprint}}
+                  {{sshKey.fingerprint}}
+                {{/click-to-copy}}
+              {{/ellipsis-text}}
+            </td>
+            <td class="action">
+              {{dropdown-menu title="More" items=sshKeysMenuItems action="menuItemClick" closeOnClick=true actionParams=sshKey}}
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{#if sshKeysNeedPagination}}
+      {{paginator-full
+        linkToPage="settings.security"
+        isLoading=isChangingKeyPage
+        scrollToAfterLoad="#keys"
+        pages=model.sshKeys.meta.pagination.pages
+        currentPage=model.sshKeys.meta.pagination.current_page
+        action="changeKeyPage"
+        useActions=true
+      }}
+    {{/if}}
+  </div>
+  {{else}}
+  <div id="keys" class="Box u-mb-5 settings-security-keys">
+    <section class="row">
+      <div class="small-5 columns">
+        <h2>SSH keys</h2>
+      </div>
+      <div class="u-floatRight">
+          <a role="button" {{action 'showSshKeyCreateModal'}} class="Button u-mb-3">Add SSH Key</a>
+      </div>
+    </section>
+    <section class="row u-mt-3">
+      <p class="columns">SSH keys provide a more secure way of logging into a virtual private server with SSH than using a password alone. {{#community-link slug="how-to-set-up-ssh-keys--2"}}Learn more{{/community-link}}</p>
+    </section>
+  </div>
+{{/if}}
+{{#if loadBalancersEnabled}}
+  {{#if model.certificates}}
+  <div id="certificates" class="u-mb-5 settings-security-certificates">
+    <section>
+      <div class="small-5 columns">
+        <h2>TLS/SSL certificates</h2>
+      </div>
+      <div class="u-floatRight">
+          <a role="button" {{action 'showCertificateCreateModal'}} class="Button u-mb-3">Add Certificate</a>
+      </div>
+    </section>
+      <table class="certificates-table">
+        <thead>
+          <tr>
+            {{table-header noSorting=true isLoading=false col="certificate-name" text="Name"}}
+            {{table-header noSorting=true isLoading=false col="certificate-fingerprint" text="Fingerprint (SHA1)"}}
+            {{table-header col="certificate-action" noSorting=true}}
+          </tr>
+        </thead>
+        <tbody>
+          {{#each model.certificates as |certificate|}}
+            <tr>
+              <td class="certificate-name">
+                {{#ellipsis-text text=certificate.name}}
+                  {{certificate.name}}
+                {{/ellipsis-text}}
+              </td>
+              <td class="certificate-fingerprint">
+                {{#ellipsis-text text=certificate.SHA1Fingerprint}}
+                  {{#click-to-copy text=certificate.SHA1Fingerprint}}
+                    {{certificate.SHA1Fingerprint}}
+                  {{/click-to-copy}}
+                {{/ellipsis-text}}
+              </td>
+              <td class="certificate-action u-textAlignRight">
+                {{dropdown-menu title="More" items=certificatesMenuItems action="certificateMenuItemClick" closeOnClick=true actionParams=certificate}}
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{#if certificatesNeedPagination}}
+        {{paginator-full
+          linkToPage="settings.security"
+          isLoading=isChangingCertificatesPage
+          scrollToAfterLoad="#certificates"
+          pages=model.certificates.meta.pagination.pages
+          currentPage=model.certificates.meta.pagination.current_page
+          action="changeCertificatePage"
+          useActions=true
+        }}
+      {{/if}}
+    </div>
+  {{else}}
+    <div id="certificates" class="Box u-mb-5 settings-security-certificates">
+      <section class="row">
+        <div class="small-5 columns">
+          <h2>Certificates</h2>
+        </div>
+        <div class="u-floatRight">
+            <a role="button" {{action 'showCertificateCreateModal'}} class="Button u-mb-3">Add Certificate</a>
+        </div>
+      </section>
+      <section class="row u-mt-3">
+        <p class="columns">Certificates can be used on Load Balancers to allow them to receive TLS/SSL connections. {{#community-link slug="how-to-configure-ssl-termination-on-digitalocean-load-balancers"}}Learn more{{/community-link}}</p>
+      </section>
+    </div>
+  {{/if}}
+{{/if}}
+<div id="history" class="settings-security-events">
+  <section class="row">
+    <div class="small-5 columns">
+      <h2>Security history</h2>
+      <p class="u-mb-3">Your most recent account events</p>
+    </div>
+  </section>
+  <section class="row">
+    <div class="small-12 columns">
+      <table>
+        <thead>
+          <tr>
+            {{table-header noSorting=true col="action" text="Action"}}
+            {{#if model.team}}
+              {{table-header noSorting=true col="user" text="User"}}
+            {{/if}}
+            {{table-header action="sortEvents" isLoading=sorting sortCol=sort sortDir=sort_direction col="actor_ip" text="IP Address"}}
+            {{table-header action="sortEvents" isLoading=sorting sortCol=sort sortDir=sort_direction col="created_at" text="Time"}}
+          </tr>
+        </thead>
+        <tbody>
+          {{#each model.events as |auditAction|}}
+            <tr>
+              <td class="action">
+                {{#ellipsis-text text=auditAction.name}}
+                  {{auditAction.name}}
+                {{/ellipsis-text}}
+              </td>
+              {{#if model.team}}
+                <td class="user">
+                  {{#ellipsis-text text=auditAction.actor.name}}
+                    {{auditAction.actor.name}}
+                  {{/ellipsis-text}}
+                </td>
+              {{/if}}
+              <td class="actor_ip">
+                {{#ellipsis-text text=auditAction.actorIp}}
+                  {{auditAction.actorIp}}
+                {{/ellipsis-text}}
+              </td>
+              <td class="created_at">
+                {{date-to-human-time date=auditAction.createdAt}}
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{#if needsPagination}}
+        {{paginator-full
+          linkToPage="settings.security"
+          isLoading=paginating
+          scrollToAfterLoad="#history"
+          pages=model.events.meta.pagination.pages
+          currentPage=model.events.meta.pagination.current_page
+          action="changePage"
+        }}
+      {{/if}}
+    </div>
+  </section>
+</div>
+
+{{#if showCertificateCreateModal}}
+  {{load-balancers/create-certificate-modal
+    onHide=(action "closeCertificateModal")
+    allCertificates=model.certificates
+    errorHandler=boundErrorHandler
+  }}
+{{/if}}
+
+{{#if showCertificateDeleteModal}}
+  {{#modal-window title="Delete Certificate" contentClasses="confirm-small" size="small" saveText="Delete Certificate" saveClasses="Button--red" onHide="onDeleteCertificateClose"}}
+    <p>Are you sure you want to delete <strong>{{certificateToDelete.name}}?</strong></p>
+  {{/modal-window}}
+{{/if}}
+
+
+{{#if showSshKeyCreateModal}}
+  {{ssh-key-modal
+    onHide=(action "hideSshCreateModal")
+    title="New SSH key"
+    submitAction=(action "saveSshKey")
+    submitButtonText="Add SSH Key"
+  }}
+{{/if}}
+
+{{#if showSshKeyEditModal}}
+  {{ssh-key-modal
+    onHide=(action "hideSshEditModal")
+    title="Edit SSH key"
+    submitAction=(action "updateSshKey")
+    keyValue=keyToEdit.content
+    keyName=keyToEdit.name
+    submitButtonText="Save SSH Key"
+  }}
+{{/if}}
+
+{{#if showSshKeyDeleteModal}}
+  {{#modal-window title="Delete SSH key" contentClasses="confirm-small" size="small" saveText="Delete SSH Key" saveClasses="Button--red" onHide="onDeleteKeyClose"}}
+    <p>Are you sure you want to delete <strong>{{keyToDelete.name}}?</strong></p>
+  {{/modal-window}}
+{{/if}}
+
+{{#if showDisable2FAModal}}
+  {{#modal-window title="Disable two-factor authentication?" contentClasses="confirm-small" size="medium" saveText="Yes, Disable 2FA" saveClasses="Button--red" onHide="confirmDisable2FA" footerClasses="u-pt-0"}}
+    <p>This reduces the security level of your account and is <strong>not recommended</strong>.</p>
+    <p>Are you sure you want to continue?</p>
+  {{/modal-window}}
+{{/if}}
+
+{{#if showDisable2FABackupModal}}
+  {{#modal-window title="Disable backup method?" contentClasses="confirm-small" size="medium" saveText="Yes, Disable Backup" saveClasses="Button--red" onHide="confirmDisable2FABackup" footerClasses="u-pt-0"}}
+    <p>Removing your backup method is <strong>not recommended</strong>. Should you lose your default 2FA method, you’ll be locked out of your account.</p><p> Are you sure you want to continue?</p>
+  {{/modal-window}}
+{{/if}}
+
+{{#if showEnable2FAModal}}
+  {{#enable-tfa-modal
+    title="Choose an authentication method"
+    onHide=(action "hideEnable2FAModal")
+    submitAction=(action "show2FAPrimaryActionModal")
+    submitButtonText="Continue"
+  }}
+    <p>In addition to your username and password, you’ll have to enter a code (delivered via app or SMS) to log into your account.</p>
+  {{/enable-tfa-modal}}
+{{/if}}
+
+{{#if showEnable2FAViaAuthenticatorModal}}
+  {{enable-tfa-authenticator-modal
+    title="Connect your app"
+    renderAction=(action "selectAuthenticator" "primary")
+    onHide=(action "hideEnable2FAAuthenticatorModal")
+    confirmCode=(action "confirm2FAAuthenticatorCode")
+    qrCode=authenticator
+  }}
+{{/if}}
+
+{{#if showEnable2FAViaSMSModal}}
+  {{enable-tfa-sms-modal
+    title="Verify your phone number"
+    onHide=(action "hideEnable2FASMSModal")
+    sendSMSCode=(action "send2FAPrimarySMSCode")
+    verifySMSCode=(action "confirm2FAPrimarySMSCode")
+  }}
+{{/if}}
+
+{{#if show2FASuccessfullyActivatedModal}}
+  {{enable-tfa-backup-method-modal
+    primaryMethod=tfaPrimaryMethodType
+    title="You've enabled two-factor authentication"
+    subtitle="Now, add a backup method"
+    titleImage="/assets/images/lock-animation.gif"
+    titleImageAlt="Account secured"
+    onHide=(action "hide2FASuccessfullyActivatedModal")
+    submitAction=(action "show2FABackupActionModal")
+  }}
+{{/if}}
+
+{{#if showSetup2FABackupModal}}
+  {{enable-tfa-backup-method-modal
+    primaryMethod=tfaPrimaryMethodType
+    title="Choose backup method"
+    onHide=(action "hide2FABackupActionModal")
+    submitAction=(action "show2FABackupActionModal")
+  }}
+{{/if}}
+
+{{#if showRegerenateBackupCodesConfirmationModal}}
+  {{#modal-window title="Confirm regeneration" contentClasses="confirm-small" size="small" saveText="Yes, Regenerate Codes" saveClasses="Button--blue" onHide="confirmRegenerateBackupCodes"}}
+    <p>This will make your remaining {{validBackupCodesLeftText}} invalid.</p>
+    <p>Are you sure you want to continue?</p>
+  {{/modal-window}}
+{{/if}}
+
+{{#if showAdd2FABackupViaAuthenticatorModal}}
+  {{enable-tfa-authenticator-modal
+    title="Connect your app"
+    renderAction=(action "selectAuthenticator" "backup")
+    onHide=(action "hideAdd2FABackupViaAuthenticatorModal")
+    confirmCode=(action "confirm2FABackupAuthenticatorCode")
+    qrCode=authenticator
+  }}
+{{/if}}
+
+{{#if showAdd2FABackupViaSMSModal}}
+  {{enable-tfa-sms-modal
+    title="Verify your phone number"
+    onHide=(action "hideAdd2FABackupViaSMSModal")
+    sendSMSCode=(action "send2FABackupSMSCode")
+    verifySMSCode=(action "confirm2FABackupSMSCode")
+  }}
+{{/if}}
+
+{{#if showAdded2FABackupViaCodesModal}}
+  {{added-tfa-backup-with-codes-modal
+    title="Backup codes"
+    renderAction=(action "selectBackupCodes")
+    recoveryCodes=recoveryCodes
+    onHide=(action "hideAdded2FABackupViaCodesModal")
+  }}
+{{/if}}

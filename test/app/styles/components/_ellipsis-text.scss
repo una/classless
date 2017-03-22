@@ -1,0 +1,27 @@
+.ellipsis-text {
+  width: 100%;
+  overflow: hidden;
+
+  .tooltip-wrap {
+    width: 100%;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 5px solid transparent;
+    vertical-align: middle;
+  }
+
+  &.testing {
+    white-space: nowrap;
+
+    .tooltip-wrap {
+      overflow: visible;
+    }
+  }
+
+  .Tooltip-inner {
+    white-space: pre-wrap;
+    max-width: none;
+  }
+}

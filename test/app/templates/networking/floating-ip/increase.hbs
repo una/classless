@@ -1,0 +1,11 @@
+{{#modal-window title="Increase floating IP limit" showCancel=false showSave=false size="small" onHide="onModalHide" contentClasses="u-pl-2 u-pr-2"}}
+  <p>Please complete the following form to request a floating IP limit increase.</p>
+  {{#form-with-validation onSubmit="onSubmit" submitButtonText="Submit Request" isShowingSubmitLoader=isSubmitting}}
+  <div class="row">
+    {{float-label-input error="Explanation cannot be blank" required=true value=reason placeholder="Explanation for floating IP limit increase"}}
+  </div>
+  <div class="row">
+    {{float-label-input pattern="\d+" error="Requested limit must be a number" required=true value=requestedLimit placeholder="Requested Limit"}}
+  </div>
+  {{/form-with-validation}}
+{{/modal-window}}

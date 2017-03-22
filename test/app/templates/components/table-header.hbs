@@ -1,0 +1,7 @@
+<span class="headerText">{{text}}</span>
+{{#if sortable}}
+  <span class="{{sortArrowClass}}"></span>
+  {{#if showSpinner}}
+    {{loading-spinner gif=spinnerGif spinnerClass="sortLoader"}}
+  {{/if}}
+{{/if}}

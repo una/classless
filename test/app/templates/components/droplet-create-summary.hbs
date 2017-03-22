@@ -1,0 +1,37 @@
+{{label}}
+<div class="popover-content js-popover-content">
+  {{#if image}}
+    <div class="droplet-create-summary-title">Image</div>
+    <div class="droplet-create-summary-content">
+      {{#if image.longName}}
+        {{image.longName}}
+      {{else}}
+        {{image.name}}
+        {{#if distroVersion}}
+          {{distroVersion.name}}
+        {{/if}}
+      {{/if}}
+    </div>
+  {{/if}}
+
+  {{#if size}}
+    <div class="droplet-create-summary-title">Size</div>
+    <div class="droplet-create-summary-content">{{bytes-to-human-size mb=size.memory}} / {{size.cpu}} CPU{{#unless (eq 1 size.cpu)}}s{{/unless}}, {{bytes-to-human-size gb=size.disk}} SSD</div>
+
+    <div class="droplet-create-summary-content">{{bytes-to-human-size gb=size.bandwidth precision=0}} Transfer (${{size.monthlyPrice}}/mo)</div>
+  {{/if}}
+
+  {{#if volumes}}
+    <div class="droplet-create-summary-title">Volume</div>
+    {{#each volumes as |volume|}}
+      <div class="droplet-create-summary-content">
+        {{bytes-to-human-size gb=volume.sizeGigabytes}} ({{volume.pricePerMonth}})
+      </div>
+    {{/each}}
+  {{/if}}
+
+  {{#if region}}
+    <div class="droplet-create-summary-title">Region</div>
+    <div class="droplet-create-summary-content"><span class="flag-icon icon-{{regionFlagIcon}}"></span>{{region-slug slug=region.slug}}</div>
+  {{/if}}
+</div>

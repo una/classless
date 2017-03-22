@@ -1,0 +1,10 @@
+{{#if tooltip}}
+  {{#tool-tip title=tooltip multiline=true show=true}}
+    {{partial "components/partials/dropdown-menu-title"}}
+  {{/tool-tip}}
+{{else}}
+  {{partial "components/partials/dropdown-menu-title"}}
+{{/if}}
+<div class="menu-dropdown">
+  {{partial "components/partials/dropdown-menu-items"}}
+</div>

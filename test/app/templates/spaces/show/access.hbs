@@ -1,0 +1,45 @@
+{{partial "spaces/partials/access-form"}}
+
+<strong>View your Space Key</strong>
+<p>
+  This access key permits programmatic requests to all of your Spaces.
+  For your protection, we recommend that you keep your access key private and regenerate it every 90 days.
+</p>
+<table>
+  <thead>
+    <tr>
+      {{table-header noSorting=true col="access-name" text="Name"}}
+      {{table-header noSorting=true col="secret" text="Secret Key"}}
+      {{table-header noSorting=true col="created_at" text="Created"}}
+      {{table-header noSorting=true col="action"}}
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{#click-to-copy text=model.key.accessKey}}{{model.key.accessKey}}{{/click-to-copy}}</td>
+      <td>
+        {{#unless isRegenerating}}
+          {{#click-to-copy text=model.key.secretKey}}{{model.key.secretKey}}{{/click-to-copy}}
+        {{else}}
+          {{loading-spinner message="Regenerating"}}
+        {{/unless}}
+      </td>
+      <td>{{date-to-human-time date=model.key.createdAt}}</td>
+      <td class="regenerate {{if isRegenerating "is-disabled"}}" {{action "regenerate"}} role="button">Regenerate</td>
+    </tr>
+  </tbody>
+</table>
+
+{{#if showRegenModal}}
+  {{#modal-window
+    title="Regenerate Key?"
+    showSaveButton=true
+    saveText="Confirm"
+    showCancelButton=true
+    size="small"
+    contentClasses="confirm-small"
+    onHide="onRegenHide"
+  }}
+    <p>Are you sure you would like to regenerate your secret key?</p>
+  {{/modal-window}}
+{{/if}}

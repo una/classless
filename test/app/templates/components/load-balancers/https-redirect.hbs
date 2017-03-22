@@ -1,0 +1,16 @@
+{{#if isEditMode}}
+  <div class="https-redirect-checkbox checkbox">
+    {{input id="https-redirect" type="checkbox" checked=isEnabled}}
+    <span></span>
+    <label for="https-redirect">Redirect HTTP to HTTPS</label>
+    {{#tool-tip
+      title="Setting this option will force all HTTP traffic to be redirected to HTTPS. This will only work if there's at least one HTTP and one HTTPS rule."
+      class="lb-hint lb-label-hint"
+      multiline=true
+    }}
+      <span class="Hint" data-placement="top" data-toggle="tooltip"></span>
+    {{/tool-tip}}
+  </div>
+{{else}}
+  {{if isEnabled 'Redirect HTTP to HTTPS' 'No redirect'}}
+{{/if}}

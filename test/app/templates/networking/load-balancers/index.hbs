@@ -1,0 +1,70 @@
+{{#if lbsWithStats.length}}
+  <div class="load-balancers-index">
+    <section class="row u-mb-3">
+      <div class="lb-create-container small-12 columns u-textAlignRight">
+        {{load-balancers/create-button
+          isDisabled=loadBalancersCreationDisabled
+        }}
+      </div>
+    </section>
+
+    <section class="row u-mb-5">
+      <div class="small-12 columns">
+        <table class="load-balancers-list">
+          <thead>
+          <tr>
+            {{table-header noSorting=true col="lb-name" text="Name"}}
+            {{table-header noSorting=true col="lb-status" text="Status"}}
+            {{table-header noSorting=true col="lb-ip" text="IP Address"}}
+            {{table-header noSorting=true col="lb-healthy-count" text="Healthy"}}
+            {{table-header noSorting=true col="lb-requests-per-sec" text="Reqs/s"}}
+            {{table-header noSorting=true col="lb-created-at" text="Created"}}
+            {{table-header noSorting=true col="lb-actions"}}
+          </tr>
+          </thead>
+          <tbody>
+          {{#each lbsWithStats as |loadBalancer|}}
+            {{load-balancers/load-balancer-list-item
+              loadBalancer=loadBalancer
+              actionDropdownItems=actionDropdownItems
+              onCreateComplete=(action "onCreateComplete" loadBalancer)
+              onCreateError=(action "onCreateError" loadBalancer)
+              onMenuItemClick=(action "onMenuItemClick" loadBalancer)
+            }}
+          {{/each}}
+          </tbody>
+        </table>
+        {{#if (gt loadBalancers.meta.pagination.pages 1)}}
+          {{paginator-full
+            isLoading=paginating
+            linkToPage="networking.loadBalancers"
+            pages=loadBalancers.meta.pagination.pages
+            currentPage=loadBalancers.meta.pagination.current_page
+            scrollToAfterLoad="#aurora-container"
+            action="changePage"
+          }}
+        {{/if}}
+      </div>
+    </section>
+  </div>
+{{else}}
+  <div class="load-balancers-index load-balancers-empty EmptyState Box u-mb-5">
+    <div class="row">
+      <div class="small-8 columns small-centered">
+        <img
+          class="load-balancer-empty-image EmptyState-image"
+          src="/assets/images/empty-load-balancers.svg"
+          alt="No Load Balancers">
+        <h3>You don’t have any Load Balancers</h3>
+        <p>Load Balancers let you distribute traffic between multiple Droplets
+          and are a good way to horizontally scale your app. They’re fully managed
+          by DigitalOcean—no set up or configuration required.</p>
+        {{load-balancers/create-button
+          isDisabled=loadBalancersCreationDisabled
+        }}
+      </div>
+    </div>
+  </div>
+{{/if}}
+
+{{load-balancer/help-links}}

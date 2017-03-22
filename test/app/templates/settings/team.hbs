@@ -1,0 +1,186 @@
+<div class="Box u-mb-5 settings-team-profile">
+  <div class="row team-header u-pb-4">
+    <div class="columns small-8 team-name">
+      {{avatar-image
+        isTeam=true
+        color=model.team.avatarColor
+        initials=model.team.avatarInitials
+      }}
+      <h2 class="team-name">{{#ellipsis-text}}{{model.team.name}}{{/ellipsis-text}}</h2>
+    </div>
+    <div class="columns small-4">
+      {{#if model.user.isOwner}}
+        {{#link-to 'settings.team.edit' class='Button Button--fullWidth'}}Edit Team Profile{{/link-to}}
+      {{/if}}
+    </div>
+  </div>
+  <div class="row u-pt-4">
+    <div class="small-4 columns">
+      <div>
+        <span class="strongLabel">Details:</span>
+      </div>
+      <div>
+        {{#if model.team.contactEmail}}
+          {{#ellipsis-text}}{{model.team.contactEmail}}{{/ellipsis-text}}
+        {{else}}
+          {{#link-to 'settings.team.edit' class='addressFieldActive'}}Add Email Address{{/link-to}}
+        {{/if}}
+      </div>
+      {{#ellipsis-text text=teamDropletText}}
+        Droplet Limit: {{#link-to 'settings.team.droplet_limit_increase'}}{{teamDropletText}}{{/link-to}}
+      {{/ellipsis-text}}
+    </div>
+    <div class="small-4 columns">
+      <p class="u-mb-0">
+        <span class="strongLabel">Address:</span>
+      </p>
+      {{#if model.team.location}}
+        {{model.team.location}}
+      {{else}}
+        {{#if model.user.isOwner}}
+          {{#link-to 'settings.team.edit' class='addressFieldActive'}}Add your address{{/link-to}}
+        {{/if}}
+      {{/if}}
+    </div>
+    <div class="small-4 columns">
+      <p class="u-mb-0">
+        <span class="strongLabel">Phone:</span>
+      </p>
+      {{#if model.team.phoneNumber}}
+        {{#ellipsis-text}}{{model.team.phoneNumber}}{{/ellipsis-text}}
+      {{else}}
+        {{#if model.user.isOwner}}
+          {{#link-to 'settings.team.edit' class='addressFieldActive'}}Add phone number{{/link-to}}
+        {{/if}}
+      {{/if}}
+    </div>
+  </div>
+</div>
+{{#if (or model.members query modelLoading)}}
+  <div class="settings-team-members">
+    <section class="row">
+      <div class="small-5 columns">
+        {{#if query}}
+          <h2>{{model.members.length}} Matching</h2>
+        {{else}}
+          <h2>{{pluralize-word model.members.length "Member"}}</h2>
+        {{/if}}
+      </div>
+      {{#if model.user.isOwner}}
+        <div class="small-4 columns">
+          <div class="search-members">
+            {{input type="text" placeholder="Search team members" name="searchQuery" value=toQuery}}
+            <span class="Icon--search"></span>
+            {{#if (and query modelLoading)}}
+              {{loading-spinner plain=true}}
+            {{/if}}
+          </div>
+        </div>
+        <div class="small-3 columns">
+          {{#link-to 'settings.team.invite' class='Button Button--fullWidth'}}Invite Members{{/link-to}}
+        </div>
+      {{/if}}
+    </section>
+    <section class="row">
+      <div class="small-12 columns">
+        <table class="members-table">
+          <thead>
+            <tr>
+              {{table-header action="sort" isLoading=sorting sortCol=sort sortDir=sort_direction col="name" text="Name"}}
+              {{table-header action="sort" isLoading=sorting sortCol=sort sortDir=sort_direction col="role" text="Role"}}
+              {{table-header action="sort" isLoading=sorting sortCol=sort sortDir=sort_direction col="2fa" text="2 FA"}}
+              {{table-header action="sort" isLoading=sorting sortCol=sort sortDir=sort_direction col="status" text="Status"}}
+              {{table-header col="action" noSorting=true}}
+            </tr>
+          </thead>
+          <tbody>
+            {{#if model.members}}
+              {{#each model.members as |member|}}
+              <tr>
+                <td class="name">
+                  {{#if member.avatar}}
+                    <div class="avatar avatar-overlay"></div>
+                    <img class="avatar" src="{{member.avatar}}" alt="">
+                  {{/if}}
+                  {{#if member.name}}
+                    <span class="primary">
+                      {{#ellipsis-text text=member.name}}
+                        {{member.name}}{{#if (eq member.internalIdentifier model.user.internalIdentifier)}}&nbsp;(you){{/if}}
+                      {{/ellipsis-text}}
+                    </span>
+                  {{/if}}
+                  <span class="email {{unless member.name "no-name"}}">
+                    {{#ellipsis-text text=member.name}}
+                      {{member.email}}
+                    {{/ellipsis-text}}
+                  </span>
+                </td>
+                <td class="role">
+                  {{#ellipsis-text text=member.name}}
+                    {{member.role}}
+                  {{/ellipsis-text}}
+                </td>
+                <td class="2fa">
+                  {{#if member.twoFactorAuthEnabled}}
+                    On
+                  {{else if (eq member.twoFactorAuthEnabled false)}}
+                    Off
+                  {{else}}
+                    &mdash;
+                  {{/if}}
+                </td>
+                <td class="status">
+                  {{member.status}}
+                </td>
+                <td class="action">
+                {{#if (or model.user.isOwner (eq member.internalIdentifier model.user.internalIdentifier))}}
+                  {{team-members-dropdown-menu
+                    title="Actions"
+                    action="menuItemClick"
+                    closeOnClick=true
+                    user=model.user
+                    member=member
+                    resendInvite="resendInvite"
+                    cancelInvite="cancelInvite"
+                    leaveTeam="leaveTeam"
+                    changeRole="changeRole"
+                    removeMember="removeMember"}}
+                {{/if}}
+                </td>
+              </tr>
+              {{/each}}
+            {{else}}
+            <tr>
+              <td colspan="5">No members matching <em>{{query}}</em>.</td>
+            </tr>
+            {{/if}}
+          </tbody>
+        </table>
+        {{#if needsPagination}}
+          {{paginator-full
+            linkToPage="settings.team"
+            isLoading=paginating
+            scrollToAfterLoad="#aurora-container"
+            pages=model.members.meta.pagination.pages
+            currentPage=model.members.meta.pagination.current_page
+            action="changePage"
+          }}
+        {{/if}}
+      </div>
+    </section>
+  </div>
+{{else}}
+  {{partial "settings/partials/empty-state"}}
+{{/if}}
+
+{{#if showRemoveMemberModal}}
+  {{#modal-window title="Remove Member" contentClasses="confirm-small" size="small" saveText="Remove Member" saveClasses="Button--red" onHide="onRemoveMemberModalClose"}}
+    <p class="u-grey">Are you sure you want to remove this member?</p>
+  {{/modal-window}}
+{{/if}}
+
+{{#if showLeaveModal}}
+  {{#modal-window title="Leave Team" contentClasses="confirm-small" size="small" saveText="Leave Team" saveClasses="Button--red" onHide="onLeaveModalClose"}}
+    <p class="u-grey">Are you sure you want to leave the team?</p>
+  {{/modal-window}}
+{{/if}}

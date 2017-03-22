@@ -1,0 +1,92 @@
+<section class="row u-mt-5">
+  <table class="firewall">
+    <thead>
+    <tr>
+      {{table-header noSorting=true col="droplet-name" text="Name"}}
+      {{table-header noSorting=true col="droplet-ip" text="IP Address"}}
+      {{table-header noSorting=true col="droplet-action"}}
+    </tr>
+    </thead>
+    <tbody>
+    {{#each targets as |droplet index|}}
+      <tr>
+        <td>{{resource-item link-to="droplet" item=droplet}}</td>
+        <td>
+          {{security-groups/droplet-row-ip-address droplet=droplet}}
+        </td>
+        <td class="u-textAlignRight u-pr-2">
+          {{dropdown-menu
+            title="More"
+            items=dropletMenuItems
+            action=(action dropletMenuItemClick)
+            actionParams=index
+          }}
+        </td>
+      </tr>
+    {{/each}}
+    {{#each tags as |tag index|}}
+      <tr>
+        <td>
+          <div class="Resource">
+            <div class="Resource-image">
+              {{resource-icon resource="tag"}}
+            </div>
+            <div class="Resource-meta">
+              <div class="Resource-title">
+                {{#link-to "tag" tag.name}}
+                  {{#ellipsis-text text=tag.name}}
+                    {{tag.name}}
+                  {{/ellipsis-text}}
+                {{/link-to}}
+              </div>
+              <div class="Resource-description">
+                {{pluralize-word tag.count "Droplet"}}
+              </div>
+            </div>
+          </div>
+        </td>
+        <td></td>
+        <td class="u-textAlignRight u-pr-2">
+          {{dropdown-menu
+            title="More"
+            items=tagMenuItems
+            action=(action tagMenuItemClick)
+            actionParams=index
+          }}
+        </td>
+      </tr>
+      {{#if (gt tag.count 0)}}
+      <tr class="tag-droplets">
+        <td colspan="3">
+          <table>
+            {{#each tag.droplets as |tagDroplet index|}}
+              <tr>
+                <td>{{resource-item link-to="droplet" item=tagDroplet}}</td>
+                <td>
+                  {{security-groups/droplet-row-ip-address droplet=tagDroplet}}
+                </td>
+                <td class="u-textAlignRight u-pr-2"></td>
+              </tr>
+            {{/each}}
+          </table>
+        </td>
+      </tr>
+      {{/if}}
+    {{/each}}
+
+    {{#if hasMaxDropletsAndTags}}
+      <tr>
+        <td colspan=3>
+          <div class="Alert Alert--blue">
+            <div class="Alert-content">
+              <p>
+              {{targetsMessage}}
+              </p>
+            </div>
+          </div>
+        </td>
+      </tr>
+    {{/if}}
+    </tbody>
+  </table>
+</section>

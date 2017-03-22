@@ -1,0 +1,4 @@
+{{#modal-window title="Increase Droplet Limit" showCancel=false showSave=false size="small" onHide="onModalHide" contentClasses="u-pl-2 u-pr-2 settings-team-droplet-limit-increase"}}
+  <p>You can increase your droplet limit to {{model.resourceLimits.resource_limits.auto_increase_droplet_limit_amount}}.</p>
+  {{form-with-validation onSubmit="onSubmit" submitButtonText="Increase" isShowingSubmitLoader=isSubmitting}}
+{{/modal-window}}

@@ -1,0 +1,120 @@
+<table class="floating_ips__table">
+  <thead>
+    <tr>
+      {{table-header action="sort" isLoading=sorting sortCol=sort sortDir=sort_direction col="ip" text="Floating IP"}}
+      {{table-header action="sort" isLoading=sorting sortCol=sort sortDir=sort_direction col="droplet_name" text="Droplet"}}
+      {{#unless isReadOnly}}
+        {{table-header col="action" noSorting=true}}
+      {{/unless}}
+    </tr>
+  </thead>
+  <tbody>
+    {{#each filteredFloatingIps as |floatingIp|}}
+      <tr>
+        <td class="ip">
+          {{resource-item
+            item=floatingIp
+            showFloatingIpRegion=true
+            showIpMeta=true
+          }}
+          <div class="Icon--arrowLongRight"></div>
+        </td>
+        <td class="{{if (eq autoCompleteFloatingIp floatingIp) "autocomplete-visible"}}">
+          {{#if (or floatingIp.isAssigning floatingIp.isUnassigning floatingIp.isDeleting isReadOnly)}}
+            {{#if floatingIp.droplet}}
+              {{resource-item
+                item=floatingIp.droplet.content
+              }}
+            {{else}}
+              Assign to a Droplet
+            {{/if}}
+          {{else if (eq autoCompleteFloatingIp floatingIp)}}
+            {{#if floatingIp.droplet}}
+              {{auto-complete
+                items=dropletsRegion
+                disabledItemIndicies=disabledDropletsRegionIndicies
+                isSearching=dropletSearching
+                defaultItem=dropletDefaultItem
+                isShowingMore=dropletsRegionShowingMore
+                onSelect="handleDropletSelect"
+                onHide="handleDropletHide"
+                onInput="handleDropletInput"
+                onShowMoreScroll="handleDropletShowMore"
+                placeholder="Search for a Droplet"
+                defaultItemSelectedText="Unassigned"
+                class="floating-ip-region-auto-complete"
+                showClose=false
+                startOpen=true
+              }}
+            {{else}}
+              {{auto-complete
+                items=dropletsRegion
+                disabledItemIndicies=disabledDropletsRegionIndicies
+                isSearching=dropletSearching
+                isShowingMore=dropletsRegionShowingMore
+                onSelect="handleDropletSelect"
+                onHide="handleDropletHide"
+                onInput="handleDropletInput"
+                onShowMoreScroll="handleDropletShowMore"
+                placeholder="Search for a Droplet"
+                class="floating-ip-region-auto-complete"
+                showClose=false
+                startOpen=true
+              }}
+            {{/if}}
+          {{else}}
+            <div role="button" class="clickable" {{action "showAutoComplete" floatingIp}}>
+              {{#if floatingIp.droplet}}
+                {{resource-item
+                  item=floatingIp.droplet.content
+                  link-to='droplet'
+                }}
+              {{else}}
+                Assign to a Droplet
+              {{/if}}
+            </div>
+          {{/if}}
+        </td>
+        {{#unless isReadOnly}}
+          <td class="u-textAlignRight">
+            {{#if floatingIp.isReserving}}
+              {{loading-spinner message="Reserving IP"}}
+            {{else if floatingIp.isUnassigning}}
+              {{loading-spinner message="Unassigning IP"}}
+            {{else if floatingIp.isAssigning}}
+              {{loading-spinner message="Assigning IP"}}
+            {{else if floatingIp.isDeleting}}
+              {{loading-spinner message="Deleting"}}
+            {{else if floatingIp.droplet}}
+              {{dropdown-menu
+                title=menuTitle
+                items=menuItems
+                action="menuItemClick"
+                closeOnClick=true
+                actionParams=floatingIp
+              }}
+            {{else}}
+              {{dropdown-menu
+                title=menuTitle
+                items=menuItemsUnassigned
+                action="menuItemClick"
+                closeOnClick=true
+                actionParams=floatingIp
+              }}
+            {{/if}}
+          </td>
+        {{/unless}}
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+{{#if needsPagination}}
+  {{paginator-full
+    linkToPage="networking.floatingIp"
+    isLoading=paginating
+    pages=floatingIps.meta.pagination.pages
+    currentPage=floatingIps.meta.pagination.current_page
+    scrollToAfterLoad="#aurora-container"
+    action="changePage"
+  }}
+{{/if}}

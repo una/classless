@@ -1,0 +1,59 @@
+.aurora-volumes-index {
+  .heading {
+    margin-bottom: 12px;
+  }
+
+  table {
+    th.name {
+      width: 33%;
+    }
+
+    th.droplet_names {
+      width: 33%;
+    }
+
+    th.created_at {
+      width: 20%;
+    }
+
+    th.action {
+      width: 14%;
+      padding-left: 0;
+    }
+
+    .storage__actionColumn {
+      text-align: left;
+      padding-left: 0;
+
+      .aurora-dropdown-menu {
+        .menu-dropdown {
+          min-width: 170px;
+          margin-bottom: 40px;
+        }
+      }
+    }
+
+    td {
+      position: relative;
+    }
+
+    td.storage__attachedToColumn {
+      padding-right: 15px !important; //uggh cloud
+    }
+
+    td.storage__nameColumn {
+      padding-right: 50px !important; //uggh cloud
+    }
+
+    .aurora-auto-complete {
+      margin: -15px 0;
+    }
+  }
+
+  .storage__attachedToColumn .arrow-icon {
+    position: absolute;
+    top: calc(50% - 7px);
+    margin-left: -50px;
+    color: $gray5;
+  }
+}

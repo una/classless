@@ -1,0 +1,22 @@
+{{#modal-window size="small" onHide="onModalHide" contentClasses="confirm-small"  saveClasses="Button--red u-mr-5" saveColumnClasses="small-12" showCancel=false saveText="Deactivate Now" title=modalTitle}}
+  <div class="row u-mb-3">
+    <p>We are sorry to see you go and would love to know why you are leaving.</p>
+    <p>If you would like to give us feedback on what we can do to improve,&nbsp;<a href="https://digitalocean.getfeedback.com/r/RxSmWA2B?uuid={{model.user.uuid}}" rel="noopener noreferrer" target="_blank">please take this very brief survey</a>&nbsp;(Opens in new window).</p>
+  </div>
+  <div class="row">
+    <p>Would you like to purge all account data when you deactivate?</p>
+
+    <div class="radio">
+      {{radio-button checked=selected value='Yes' id='purgeData1' radioChange='radioChange'}}
+      <span></span>
+      <label for="purgeData1">Yes</label>
+    </div>
+
+    <div class="radio">
+      {{radio-button checked=selected value='No' id='purgeData2' radioChange='radioChange'}}
+      <span></span>
+      <label for="purgeData2">No</label>
+    </div>
+
+  </div>
+{{/modal-window}}

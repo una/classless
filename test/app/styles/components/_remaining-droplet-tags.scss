@@ -1,0 +1,51 @@
+.remaining-droplet-tags {
+  padding-top: 2px;
+  color: $gray7;
+
+  &:hover {
+    color: $blue--brand;
+    cursor: pointer;
+  }
+}
+
+.remaining-droplet-tags-tooltip {
+  .token-item {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  &.Tooltip--top .Tooltip-arrow {
+    border: none;
+    bottom: 7px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      margin-left: -7px;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 7px solid $white;
+      z-index: 2;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      margin-left: -9px;
+      border-left: 9px solid transparent;
+      border-right: 9px solid transparent;
+      border-top: 9px solid $gray2;
+    }
+  }
+
+  .Tooltip-inner {
+    @extend %font--regular;
+
+    background: $white;
+    border: 2px solid $gray2;
+    padding: 1rem 0.5rem 0.5rem 1rem;
+    max-width: 600px;
+  }
+}

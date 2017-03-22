@@ -1,0 +1,26 @@
+<div class="row creation-steps">
+  <div class="small-11 small-centered columns {{if (gt step 1) "u-mb-4"}}">
+    <div class="row">
+      {{#if (eq step 1)}}
+        <h1>{{initialHeader}}</h1>
+      {{else if (gt step 1)}}
+        {{#each stepNames as |stepName index|}}
+        <div role="button" class="small-4 columns creation-step {{stepClass}}
+          {{if (eq step (add index 1)) "creation-step--active"}}
+          {{if (gt step (add index 1)) "creation-step--complete"}}
+          {{if (eq step 4) "creation-step--disabled"}}
+        " {{action "setStep" (add index 1)}}>
+          <span class="u-circle">
+            {{#if (gt step (add index 1))}}
+              <span class="icon Icon--star"></span>
+            {{else}}
+              {{add index 1}}
+            {{/if}}
+          </span>
+          <span class="creation-step-label">{{stepName}}</span>
+        </div>
+        {{/each}}
+      {{/if}}
+    </div>
+  </div>
+</div>

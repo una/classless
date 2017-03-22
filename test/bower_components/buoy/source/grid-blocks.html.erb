@@ -1,0 +1,131 @@
+---
+title: Grid Blocks
+---
+
+<div class="row">
+  <div class="small-12 columns">
+    <h1>Block Grids</h1>
+  </div>
+</div>
+
+<div class="row u-mb-5">
+  <div class="small-12 columns">
+    <p>Block grids allow us to evenly split list items within a grid by specifying the number of items per row. Grid blocks inherently add a negative left and right offset so it is flush with the edge of the column it is in.</p>
+  </div>
+</div>
+
+<div class="row u-mb-3">
+  <div class="small-12 columns">
+    <h2>Standard Block Grid</h2>
+    <p>The following markup will generate an even distribution of 4 blocks per row.</p>
+  </div>
+</div>
+
+<div class="row u-mb-5">
+  <div class="example">
+    <div class="row show-grid">
+      <div class="small-12 columns">
+        <ul class="small-block-grid-4">
+          <li><span>1</span></li>
+          <li><span>2</span></li>
+          <li><span>3</span></li>
+          <li><span>4</span></li>
+          <li><span>5</span></li>
+          <li><span>6</span></li>
+          <li><span>7</span></li>
+          <li><span>8</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <pre>
+    <code><%= display_code('
+<div class="row">
+  <div class="small-12 columns">
+    <ul class="small-block-grid-4">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+      <li>8</li>
+    </ul>
+  </div>
+</div>') %></code>
+  </pre>
+</div>
+
+<div class="row u-mb-3">
+  <div class="small-12 columns">
+    <p>Generating a 3 column block grid is just as simple.</p>
+  </div>
+</div>
+
+<div class="row u-mb-5">
+  <div class="example">
+    <div class="row show-grid">
+      <div class="small-12 columns">
+        <ul class="small-block-grid-3">
+          <li><span>1</span></li>
+          <li><span>2</span></li>
+          <li><span>3</span></li>
+          <li><span>4</span></li>
+          <li><span>5</span></li>
+          <li><span>6</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <pre>
+    <code><%= display_code('
+<div class="row">
+  <div class="small-12 columns">
+    <ul class="small-block-grid-3">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+  </div>
+</div>') %></code>
+  </pre>
+</div>
+
+<div class="row u-mb-3">
+  <div class="small-12 columns">
+    <h2>Block Grids Without Gutters</h2>
+    <p>If we need an evenly distributed grid of blocks without gutters, we add the class <code>.block-grid-collapse</code> to our <code>ul</code>.</p>
+  </div>
+</div>
+
+<div class="row u-mb-5">
+  <div class="example">
+    <div class="row show-grid">
+      <div class="small-12 columns">
+        <ul class="small-block-grid-4 block-grid-collapse">
+          <li><span>1</span></li>
+          <li><span>2</span></li>
+          <li><span>3</span></li>
+          <li><span>4</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <pre>
+    <code><%= display_code('
+<div class="row">
+  <div class="small-12 columns">
+    <ul class="small-block-grid-4 block-grid-collapse">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+    </ul>
+  </div>
+</div>') %></code>
+  </pre>
+</div>

@@ -1,0 +1,186 @@
+.Resource {
+  &[data-type='default'] {
+    padding-top: 2px;
+  }
+
+  .arrow-icon {
+    font-size: 12px;
+    position: relative;
+    top: 2px;
+    padding-right: 1px;
+  }
+
+  .Resource-title {
+    width: auto;
+
+    a {
+      color: currentColor;
+
+      &:hover {
+        color: $blue--brand;
+      }
+    }
+
+    .can-edit {
+      cursor: pointer;
+    }
+  }
+
+  .no-meta {
+    padding: 6px 5px;
+
+    .Resource-title {
+      @extend %font--regular;
+    }
+  }
+
+  .image-name {
+    color: $gray7;
+  }
+
+  .Resource-meta {
+    padding-right: 0;
+
+    &.has-close {
+      padding-right: 30px;
+    }
+
+    .Resource-context {
+      display: none;
+
+      &.static-meta {
+        @extend %font--regular;
+
+        display: block;
+        width: auto;
+        color: $gray6;
+        margin: -8px 25px 0 0;
+
+        .static-meta-2 {
+          color: $gray4;
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+
+  .Resource-createdAt {
+    line-height: 0.9rem;
+  }
+
+  .Resource-image.large {
+    height: 50px;
+    width: 50px;
+    margin-top: -25px;
+
+    .statusIndicator {
+      height: 15px;
+      width: 15px;
+      border-width: 2px;
+      top: 36px;
+      right: -2px;
+    }
+  }
+
+  .statusIndicator {
+    position: absolute;
+    top: 23px;
+    right: -2px;
+  }
+
+  .resource-saving {
+    height: 18px;
+    width: 18px;
+    margin: -4px 0 0 6px;
+  }
+
+  &.isEditing {
+    .Input--floatLabel {
+      margin: 0;
+    }
+
+    .Resource-title {
+      width: 100%;
+      overflow: visible;
+    }
+
+    form {
+      margin-bottom: 0;
+    }
+
+    .form--inline {
+      .FloatLabel {
+        width: calc(100% - 45px);
+        margin-right: 5px;
+        float: left;
+
+        input {
+          @extend %font--bold;
+
+          height: 22px;
+          padding: 2px !important;
+          margin: 0 -3px;
+
+          &::placeholder {
+            @extend %font--regular;
+          }
+        }
+        //hide validation
+        &::before,
+        &::after {
+          display: none;
+        }
+
+        label {
+          display: none;
+        }
+      }
+
+      button {
+        float: left;
+        width: 22px;
+        height: 22px;
+        line-height: 24px;
+      }
+    }
+  }
+
+  .Tooltip {
+    margin: -4px 2px;
+  }
+}
+
+.ellipsis-text.testing .Resource .Resource-title {
+  overflow: visible;
+}
+
+.ellipsis-text.is-overflowing .Resource .Resource-title {
+  width: 100%;
+}
+
+.clickable:hover {
+  .Resource-title::after {
+    @extend %font--regular;
+
+    content: 'Edit';
+    position: absolute;
+    z-index: -1;
+    width: calc(100% + 7px);
+    height: calc(100% + 14px);
+    top: -7px;
+    left: -7px;
+    padding-right: 7px;
+    border: 2px solid $gray2;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    color: $gray6;
+    line-height: 48px;
+    text-align: right;
+    opacity: 0.999;
+    transition: opacity 0.2s linear;
+  }
+
+  .Resource-title.has-link:hover::after {
+    opacity: 0.01;
+  }
+}

@@ -1,0 +1,132 @@
+<div class="row u-mb-5">
+  <div class="small-12">
+    <section class="Box u-clearfix taxation-box" id="taxation-box">
+      <h2>Taxation: {{taxationStatus.taxation_scheme_name}}</h2>
+      <p class="u-mb-4">
+        Your billing address indicates you are located in <strong>{{taxationStatus.taxation_location}}</strong>.
+        {{#if (and taxationStatus.pays_taxes taxationStatus.taxation_rate)}}
+          {{taxationStatus.taxation_scheme_name}} for your location is <strong>{{taxationStatus.taxation_rate}}%</strong> and will be applied automatically to your monthly usage.
+          {{#if (eq taxationStatus.taxation_location_iso3 'CAN')}}
+            <a href="/help/pricing-and-billing/tax-help-canada/" target='_blank' rel="noopener noreferrer">
+              Learn more about taxation.
+            </a>
+          {{else if indianTaxation}}
+            <a href="/help/pricing-and-billing/tax-help-india/" target="_blank" rel="noopener noreferrer">
+              Learn more about Service Tax.
+            </a>
+          {{else}}
+            <a href="/help/pricing-and-billing/tax-help-eu/" target="_blank" rel="noopener noreferrer">
+              Learn more about VAT.
+            </a>
+          {{/if}}
+        {{else if (eq taxationStatus.taxation_location_iso3 'CAN')}}
+          Your expected taxation rate can be found in the table below:
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  Province or Territory
+                </th>
+                <th style="text-align:right">
+                  Goods & Service Tax (GST) & Harmonized Sales Tax (HST)
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  Alberta,
+                  British Columbia,
+                  Manitoba,
+                  <br>
+                  Northwest Territories,
+                  Nunavut,
+                  Québec,
+                  <br>
+                  Saskatchewan,
+                  Yukon
+                </td>
+                <td style="text-align:right;">
+                  5% GST
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  New Brunswick, Newfoundland, Ontario
+                </td>
+                <td style="text-align:right;">
+                  13% HST
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Nova Scotia
+                </td>
+                <td style="text-align:right;">
+                  15% HST
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Prince Edward Island
+                </td>
+                <td style="text-align:right;">
+                  14% HST
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        {{else}}
+          Your location does not require {{taxationStatus.taxation_scheme_name}} to be collected.
+        {{/if}}
+      </p>
+      {{#if taxationStatus.collect_tax_id}}
+        <section class="u-dividerTopSmall">
+          <h3>{{taxationStatus.taxation_scheme_name}} Identification Number</h3>
+          <p class="u-mb-3">
+            If you’re a registered business, enter your {{taxationStatus.taxation_scheme_name}} identification number to remove {{taxationStatus.taxation_scheme_name}} from your monthly bill.
+          </p>
+        </section>
+        <div class="row {{if model.billingState.taxation_identity 'billing-taxation-form-with-remove'}}">
+          {{#form-with-validation
+            class="u-mb-0"
+            isInlineForm=true
+            onSubmit="saveTaxId"
+            submitButtonText=taxationIdSubmitButtonText
+            submitButtonWrapperClasses="small-3 columns"
+            isShowingSubmitLoader=savingTaxId
+            disabled=savingTaxId
+            disabledSubmit=hasNotEditedTaxationId
+            disableFocusFirstEl=true
+          }}
+            <div class="small-{{if model.billingState.taxation_identity '6' '9'}} columns">
+              {{float-label-input
+                required=true
+                value=taxId
+                placeholder=taxationType
+                class="u-mb-0"
+              }}
+            </div>
+          {{/form-with-validation}}
+          {{#if model.billingState.taxation_identity}}
+            <div class="small-3 columns u-floatRight">
+              <button class="Button Button--fullWidth Button--red Button--outline {{if deletingTaxId 'is-disabled'}}" {{action 'showDeleteTaxationIdentityModal'}}>
+                Remove
+                {{#if deletingTaxId}}
+                  {{loading-spinner plain=true}}
+                {{/if}}
+              </button>
+            </div>
+          {{/if}}
+        </div>
+      {{/if}}
+      <p class="small">
+        Have we gotten your billing address wrong? Please
+        {{#relative-link shortContextId=model.user.shortCurrentContextId href='/support/tickets/new' target='_blank'}}
+          open a support ticket
+        {{/relative-link}}
+        so we can update your details right away.
+      </p>
+    </section>
+  </div>
+</div>

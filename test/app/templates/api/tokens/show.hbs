@@ -1,0 +1,37 @@
+{{#modal-window onHide="onModalHide" showCancel=false showSave=false title=modalTitle contentClasses="u-pl-2 u-pr-2"}}
+  <h3>Token name</h3>
+  {{#form-with-validation onSubmit=tokenAction submitButtonText=submitText }}
+    <div class="row">
+      {{float-label-input error="Token name cannot be blank" required=true value=name placeholder="Enter token name"}}
+    </div>
+    <h3 class="u-mt-3">Select scopes</h3>
+    <div class="row u-mb-3">
+      <div class="u-ib">
+        {{input type="checkbox" id="scopeRead" checked=scopeRead disabled=true}}
+        <span></span>
+        <label for="scopeRead">
+            Read
+            (default)
+        </label>
+      </div>
+      <div class="u-ib u-pl-9">
+        {{input type="checkbox" id="scopeWrite" checked=scopeWrite}}
+        <span></span>
+        <label for="scopeWrite">
+            Write
+            (optional)
+        </label>
+      </div>
+    </div>
+  {{/form-with-validation}}
+  {{#if showRegenerate}}
+    <div class="row u-mt-4">
+      <p class="small">Scopes limit access for personal tokens. Personal access tokens function like ordinary OAuth access tokens. They can be used instead of a password for DigitalOcean over HTTPS, or can be used to authenticate to the API over basic authentication.</p>
+    </div>
+    <div class="row pt-5 mt-5 regenerate">
+      <h2>Regenerate token</h2>
+      <p>Regenerating tokens requires any associated scripts or applications to be updated.</p>
+      <a role="button" class="Button Button--fullWidth" {{action 'regenerateToken'}}>Regenerate Token</a>
+    </div>
+  {{/if}}
+{{/modal-window}}

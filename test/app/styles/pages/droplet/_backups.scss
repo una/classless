@@ -1,0 +1,35 @@
+.backups-toggle-loader {
+  border-color: $white;
+  border-bottom-color: transparent;
+  position: absolute;
+  margin: -33px 185px;
+}
+
+.backups-loader {
+  position: absolute;
+  right: 43px;
+  top: 45px;
+}
+
+.backups-drawer {
+  margin-top: -15px;
+  width: 745px;
+
+  .Resource::before,
+  .backups-drawer__name:first-of-type .Resource::after {
+    display: none;
+  }
+
+  .Resource {
+    margin-left: 10px;
+
+    &::after {
+      left: 0;
+      width: 740px;
+    }
+  }
+
+  .backups-drawer__action {
+    right: 0;
+  }
+}

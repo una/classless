@@ -1,0 +1,40 @@
+.error-page {
+  text-align: center;
+
+  h1 {
+    @extend %font--bold;
+
+    font-size: 40px;
+    color: $gray9;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0 10px;
+  }
+
+  .sub-copy a {
+    color: $gray9;
+    border-bottom: 1px dotted $gray9;
+    text-decoration: none;
+  }
+
+  .sub-copy {
+    @extend %font--regular;
+
+    font-size: 24px;
+    color: $blue--brand;
+    line-height: 1.5;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 15px 10px 0;
+  }
+
+  .sammy {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    position: relative;
+    left: -50px;
+  }
+}

@@ -1,0 +1,31 @@
+.settings-profile {
+  .avatar {
+    border-radius: 50%;
+  }
+
+  .username {
+    display: inline-block;
+    width: auto;
+  }
+
+  .social-icons {
+    display: inline-block;
+  }
+
+  .social-accounts {
+    /* show white icon on hover when connected */
+    .Button--social:hover {
+      .github-connected {
+        @include icon-sprite($icon-github);
+      }
+
+      .google-connected {
+        @include icon-sprite($icon-google);
+      }
+
+      .twitter-connected {
+        @include icon-sprite($icon-twitter);
+      }
+    }
+  }
+}

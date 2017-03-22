@@ -1,0 +1,64 @@
+<div class="Box u-mb-5">
+  <section class="row">
+    <div class="small-12 columns">
+      <h2>Pending Snapshot Transfer Requests</h2>
+      <table class="images__table">
+        <thead>
+          <tr>
+            {{table-header col="name" text="Name" noSorting=true}}
+            {{table-header col="region" text="Available In" noSorting=true}}
+            {{table-header col="created_at" text="Created" noSorting=true}}
+            {{#unless isReadOnly}}
+              {{table-header col="action" noSorting=true}}
+            {{/unless}}
+          </tr>
+        </thead>
+        <tbody>
+          {{#each pendingTransfers as |transfer index|}}
+            <tr class="images__snapshotRow">
+              <td class="images__nameColumn">
+                <div class="snapshot-name">
+                  {{resource-item item=transfer.image noRegion=true}}
+                </div>
+              </td>
+              <td class="images__regionColumn">
+                <p class="u-capitalize images__region">{{transfer.image.region.slug}}</p>
+              </td>
+              <td class="images__createdColumn">
+                {{date-to-human-time date=transfer.image.createdAt}}
+              </td>
+              {{#unless isReadOnly}}
+                <td class="images__actionColumn">
+                  <div class="u-floatRight">
+                    {{#if transfer.isDeleted}}
+                      {{loading-spinner message="Deleting"}}
+                    {{else if transfer.isAccepting}}
+                      {{loading-spinner message="Accepting"}}
+                    {{else if transfer.isRejecting}}
+                      {{loading-spinner message="Declining"}}
+                    {{else if transfer.isSaving}}
+                      {{loading-spinner message="Saving"}}
+                    {{else}}
+                      {{snapshot-dropdown-menu
+                        isTransferReceived=true
+                        imageIndex=index
+                        imageId=transfer.image.id
+                        title="More"
+                        transfers=pendingTransfers
+                        transferRecipientEmail=transfer.recipient_email
+                        transferId=transfer.id
+                        senderEmail=transfer.sender_email
+                        acceptSnapshotTransferAction="acceptSnapshotTransfer"
+                        declineSnapshotTransferAction="declineSnapshotTransfer"
+                      }}
+                    {{/if}}
+                  </div>
+                </td>
+              {{/unless}}
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

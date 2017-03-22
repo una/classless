@@ -1,0 +1,7 @@
+{{#each hostNames as |hostName index|}}
+  {{#unless index}}
+    {{float-label-input validateOnInput=true value=hostName.name error="Invalid host name" pattern=validHostNameRegex maxlength="255" required=true placeholder="Enter Droplet Name" onInput="handleFirstHostNameInput" no-label=true invalidTooltip="Invalid host name" no-checkmark=true}}
+  {{else}}
+    {{float-label-input validateOnInput=true value=hostName.name error="Invalid host name" pattern=validHostNameRegex maxlength="255" required=true placeholder="Enter Droplet Name" onInput="handleHostNameInput" actionParams=index no-label=true invalidTooltip="Invalid host name" no-checkmark=true}}
+  {{/unless}}
+{{/each}}

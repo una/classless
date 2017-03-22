@@ -1,0 +1,91 @@
+<td class="lb-name">
+  {{#link-to 'networking.loadBalancers.show' loadBalancer}}
+    {{resource-item
+      item=loadBalancer
+      hideStatus=true
+    }}
+  {{/link-to}}
+</td>
+<td class="lb-status">
+  {{#if loadBalancer.isCreating}}
+    {{load-balancers/time-based-loading-indicator
+      estimatedTimeInMs=90000
+      loadBalancer=loadBalancer
+      transitionClass="load-balancer-loaded"
+      onComplete=(action "onCreateComplete")
+      onError=(action "onCreateError")
+    }}
+  {{else if (eq loadBalancer.state "ERROR")}}
+    {{#link-to "networking.loadBalancers.new" class="create-error"}}
+      Load Balancer creation failed. Please try again.
+    {{/link-to}}
+  {{/if}}
+  {{#if (not-eq loadBalancer.status metricUnavailable)}}
+    <span class="lb-status-icon {{loadBalancer.status.iconClass}}"></span>
+    {{#if loadBalancer.status.tooltipText}}
+      {{#tool-tip
+        title=loadBalancer.status.tooltipText
+        class="lb-collecting-metrics-tooltip"
+        multiline=true
+      }}
+        <span class="lb-status-label">{{loadBalancer.status.label}}</span>
+      {{/tool-tip}}
+    {{else}}
+      <span class="lb-status-label">{{loadBalancer.status.label}}</span>
+    {{/if}}
+  {{else}}
+    {{partial "networking/partials/metric-unavailable"}}
+  {{/if}}
+</td>
+<td class="lb-ip">{{ip-address text=loadBalancer.ip}}</td>
+<td class="lb-healthy-count">
+  {{#if (or loadBalancer.isCreating loadBalancer.justCreated)}}
+    <div class="welcome-message">
+      {{#tool-tip
+        title=collectingMetricsTooltipText
+        multiline=true
+      }}
+        {{welcome-message}}
+      {{/tool-tip}}
+    </div>
+  {{else}}
+    {{#if (eq loadBalancer.healthyDropletCount metricUnavailable)}}
+      {{partial "networking/partials/metric-unavailable"}}
+    {{else if (eq loadBalancer.healthyDropletCount collectingMetrics)}}
+      {{partial "networking/partials/collecting-metrics"}}
+    {{else if (eq loadBalancer.healthyDropletCount metricLoading)}}
+      {{partial "networking/partials/metric-loading"}}
+    {{else}}
+      {{loadBalancer.healthyDropletCount}}/{{loadBalancer.dropletCount}}
+    {{/if}}
+  {{/if}}
+</td>
+<td class="lb-requests-per-sec">
+  {{#unless (or loadBalancer.isCreating loadBalancer.justCreated)}}
+    {{#if (eq loadBalancer.reqPerSec metricUnavailable)}}
+      {{partial "networking/partials/metric-unavailable"}}
+    {{else if (eq loadBalancer.reqPerSec collectingMetrics)}}
+      {{partial "networking/partials/collecting-metrics"}}
+    {{else if (eq loadBalancer.reqPerSec metricLoading)}}
+      {{partial "networking/partials/metric-loading"}}
+    {{else}}
+      {{loadBalancer.reqPerSec}}
+    {{/if}}
+  {{/unless}}
+</td>
+<td class="lb-created-at">
+  {{date-to-human-time
+    date=loadBalancer.createdAtISO
+    justNow=(or loadBalancer.isCreating loadBalancer.justCreated)
+  }}
+</td>
+<td class="lb-actions u-textAlignRight">
+  {{dropdown-menu
+    title="More"
+    items=actionDropdownItems
+    action="onMenuItemClick"
+    actionParams=loadBalancer
+    closeOnClick=true
+    noDelete=true
+  }}
+</td>

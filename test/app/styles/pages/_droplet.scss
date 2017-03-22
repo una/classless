@@ -1,0 +1,222 @@
+.droplet-show {
+  .header {
+    border-bottom: 2px solid $gray2;
+    padding: 0 0 20px;
+
+    > * {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .statusIndicator.new {
+      height: 12px;
+      width: 12px;
+      position: absolute;
+      left: 0;
+      margin: -6px 46px;
+
+      + .status-spinner-bg {
+        width: 16px;
+        height: 16px;
+        margin: -8px 36px;
+      }
+    }
+
+    .toggle-wrap {
+      float: right;
+      margin-top: 5px;
+    }
+
+    .power-loader {
+      margin: 9px 15px 0;
+      float: right;
+    }
+  }
+
+  &.destroyed {
+    .networking-row,
+    .toggle-wrap {
+      display: none;
+    }
+
+    .header {
+      border-bottom: none;
+    }
+  }
+
+  .sub-header {
+    border-bottom: 2px solid $gray2;
+    padding: 10px 0;
+    font-size: 0.975em;
+
+    > span {
+      margin-right: 2px;
+    }
+
+    > span a,
+    > span .no-copy {
+      margin-right: 1rem;
+
+      &.active {
+        color: $gray5;
+        pointer-events: none;
+      }
+    }
+
+    .click-to-copy {
+      display: inline;
+    }
+
+    .console-link {
+      .Icon--newWindow {
+        margin-left: 0.4rem;
+        position: relative;
+        top: 1px;
+      }
+    }
+  }
+
+  .sub-header--publicIpv6 {
+    max-width: 250px;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+
+    .Tooltip-inner {
+      max-width: none;
+    }
+
+    .ellipsis-text {
+      padding-right: 35px;
+      display: inline-block;
+
+      .click-to-copy .Label {
+        position: absolute;
+        right: 0;
+        top: 6px;
+      }
+    }
+
+    &.no-copy {
+      max-width: 280px;
+
+      .ellipsis-text {
+        padding-right: 0;
+      }
+    }
+  }
+
+  .droplet-header {
+    .can-edit {
+      cursor: pointer;
+    }
+
+    .Resource {
+      max-width: 850px;
+    }
+
+    .Resource-title {
+      font-size: 1.5rem;
+      line-height: 1.8rem;
+      margin: -3px 0 0;
+    }
+
+    .Resource-description {
+      margin-top: 4px;
+      font-size: 1rem;
+      overflow: visible;
+    }
+
+    .Resource--rightContext .Resource-meta {
+      padding-left: 65px;
+    }
+
+    .Resource.isEditing {
+      .form--inline .FloatLabel input {
+        height: 31px;
+        padding: 3px !important;
+        margin: -2px 0 -1px -4px;
+        font-size: 1.5rem;
+      }
+
+      .form--inline button {
+        width: 28px;
+        height: 28px;
+        margin-left: 2px;
+      }
+    }
+
+    .loader-wrap {
+      position: relative;
+      top: 13px;
+      left: 64px;
+      width: calc(100% - 64px);
+      min-width: 400px;
+
+      .loading-indicator {
+        opacity: 0.999;
+        transition: opacity 0.25s linear;
+        -webkit-backface-visibility: hidden;
+
+        &.async-done {
+          opacity: 0.001;
+        }
+      }
+    }
+
+    .loader-action {
+      text-transform: uppercase;
+      padding: 0 8px;
+      display: inline-block;
+      vertical-align: middle;
+      background: $gray3;
+      color: $gray6;
+      position: absolute;
+      top: 1px;
+      line-height: 22px;
+      margin-left: 10px;
+      font-size: 14px;
+      border-radius: 3px;
+      opacity: 0.999;
+      transition: opacity 0.25s linear, transform 0.25s;
+      -webkit-backface-visibility: hidden;
+      transform: translateZ(0);
+
+      &.async-done {
+        opacity: 0.001;
+        transform: scale(0.9) translateZ(0);
+      }
+    }
+  }
+
+  .turn-off-modal {
+    .Modal-footer .actions {
+      text-align: right;
+
+      > .Button {
+        margin-left: 5px;
+      }
+    }
+
+    .checkbox {
+      margin-top: 8px;
+    }
+
+    label {
+      color: $type !important; //buoy labels are very specific about thier active state
+    }
+  }
+
+  @import 'droplet/access',
+    'droplet/power',
+    'droplet/resize',
+    'droplet/networking',
+    'droplet/kernel',
+    'droplet/backups',
+    'droplet/graphs',
+    'droplet/history',
+    'droplet/destroy',
+    'droplet/tags';
+}
+
+@import 'droplet/volumes';

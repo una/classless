@@ -1,0 +1,113 @@
+table {
+  border-collapse: collapse;
+  //border: 1px solid $grey_4;
+  border-radius: $border_radius;
+  width: 100%;
+  text-align: left;
+
+  a {
+    border-bottom: 0;
+  }
+
+  thead {
+    tr {
+      border-top: 0;
+    }
+  }
+  tbody:last-child {
+    tr:last-child {
+      td {
+        padding-bottom: 0;
+      }
+    }
+  }
+  *:first-child tr:first-child {
+    border-top: none;
+  }
+  tr {
+    position: relative;
+    padding: $ws_3;
+    //border-left: 2px solid $grey_2;
+    //border-right: 2px solid $grey_2;
+    border-top: 2px solid $grey_2;
+
+
+    .Table-actions {
+      padding-right: 10rem;
+      position: relative;
+
+      p.small {
+        margin-top: $ws-1;
+        display: block;
+        margin-bottom: 0;
+      }
+
+      h3,h4 {
+        margin-bottom: 0;
+        display: inline-block;
+      }
+    }
+
+    .ButtonGroup {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      margin-top: -1rem;
+      opacity: .2;
+      @include transition(all, 0.2s, ease-in-out);
+    }
+
+    &:hover .ButtonGroup {
+      opacity: 1;
+    }
+  }
+
+  th {
+    padding: 15px;
+    font-weight: 600;
+    outline:none;
+  }
+  td {
+    padding: 15px;
+    word-break: break-all;
+  }
+  th:first-child, td:first-child {
+    padding-left: 0;
+  }
+  th:last-child, td:last-child {
+    padding-right: 0;
+  }
+  &[data-ordering="true"] {
+
+    thead {
+      th {
+        cursor: pointer;
+
+        &:hover {
+          color: $blue;
+
+          &:after {
+            color: initial;
+          }
+        }
+      }
+    }
+    th {
+      &:after {
+        content: "\e609";
+        font-family: 'buoycons';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        opacity: .4;
+        font-size: .5rem;
+        position: relative;
+        left: 10px;
+      }
+    }
+  }
+}

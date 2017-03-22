@@ -1,0 +1,9 @@
+{{#if item._ac_header}}
+  <li data-header="{{item._ac_header}}" class="item {{if hover "hover"}} {{if isDisabled "disabled"}}">
+   {{resource-item showIpMeta=showIpMeta showIpv6=showIpv6 showFloatingIpRegion=true disabledMeta=disabledReason expandImageName=true item=item showTitle=showTitle}}
+  </li>
+{{else}}
+  <li class="item {{if hover "hover"}} {{if isDisabled "disabled"}}">
+    {{resource-item showIpMeta=showIpMeta showIpv6=showIpv6 showFloatingIpRegion=true disabledMeta=disabledReason expandImageName=true item=item showTitle=showTitle}}
+  </li>
+{{/if}}

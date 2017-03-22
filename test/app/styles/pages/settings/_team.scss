@@ -1,0 +1,123 @@
+.settings-team-profile {
+  .team-header {
+    border-bottom: 2px solid $gray3;
+
+    .team-name {
+      display: inline-flex;
+
+      .context-avatar {
+        display: inline-block;
+        width: 50px;
+      }
+
+      .team-name {
+        width: 70%;
+      }
+    }
+  }
+}
+
+.settings-team-members {
+  .name {
+    position: relative;
+    width: 250px;
+
+    .primary {
+      @extend %font--bold;
+    }
+  }
+
+  .dropdown-view-roles {
+    @include transform(translateX(170px));
+  }
+
+  .menu-dropdown {
+    overflow: hidden;
+  }
+
+  .aurora-dropdown-menu .menu-dropdown.sliding .menu-dropdownView {
+    height: auto;
+
+    &.dropdown-view-roles {
+      position: absolute;
+      top: 0;
+    }
+
+    .menu-dropdownItems {
+      .back {
+        text-align: center;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+.search-members {
+  position: relative;
+
+  .Icon--search {
+    position: absolute;
+    top: 15px;
+    left: 18px;
+    color: $gray4;
+  }
+
+  input {
+    padding-left: 3rem;
+  }
+
+  .Loader--basic {
+    position: absolute;
+    right: 13px;
+    top: 17px;
+    height: 15px;
+    width: 15px;
+  }
+}
+
+.role.selected {
+  background-color: $gray3;
+  width: 158px;
+  display: inline-block;
+  border-radius: 3px;
+  padding: 3px 5px;
+  margin: -5px;
+}
+
+.members-table {
+  .avatar {
+    border-radius: 50%;
+    height: 38px;
+    width: 38px;
+    bottom: -15px;
+    float: left;
+    margin-right: 10px;
+  }
+
+  .avatar-overlay {
+    position: absolute;
+    opacity: 0.1;
+    z-index: 1;
+    background-color: $gray--overlay;
+    top: 15px;
+  }
+
+  .ellipsis-text {
+    width: 180px;
+  }
+
+  .no-name {
+    display: inline-block;
+    padding-top: 11px;
+  }
+}
+
+.settings-team-edit {
+  .deactivate-link {
+    color: $red--brand;
+
+    &:hover {
+      color: $red--brand_hover;
+    }
+  }
+}

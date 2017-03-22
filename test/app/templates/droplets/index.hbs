@@ -1,0 +1,82 @@
+  {{#unless emptyState}}
+  <div class="droplet_search row">
+    {{search-input value=searchQuery klasses="first-name" onInput=(action "search") placeholder="Search by Droplet name" isLoading=isSearching}}
+  </div>
+{{/unless}}
+
+{{#if dropletCreateEventsDisabled}}
+  <div class="row">
+    <div class="small-12 u-mb-5 columns">
+      <div class="Alert Alert--failure">
+      <div class="Alert-content">Droplet creates are temporarily unavailable while DigitalOcean is under maintenance.</div>
+      </div>
+    </div>
+  </div>
+{{/if}}
+
+<div class="row">
+  <div class="small-12 columns">
+    {{#if hasContent}}
+      <table class="droplet-listing">
+        <thead>
+          <tr>
+            {{table-header action="sort" isLoading=sorting sortCol=sort sortDir=sort_direction col="name" text="Name"}}
+            {{table-header action="sort" isLoading=sorting sortCol=sort sortDir=sort_direction col="ip_address" text="IP Address"}}
+            {{table-header action="sort" isLoading=sorting sortCol=sort sortDir=sort_direction col="created_at" text="Created"}}
+            {{table-header noSorting=true col="tags" text="Tags"}}
+            {{#unless isReadOnly}}
+              {{table-header col="action" noSorting=true}}
+            {{/unless}}
+          </tr>
+        </thead>
+        <tbody>
+          {{#each filteredContent as |droplet|}}
+            {{droplet-list-item
+              droplet=droplet
+              isReadOnly=isReadOnly
+              menuItemClick=(action "menuItemClick")
+              tagClick=(action "tagClick")
+            }}
+          {{/each}}
+        </tbody>
+      </table>
+      {{#if needsPagination}}
+        {{paginator-full
+          linkToPage="droplets"
+          isLoading=paginating
+          pages=model.meta.pagination.pages
+          currentPage=model.meta.pagination.current_page
+          action=(action "changePage")
+          scrollToAfterLoad="#aurora-container"
+        }}
+      {{/if}}
+
+      {{#if showEditTagsModal}}
+        {{edit-tags-modal
+          taggable=currentDroplet
+          saveTags=(action "saveTags")
+          queryTags=(action "queryTags")
+          hideModal=(action "hideModal")
+          searchResults=searchResults
+        }}
+      {{/if}}
+    {{else}}
+      <section class="EmptyState u-clear Box u-mt-4">
+        {{#if error}}
+          <h2>Sorry an error occurred</h2>
+          <p class="u-mb-0">Please try again.</p>
+        {{else}}
+          {{#if emptyState}}
+            <img class="EmptyState-image" src="/assets/images/empty-state-droplet.svg" alt="Empty droplets">
+            <h3>Looks like you don’t have any Droplets.</h3>
+            <p>Fortunately, it’s very easy to create one.</p>
+            {{#link-to 'droplet_create' class="Button Button--blue"}}Create Droplet{{/link-to}}
+          {{else}}
+            <h2>Sorry, there are no Droplets that match your search.</h2>
+            <p class="u-mb-0">Please check the Droplet name or IP address and try again.</p>
+          {{/if}}
+        {{/if}}
+      </section>
+    {{/if}}
+  </div>
+</div>

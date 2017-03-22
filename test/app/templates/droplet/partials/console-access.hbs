@@ -1,0 +1,30 @@
+<div class="Box u-mb-5">
+  <h2>Console access</h2>
+  {{#if dropletCtrl.model.isPoweredOn}}
+    <p>This will open up a console VNC connection to your Droplet and is the equivalent of plugging a monitor and keyboard directly to your virtual server.</p>
+  {{else}}
+    <p>Your Droplet must be powered on to access the console.</p>
+  {{/if}}
+  <div class="row is-sensitive">
+    <div class="columns small-4">
+      {{#if dropletCtrl.model.isPoweredOn}}
+        <button
+          class="Button Button--fullWidth Button--blue"
+          disabled="{{if (or isResettingPassword dropletCtrl.isBusy) 'disabled'}}"
+          {{action 'openConsole'}}
+        >Launch Console</button>
+      {{else}}
+        <button
+          class="Button Button--fullWidth Button--blue"
+          disabled="{{if (or isResettingPassword dropletCtrl.isBusy) 'disabled'}}"
+          {{action 'powerUpDroplet'}}
+        >
+          Power On
+          {{#if dropletCtrl.isTogglingPower}}
+            {{loading-spinner spinnerClass="access-spinner"}}
+          {{/if}}
+        </button>
+      {{/if}}
+    </div>
+  </div>
+</div>

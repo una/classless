@@ -1,0 +1,103 @@
+.api-section,
+.stack-section {
+  width: 100%;
+
+  a.button {
+    cursor: pointer;
+  }
+
+  .actions .Tooltip {
+    width: 80px;
+  }
+}
+
+.api-table {
+  .Badge {
+    margin: -2px 2px;
+    top: 2px;
+  }
+
+  td,
+  th {
+    white-space: nowrap;
+
+    &.name {
+      width: 41%;
+    }
+
+    &.long-name {
+      width: 57%;
+    }
+
+    &.name,
+    &.long-name {
+      a {
+        color: $gray9;
+      }
+    }
+
+    &.action {
+      width: 13%;
+    }
+  }
+
+  .actions {
+    float: right;
+    min-height: 26px;
+    margin: 3px 0 -3px;
+  }
+
+  .app-more-wrap .aurora-dropdown-menu {
+    left: -29px;
+  }
+
+  .copy-token {
+    border-top: 0;
+
+    td {
+      padding-top: 0 !important; //cloud is very specific about this
+    }
+
+    &:last-child td {
+      padding-bottom: 1rem !important; //uggh buoy tables
+    }
+  }
+}
+
+.regenerate {
+  border-top: 1px solid $gray4;
+  margin: 2rem -0 0 -2.5rem;
+  padding: 1.25rem 2.5rem;
+  width: calc(100% + 5rem);
+}
+
+.api-view-button {
+  padding: 0 2.4rem;
+}
+
+.revoking-loader {
+  border-color: $white;
+}
+
+.resetting-loader {
+  border-color: $gray8;
+}
+
+.revoking-loader,
+.resetting-loader {
+  position: absolute;
+  margin-top: 15px;
+  margin-left: -29px;
+  border-bottom-color: transparent;
+  height: 1.2em;
+  width: 1.2em;
+}
+
+.revoking-loader {
+  margin-left: -67px;
+  margin-top: 16px;
+}
+
+.SideNav a {
+  display: block;
+}

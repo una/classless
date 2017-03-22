@@ -1,0 +1,48 @@
+.statusIndicator {
+  width: 10px;
+  height: 10px;
+  border: 1px solid $white;
+  border-radius: 100%;
+  background: $gray4;
+  text-indent: -9999px;
+  display: inline-block;
+  vertical-align: middle;
+  transform: scale(0.999) translateZ(0);
+  -webkit-backface-visibility: hidden;
+  transition: background 0.3s ease;
+
+  &.active {
+    background: $green--brand;
+  }
+
+  &.alert {
+    background: $red--brand;
+  }
+
+  &.warning {
+    background: $yellow--brand;
+  }
+
+  &.new {
+    background: $white;
+  }
+
+  &.hasBg {
+    height: 8px;
+    width: 8px;
+    position: relative;
+    border-width: 1px;
+    z-index: 1;
+    margin: 2px -2px;
+  }
+
+  + .status-spinner-bg {
+    content: '';
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    background: $white;
+    margin: -12px 23px;
+    border-radius: 100%;
+  }
+}

@@ -1,0 +1,27 @@
+{{#each filteredNotifications as |notification|}}
+  <div class="status-notification">
+    <div class="row">
+      <div class="columns small-12">
+        <div role="button" class="status-notification-close Icon--close u-floatRight u-ml-4 u-mr-2" {{action "close" notification}}></div>
+        {{#if notification.updates.length}}
+          {{#if isExpanded}}
+            <div role="button" class="Button u-floatRight" {{action "toggle" false notification.id}}>Show Less</div>
+          {{else}}
+            <div role="button" class="Button u-floatRight" {{action "toggle" true notification.id}}>Show More</div>
+          {{/if}}
+        {{/if}}
+        <div class="status-notification-date">{{date-to-human-time date=notification.createdAt tooltipPlacement="right"}}</div>
+        <div class="status-notification-title">{{notification.title}}</div>
+        <div class="status-notification-updates status-notification-update-{{notification.id}} {{if isExpanded "expand"}}">
+          <div class="status-notification-updates-wrapper">
+            {{#each notification.updates as |update|}}
+              <br />
+              <div class="status-notification-date">{{date-to-human-time date=update.created_at  tooltipPlacement="right"}}</div>
+              <div class="status-notification-update">{{{update.contents}}}</div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/each}}

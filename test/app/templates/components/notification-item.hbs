@@ -1,0 +1,7 @@
+<span>
+  {{item.message}}
+</span>
+{{#if item.link.text}}
+  {{#link-to item.link.route}}{{item.link.text}}{{/link-to}}
+{{/if}}
+<button>Close</button>

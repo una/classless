@@ -1,0 +1,21 @@
+<div class="stepper {{if (or disabled (and hasMin hasMax)) "is-disabled"}}">
+  <span role="button" class="Icon--minus decrease {{if (or isTyping hasMin) 'disabled'}}" {{action "decrease"}}></span>
+  {{#if isTyping}}
+    {{input class="input" type="number" pattern="\d*" value=count min=min max=max maxlength=maxlength}}
+  {{else}}
+    <span role="button" tabindex="0" class="input-stepper-box" {{action "setFocus" bubbles=false}}>
+      <span>{{count}}</span>
+      <span>&nbsp;{{pluralize-word count label omitCount=true}}</span>
+    </span>
+  {{/if}}
+  <span role="button" class="Icon--plus increase {{if (or isTyping hasMax) 'disabled'}}" {{action "increase"}}></span>
+</div>
+{{#if (or hasMax isInvalidInput)}}
+  <div class="message">
+    {{#if hasMax}}
+      <span class="small-dark">{{maxMsg}}</span>
+    {{else if isInvalidInput}}
+      <span class="small">Invalid input</span>
+    {{/if}}
+  </div>
+{{/if}}

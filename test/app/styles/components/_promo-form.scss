@@ -1,0 +1,7 @@
+.billing-promo-code {
+  .FloatLabel.validatePass::after {
+    content: '$' attr(data-amount);
+    font: inherit;
+    top: 13px;
+  }
+}

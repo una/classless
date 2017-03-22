@@ -1,0 +1,285 @@
+<div class="lb-settings">
+  {{#form-with-validation
+    hideSubmitButton=true
+    onValidateForm="validateForm"
+  }}
+    <section class="lb-settings-section u-dividerBottomLarge">
+      <div class="lb-settings-heading">
+        <h2>
+          Forwarding rules
+          {{#tool-tip
+            title="Set how traffic will be routed from the Load Balancer to your Droplets."
+            class="lb-settings-hint"
+            multiline=true
+          }}
+            <span class="Hint" data-placement="top" data-toggle="tooltip"></span>
+          {{/tool-tip}}
+        </h2>
+      </div>
+
+      <div class="lb-settings-content">
+        <div class="lb-settings-forwarding-rules">
+          {{load-balancers/forwarding-rules
+            isEditMode=(eq isEditingSection "forwardingRules")
+            onRulesChange="onForwardingRulesChange"
+            onAddCertificate="onAddCertificate"
+            rules=forwardingRules
+            certificateOptions=certificateOptions
+            maxRules=5
+          }}
+        </div>
+
+        {{#if (eq isEditingSection "forwardingRules")}}
+          <div class="u-mt-5 u-mb-3">
+            <button
+              {{action "onSave" "forwardingRules"}}
+              class="Button Button--blue u-mr-2"
+              disabled={{or (not currentFormIsValid) (eq isSavingSection "forwardingRules")}}>
+              Save
+              {{#if (eq isSavingSection "forwardingRules")}}
+                {{loading-spinner plain=true}}
+              {{/if}}
+            </button>
+            <button class="Button" {{action "onCancel" "forwardingRules"}}>Cancel</button>
+          </div>
+        {{/if}}
+      </div>
+
+      {{#if (not (or isEditingSection editDisabled))}}
+        <div class="lb-settings-edit">
+          <button class="Button" {{action "onEdit" "forwardingRules"}}>Edit</button>
+        </div>
+      {{/if}}
+    </section>
+
+    <section class="lb-settings-section u-dividerBottomLarge">
+      <div class="lb-settings-heading">
+        <h2>Algorithm</h2>
+      </div>
+
+      <div class="lb-settings-content">
+        <div class="lb-settings-algorithm">
+          {{load-balancers/algorithm
+            isEditMode=(eq isEditingSection "algorithm")
+            selectedAlgorithm=loadBalancer.algorithm
+            onAlgorithmSelect="onAlgorithmSelect"
+          }}
+        </div>
+
+        {{#if (eq isEditingSection "algorithm")}}
+          <div class="u-mt-5 u-mb-3">
+            <button
+              {{action "onSave" "algorithm"}}
+              class="Button Button--blue u-mr-2"
+              disabled={{eq isSavingSection "algorithm"}}>
+              Save
+              {{#if (eq isSavingSection "algorithm")}}
+                {{loading-spinner plain=true}}
+              {{/if}}
+            </button>
+            <button class="Button" {{action "onCancel"}}>Cancel</button>
+          </div>
+        {{/if}}
+      </div>
+
+      {{#if (not (or isEditingSection editDisabled))}}
+        <div class="lb-settings-edit">
+          <button class="Button" {{action "onEdit" "algorithm"}}>Edit</button>
+        </div>
+      {{/if}}
+    </section>
+
+    <section class="lb-settings-section u-dividerBottomLarge">
+      <div class="lb-settings-heading">
+        <h2>
+          Health checks
+          {{#tool-tip
+            title="Set how often the Load Balancer checks if Droplets are responding. It will automatically stop sending traffic to unresponsive Droplets."
+            class="lb-settings-hint"
+            multiline=true
+          }}
+            <span class="Hint" data-placement="top" data-toggle="tooltip"></span>
+          {{/tool-tip}}
+        </h2>
+      </div>
+
+      <div class="lb-settings-content">
+        {{#if (eq isEditingSection "healthCheck")}}
+          <h4>Target</h4>
+          {{load-balancers/health-check-config
+            isEditMode=true
+            selectedProtocol=loadBalancer.healthCheck.protocol
+            port=loadBalancer.healthCheck.port
+            path=loadBalancer.healthCheck.path
+          }}
+          <h4>Additional settings</h4>
+          {{load-balancers/health-check-advanced
+            isEditMode=true
+            checkInterval=loadBalancer.healthCheck.check_interval
+            responseTimeout=loadBalancer.healthCheck.response_timeout
+            unhealthyThreshold=loadBalancer.healthCheck.unhealthy_threshold
+            healthyThreshold=loadBalancer.healthCheck.healthy_threshold
+          }}
+
+          <div class="u-mt-5 u-mb-3">
+            <button
+              {{action "onSave" "healthCheck"}}
+              class="Button Button--blue u-mr-2"
+              disabled={{or (not currentFormIsValid) (eq isSavingSection "healthCheck")}}>
+              Save
+              {{#if (eq isSavingSection "healthCheck")}}
+                {{loading-spinner plain=true}}
+              {{/if}}
+            </button>
+            <button class="Button" {{action "onCancel" "healthCheck"}}>Cancel</button>
+          </div>
+        {{else}}
+          {{load-balancers/health-check-config
+            hostname="0.0.0.0"
+            selectedProtocol=loadBalancer.healthCheck.protocol
+            port=loadBalancer.healthCheck.port
+            path=loadBalancer.healthCheck.path
+          }}
+        {{/if}}
+      </div>
+
+      {{#if (not (or isEditingSection editDisabled))}}
+        <div class="lb-settings-edit">
+          <button class="Button" {{action "onEdit" "healthCheck"}}>Edit</button>
+        </div>
+      {{/if}}
+    </section>
+
+    <section class="lb-settings-section u-dividerBottomLarge">
+      <div class="lb-settings-heading">
+        <h2>
+          Sticky sessions
+          {{#tool-tip
+            title="When in use, the Load Balancer will use a cookie to route follow-up requests from the same client to a single Droplet."
+            class="lb-settings-hint"
+            multiline=true
+          }}
+            <span class="Hint" data-placement="top" data-toggle="tooltip"></span>
+          {{/tool-tip}}
+        </h2>
+      </div>
+
+      <div class="lb-settings-content">
+        {{load-balancers/sticky-sessions-config
+          isEditMode=(eq isEditingSection "stickySessions")
+          type=loadBalancer.stickySessions.type
+          cookieName=loadBalancer.stickySessions.cookie_name
+          cookieTTL=loadBalancer.stickySessions.cookie_ttl
+        }}
+
+        {{#if (eq isEditingSection "stickySessions")}}
+          <div class="u-mt-5 u-mb-3">
+            <button
+              {{action "onSave" "stickySessions"}}
+              class="Button Button--blue u-mr-2"
+              disabled={{or (not currentFormIsValid) (eq isSavingSection "stickySessions")}}>
+              Save
+              {{#if (eq isSavingSection "stickySessions")}}
+                {{loading-spinner plain=true}}
+              {{/if}}
+            </button>
+            <button class="Button" {{action "onCancel" "stickySessions"}}>Cancel</button>
+          </div>
+        {{/if}}
+      </div>
+
+      {{#if (not (or isEditingSection editDisabled))}}
+        <div class="lb-settings-edit">
+          <button class="Button" {{action "onEdit" "stickySessions"}}>Edit</button>
+        </div>
+      {{/if}}
+    </section>
+
+    <section class="lb-settings-section u-dividerBottomLarge">
+      <div class="lb-settings-heading">
+        <h2>SSL</h2>
+      </div>
+
+      <div class="lb-settings-content">
+        <div class="lb-settings-https-redirect">
+          {{load-balancers/https-redirect
+            isEditMode=(eq isEditingSection "redirectHttpToHttps")
+            isEnabled=loadBalancer.redirectHttpToHttps
+          }}
+        </div>
+
+        {{#if (eq isEditingSection "redirectHttpToHttps")}}
+          <div class="u-mt-5 u-mb-3">
+            <button
+              {{action "onSave" "redirectHttpToHttps"}}
+              class="Button Button--blue u-mr-2"
+              disabled={{eq isSavingSection "redirectHttpToHttps"}}>
+              Save
+              {{#if (eq isSavingSection "redirectHttpToHttps")}}
+                {{loading-spinner plain=true}}
+              {{/if}}
+            </button>
+            <button class="Button" {{action "onCancel"}}>Cancel</button>
+          </div>
+        {{/if}}
+      </div>
+
+      {{#if (not (or isEditingSection editDisabled))}}
+        <div class="lb-settings-edit">
+          <button class="Button" {{action "onEdit" "redirectHttpToHttps"}}>Edit</button>
+        </div>
+      {{/if}}
+    </section>
+
+    <section class="lb-settings-section u-dividerBottomLarge">
+      <div class="lb-settings-heading">
+        <h2>Destroy</h2>
+      </div>
+
+      <div class="lb-settings-content">
+        <p class="lb-settings-destroy u-mb-3">Your Load Balancer will be permanently
+          destroyed. Any associated Droplets will be disconnected and will stop receiving
+          distributed traffic. Droplets will <strong>not</strong> be destroyed.</p>
+      </div>
+
+      <div class="lb-settings-edit">
+        <button
+          {{action "destroyLoadBalancer"}}
+          class="lb-destroy Button Button--outline Button--red"
+          disabled={{destroyDisabled}}>
+          Destroy
+        </button>
+      </div>
+    </section>
+  {{/form-with-validation}}
+</div>
+
+{{#if certificateModalVisible}}
+  {{load-balancers/create-certificate-modal
+    onHide=(action "closeCertificateModal")
+    saveCallback=certificateSaveCallback
+    certificateOptions=certificateOptions
+    allCertificates=model.certificates
+    errorHandler=boundErrorHandler
+  }}
+{{/if}}
+
+{{#if showConfirmDestroyModal}}
+  {{#modal-window
+    title="Destroy Load Balancer"
+    showSaveButton=true
+    saveText="Confirm"
+    saveClasses="Button--red"
+    showCancelButton=true
+    cancelText="Cancel"
+    size="small"
+    contentClasses="confirm-small"
+    onHide="onConfirmDestroy"
+  }}
+    <p>Your Load Balancer will be permanently destroyed. Any associated Droplets
+      will be disconnected and will stop receiving distributed traffic.
+      Droplets will <strong>not</strong> be destroyed.</p>
+    <p>You will lose the provisioned IP address, which might impact any DNS records
+      pointing to it. This will not affect any associated Droplets.</p>
+  {{/modal-window}}
+{{/if}}

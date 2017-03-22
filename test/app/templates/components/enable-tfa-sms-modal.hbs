@@ -1,0 +1,21 @@
+{{#modal-window title=title size="medium" onHide=(action "hide") bodyClasses="u-pt-0" showCancelButton=false showSave=false}}
+  <p>Enter your cell phone number and we will send you a verification code.</p>
+  {{#form-with-validation onSubmit=(action "sendSMSCode") isInlineForm=true submitButtonText=sendSMSCodeText submitButtonWrapperClasses="columns small-3" className="u-clearfix u-mb-0" buttonColor=sendSMSCodeColorClass disabledSubmit=disabledSMSSendSubmit isShowingSubmitLoader=sendDisabled plainSubmitLoader=true}}
+    <div class="columns small-9 u-pl-0 is-sensitive">
+      {{telephone-input
+        selectedCountryData=selectedCountryData
+        value=value
+      }}
+    </div>
+  {{/form-with-validation}}
+  {{#if SMSSent}}
+    <p class="u-mt-3">
+      <strong>SMS sent.</strong> Once you receive the code, enter it below.
+    </p>
+    {{#form-with-validation onSubmit=(action "verifyCode") className="u-clearfix u-mb-0" isInlineForm=true submitButtonWrapperClasses="small-4 columns u-pr-0" disabledSubmit=disabledCodeSubmit isShowingSubmitLoader=verifyDisabled plainSubmitLoader=true}}
+      <div class="columns small-8 u-pl-0">
+        {{input type="text" name=code value=code placeholder="Enter verification code" maxlength=6 class="is-sensitive u-mb-0"}}
+      </div>
+    {{/form-with-validation}}
+  {{/if}}
+{{/modal-window}}

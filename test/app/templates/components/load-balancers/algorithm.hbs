@@ -1,0 +1,25 @@
+{{#if isEditMode}}
+  {{#each availableAlgorithms as |algorithm|}}
+    <div class="radio">
+      {{radio-button
+        name="algorithm"
+        checked=selectedAlgorithm
+        value=algorithm.value
+        id=algorithm.value
+      }}
+      <span></span>
+      <label for={{algorithm.value}}>{{algorithm.label}}</label>
+      {{#if algorithm.tooltipText}}
+        {{#tool-tip
+          title=algorithm.tooltipText
+          class="lb-hint lb-label-hint"
+          multiline=true
+        }}
+          <span class="Hint" data-placement="top" data-toggle="tooltip"></span>
+        {{/tool-tip}}
+      {{/if}}
+    </div>
+  {{/each}}
+{{else}}
+  {{algorithmDisplayName}}
+{{/if}}

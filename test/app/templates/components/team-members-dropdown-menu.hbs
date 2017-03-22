@@ -1,0 +1,41 @@
+<span role="button" class="dropdown-title {{if isOpen "Open"}}" {{action "toggle"}}>{{title}}
+  <span class="Icon--arrowDown"></span>
+</span>
+<div class="menu-dropdown sliding">
+  {{#if displayOwnerOptions}}
+    <div class="menu-dropdownView {{if isChangingRole "slideLeft"}} {{unless isChangingRole "active"}}">
+      <ul class="menu-dropdownItems">
+        {{#if member.isPending}}
+          <li role="button" {{action "resendInvite"}}>Resend email</li>
+          <li role="button" {{action "cancelInvite"}}>Cancel invite</li>
+        {{else}}
+          <li role="button" {{action "showRoleView"}}>Change role</li>
+          {{#if isMe}}
+          <li role="button" {{action "leaveTeam"}}>Leave team</li>
+          {{else}}
+          <li role="button" {{action "removeMember"}}>Remove member</li>
+          {{/if}}
+        {{/if}}
+      </ul>
+    </div>
+
+    <div class="menu-dropdownView dropdown-view-roles {{if isChangingRole "slideIn active"}}">
+      <ul class="menu-dropdownItems no-delete">
+        <li role="button" class="back" {{action "backToMenu"}}><span class="Icon Icon--arrowLeft Icon--blue"></span> Change role</li>
+        <li role="button" {{action "changeRole" "Owner"}}><span class="role {{if member.isOwner "selected"}}">Owner</span></li>
+        <li role="button" {{action "changeRole" "Member"}}><span class="role {{if member.isMember "selected"}}">Member</span></li>
+        <li role="button" {{action "changeRole" "Biller"}}><span class="role {{if member.isBiller "selected"}}">Biller</span></li>
+      </ul>
+    </div>
+  {{/if}}
+
+  {{#if displayMemberOptions}}
+    <div class="menu-dropdownView active">
+      <ul class="menu-dropdownItems single-item">
+        <li role="button" {{action "leaveTeam"}}>Leave Team</li>
+      </ul>
+    </div>
+  {{/if}}
+</div>
+
+

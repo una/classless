@@ -1,0 +1,208 @@
+{{#if (and (not hideUploading) uploading.length)}}
+  <div class="currently-uploading {{if uploadCollapsed "collapsed"}}">
+    <div role="button" {{action 'collapseUploading'}} class="header">
+      <span  class="Icon--arrowDown"></span>
+      File Uploads
+    </div>
+    <span role="button" {{action 'closeUploading'}} class="Icon--close close-btn"></span>
+    <div class="files">
+      {{#each uploading as |file|}}
+        <div>
+          <span class="resource-icon file"></span>
+          {{file.name}}
+          <span class="u-floatRight">
+            {{#if file.success}}
+              <span class="Icon--check"></span>
+            {{else if file.failure}}
+              <span class="Icon--close"></span>
+            {{else}}
+              {{loading-spinner}}
+            {{/if}}
+          </span>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+{{/if}}
+
+{{#if metadata}}
+  {{#modal-window
+    title=(concat "Manage metadata for " metadata.file.name)
+    size="large"
+    saveClasses=(concat "Button--blue " (unless (and isValidMime metaDataIsValid) "is-disabled"))
+    contentClasses="metadata"
+    onHide="onMetadataModalHide"
+    disableFirstInputFocus=true
+  }}
+    <table class="header-clone">
+      <thead>
+        <tr>
+          <th class="key">Key</th>
+          <th class="value">Value</th>
+          <th class="action"></th>
+        </tr>
+      </thead>
+    </table>
+    <div class="metadata-table">
+      <table>
+        <thead>
+          <tr>
+            {{table-header action="sort" noSorting=true col="key" text="Key"}}
+            {{table-header action="sort" noSorting=true col="value" text="Value"}}
+            {{table-header action="sort" noSorting=true col="action" text=""}}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="key">Content-Type</td>
+            <td class="value">
+              {{auto-complete
+                items=filteredMimeTypes
+                dontShowSelected=true
+                isStatic=true
+                searchValue=metadata.contentType
+                defaultSearchValue=metadataContentType
+                onInput="onMimeInput"
+                placeholder="Select value or add your own"
+              }}
+            </td>
+            <td class="action {{if mimeSearch "hasVal"}}" role="button" {{action "clearMimeTypes"}}>Clear</td>
+          </tr>
+          <tr>
+            <td>Cache-Control</td>
+            <td>
+              {{float-label-input placeholder="Enter Value (e.g. max-age: 60)" value=metadata.cacheControl}}
+            </td>
+            <td class="action {{if metadata.cacheControl "hasVal"}}" role="button" {{action "clearMeta" "cacheControl"}}>Clear</td>
+          </tr>
+          <tr>
+            <td>Content-Encoding</td>
+            <td>
+              {{float-label-input placeholder="Enter Value (e.g. gzip)" value=metadata.contentEncoding}}
+            </td>
+            <td class="action {{if metadata.contentEncoding "hasVal"}}" role="button" {{action "clearMeta" "contentEncoding"}}>Clear</td>
+          </tr>
+          <tr>
+            <td>Content-Disposition</td>
+            <td>
+              {{float-label-input placeholder="Enter Value (e.g. attachment)" value=metadata.contentDisposition}}
+            </td>
+            <td class="action {{if metadata.contentDisposition "hasVal"}}" role="button" {{action "clearMeta" "contentDisposition"}}>Clear</td>
+          </tr>
+          {{#each metadata.customMetadata as |meta|}}
+            <tr>
+              <td>
+                {{float-label-input
+                  actionParams=meta
+                  onInput="onCustomMetaChange"
+                  placeholder="Custom Key (e.g. x-amz-meta-my-key)"
+                  pattern="x-amz-meta-[a-z\-_1-9]+"
+                  error="Key must start with x-amz-meta- and be unique"
+                  value=meta.key
+                }}
+              </td>
+              <td>
+                {{float-label-input placeholder="Enter Value" value=meta.value}}
+              </td>
+              <td class="action hasVal" role="button" {{action "removeCustomMeta" meta}}>Remove</td>
+            </tr>
+          {{/each}}
+          <tr class="custom-pairing">
+            <td role="button" colspan=3 {{action "addCustomPairing"}}>Add Custom Pairing</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  {{/modal-window}}
+{{/if}}
+
+{{#if quickShare}}
+  {{#modal-window
+    title=(concat "Quick share " quickShare.name)
+    showSaveButton=false
+    showCancelButton=false
+    size="large"
+    contentClasses="quick-share"
+    onHide="onQuickShareModalHide"
+  }}
+    <p>
+      Anyone with the URL below will be able to view your file even if it's set to private read.<br>
+      Updating the sharing duration will generate a new URL below
+    </p>
+    <h4>Sharing Duration</h4>
+    {{#each quickShareOptions as |option|}}
+      <div role="button" class="quick-share-tab {{if (eq selectedQuickShareTab option.hours) "selected"}}" {{action "updateUrl" option.hours}}>{{option.copy}}</div>
+    {{/each}}
+    <h4>File URL</h4>
+    {{click-to-copy
+      showCopyButton=true
+      copyButtonText="Copy Link"
+      text=quickShareUrl
+    }}
+  {{/modal-window}}
+{{/if}}
+
+{{#if conflicts}}
+  {{#modal-window
+    title="Overwrite files?"
+    showSaveButton=true
+    showCancelButton=true
+    size="large"
+    contentClasses="object-conflict-modal"
+    onHide="onConfirmConflictModalHide"
+    saveClasses="Button--red"
+    saveText="Replace"
+  }}
+    <div>
+      <p>
+        The following item{{#if (gt conflicts.length 1)}}s{{/if}} already exist{{#if (eq conflicts.length 1)}}s{{/if}} in this location.
+        Do you want to replace {{#if (eq conflicts.length 1)}}it{{else}}them{{/if}}?
+      </p>
+      <table class="header-clone">
+        <thead>
+          <tr>
+            <th class="name">Name</th>
+          </tr>
+        </thead>
+      </table>
+      <div class="renameConflict-tableWrapper">
+        <table>
+          <thead>
+            <tr>
+              {{table-header action="sort" noSorting=true col="name" text="Name"}}
+            </tr>
+          </thead>
+          <tbody>
+            {{#each conflicts as |key|}}
+              <tr>
+                <td class="name">
+                  <div class="object-file-conflict">
+                    <div class="Resource-image">
+                      <div class="resource-icon file"></div>
+                    </div>
+                    <div class="conflict-file-name">
+                      {{key}}
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {{/modal-window}}
+{{/if}}
+
+{{#if movingObjs}}
+  {{object-move-table
+    movingObjs=movingObjs
+    bucketName=bucketName
+    currentDir=currentDir
+    onCloseMoveFiles="onCloseMoveFiles"
+  }}
+{{/if}}
+
+{{#if fileBrowser}}
+  {{file-uploader hideAction="hideFileBrowser"}}
+{{/if}}

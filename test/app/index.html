@@ -1,0 +1,20 @@
+
+<div id="aurora-container"></div>
+
+{{content-for 'head'}}
+
+<link rel="stylesheet" href="{{content-for 'asset-prefix'}}/assets/vendor.css">
+<link rel="stylesheet" href="{{content-for 'asset-prefix'}}/assets/aurora.css">
+
+{{content-for 'head-footer'}}
+
+{{content-for 'body'}}
+
+<script src="{{content-for 'asset-prefix'}}/assets/vendor.js"></script>
+<script src="{{content-for 'asset-prefix'}}/assets/aurora.js"></script>
+
+{{content-for 'body-footer'}}
+
+<script>
+  $.noConflict(true);
+</script>

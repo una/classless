@@ -1,0 +1,14 @@
+{{#modal-window title=title size="medium" onHide=(action "hide") showCancelButton=false showSave=false bodyClasses="u-pt-0"}}
+  {{yield}}
+  {{#form-with-validation onSubmit=(action "onSubmit") disabled=disabled className="u-mb-0" submitButtonText=submitButtonText}}
+    {{#each availablePrimaryMethods as |method|}}
+      <div role="button" class="radio-tab u-mb-3 {{if (eq method.value selectedMethod) 'selected'}}" {{action "selectTab" method.value}}>
+        {{#if method.image}}
+          <img height="{{method.imageHeight}}" src="{{method.image}}" alt="{{method.label}}" class="u-mb-1"/><br/>
+        {{/if}}
+        {{method.label}}
+        <span>{{method.description}}</span>
+      </div>
+    {{/each}}
+  {{/form-with-validation}}
+{{/modal-window}}

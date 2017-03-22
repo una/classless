@@ -1,0 +1,20 @@
+<div class="Box u-mb-5">
+  <h2>Power off</h2>
+  <p>This will power off your Droplet.</p>
+  <p>We recommend powering off your Droplet through the command line, as this action is the same as hard resetting the server and may cause data corruption.</p>
+  <p>Note that when you power off your Droplet you are still billed for it. This is because your diskspace, CPU, RAM, and IP address are all reserved while it is powered off.</p>
+  <p>Do you want to proceed?</p>
+  <div class="row">
+    <div class="columns small-4">
+      <button
+        class="Button Button--fullWidth"
+        disabled="{{if (or isCyclingPower dropletCtrl.isTogglingPower dropletCtrl.isBusy) 'disabled'}}"
+        {{action "shutDownDroplet"}}
+      >Power Off
+        {{#if dropletCtrl.isTogglingPower}}
+            {{loading-spinner white=true spinnerClass="spinner-power"}}
+        {{/if}}
+      </button>
+    </div>
+  </div>
+</div>

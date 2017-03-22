@@ -1,0 +1,7 @@
+{{#if isOverflowing}}
+  {{#tool-tip title=textToShow}}
+    {{yield}}
+  {{/tool-tip}}
+{{else}}
+  {{yield}}
+{{/if}}

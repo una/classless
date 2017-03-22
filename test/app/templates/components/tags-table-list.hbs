@@ -1,0 +1,13 @@
+{{#if hasTags}}
+  {{#link-to 'tag' tags.firstObject.name invokeAction=(action "tagClick" tags.firstObject.name) }}
+    {{token-item text=tags.firstObject.name isGrey=true}}
+  {{/link-to}}
+  {{#if hasManyTags}}
+    {{remaining-droplet-tags
+      tagClick=tagClick
+      label=hiddenTagCountLabel
+      tags=tags
+      isGrey=true}}
+  {{/if}}
+{{/if}}
+

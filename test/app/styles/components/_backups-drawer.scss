@@ -1,0 +1,60 @@
+$drawer-width: 945px;
+
+.backups-drawer {
+  height: 0;
+  opacity: 0.1;
+  pointer-events: none;
+  overflow: hidden;
+  width: $drawer-width;
+  position: relative;
+  transition: height 0.25s ease-in-out, opacity 0.2s linear;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  display: none;
+
+  &.backups-drawer-is-open {
+    z-index: 3;
+  }
+
+  &.disabled {
+    opacity: 0.5 !important;
+    pointer-events: none !important;
+  }
+
+  .Resource {
+    margin: 33px 0 0 73px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      display: block;
+      width: $drawer-width;
+      height: 2px;
+      background: $gray2;
+      top: -16px;
+      left: -52px;
+    }
+
+    &::before {
+      content: '';
+
+      @include icon-sprite($icon-arrow-right);
+
+      position: absolute;
+      left: -40px;
+      margin-top: 15px;
+    }
+  }
+}
+
+.backups-drawer__name {
+  width: 745px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.backups-drawer__action {
+  position: absolute;
+  margin-top: -25px;
+  right: 4px;
+}

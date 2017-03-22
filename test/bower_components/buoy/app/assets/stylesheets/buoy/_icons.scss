@@ -1,0 +1,139 @@
+@font-face {
+  font-family: 'buoycons';
+  src:font-url('buoycons/buoycons.eot?-ntmjfn');
+  src:font-url('buoycons/buoycons.eot?#iefix-ntmjfn') format('embedded-opentype'),
+    font-url('buoycons/buoycons.woff?-ntmjfn') format('woff'),
+    font-url('buoycons/buoycons.ttf?-ntmjfn') format('truetype'),
+    font-url('buoycons/buoycons.svg?-ntmjfn#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="Icon--"]:before, [class*=" Icon--"]:before {
+  font-family: 'buoycons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.Icon--lock:before {
+  content: "\e905";
+}
+.Icon--star:before {
+  content: "\e906";
+}
+.Icon--mail:before {
+  content: "\e60a";
+}
+.Icon--billing:before {
+  content: "\e60b";
+}
+.Icon--droplet:before {
+  content: "\e60c";
+}
+.Icon--edit:before {
+  content: "\e802";
+}
+.Icon--upgrade:before {
+  content: "\e60e";
+}
+.Icon--transfer:before {
+  content: "\e60f";
+}
+.Icon--edit2:before {
+  content: "\e802";
+}
+.Icon--region:before {
+  content: "\e803";
+}
+.Icon--refresh:before {
+  content: "\e804";
+}
+.Icon--minus:before {
+  content: "\e901";
+}
+.Icon--plus:before {
+  content: "\e902";
+}
+.Icon--backup:before {
+  content: "\e613";
+}
+.Icon--arrowLeft:before {
+  content: "\e600";
+}
+.Icon--arrowRight:before {
+  content: "\e601";
+}
+.Icon--arrowUp:before {
+  content: "\e602";
+}
+.Icon--arrowDown:before {
+  content: "\e609";
+}
+.Icon--check:before {
+  content: "\e603";
+}
+.Icon--close:before {
+  content: "\e604";
+}
+.Icon--gear:before {
+  content: "\e605";
+}
+.Icon--sammy:before {
+  content: "\e606";
+}
+.Icon--search:before {
+  content: "\e607";
+}
+.Icon--wave:before {
+  content: "\e608";
+}
+.Icon--arrowLongRight:before {
+  content: "\e904";
+}
+.Icon--arrowLongUp:before {
+  content: "\e808";
+}
+.Icon--arrowLongDown:before {
+  content: "\e903";
+}
+.Icon--arrowLongLeft:before {
+  content: "\e806";
+}
+.Icon--arrowFilterDown:before {
+  content: "\e800";
+}
+.Icon--arrowFilterUp:before {
+  content: "\e801";
+}
+.Icon--arrowFilterUp:before {
+  content: "\e801";
+}
+.Icon--closeAlt:before{
+  content: "\e900";
+}
+.Icon--error:before {
+  content: "!";
+  font-weight: bold;
+}
+.Icon--newWindow:before{
+  content: "\e908";
+}
+
+// Colors
+.Icon--blue:before {
+  color: $blue;
+}
+.Icon--green:before {
+  color: $green;
+}
+.Icon--red:before {
+  color: $red;
+}

@@ -1,0 +1,131 @@
+{{#if loading}}
+  {{loading-animation}}
+{{else}}
+  <h2 class="u-textAlignCenter u-mb-4">Verify your {{if isOrganization "team"}} identity.</h2>
+  {{#if data.isUnactivatedSketchy}}
+    <p class="u-textAlignCenter u-mb-6 authed-header">We take security seriously, sometimes that means taking extra precautions.<br/>Connect one or more social accounts to get started.</p>
+  {{else}}
+    <p class="u-textAlignCenter u-mb-6">Your {{if isOrganization "team"}}  account has been temporarily blocked.<br />Connect one or more social accounts to help us verify your identity.</p>
+  {{/if}}
+  <div class="row u-mb-6">
+    <div class="small-10 columns small-push-1">
+      <form class="u-mb-4">
+        <div class="form--inline {{if disabled "is-disabled"}}">
+          <fieldset class="sketchy-social-connections">
+            <div class='row'>
+              <div class='small-4 columns'>
+                {{#if data.githubIdentity}}
+                  <button class='small-4 columns Button Button--outline Button--fullWidth Button--social Button--green connected-github-button' {{action 'unauthenticate' 'githubIdentity'}}>
+                    <span class="resource-icon github-connected"></span><span class="social-button-verb"></span><span class="overflow-ellipsis">{{data.githubIdentity.username}}</span>
+                  </button>
+                {{else}}
+                  <button class='small-4 columns Button Button--fullWidth Button--github unconnected-github-button' {{action 'authenticate' 'githubIdentity' 'github-proxy'}}>
+                    <span class="resource-icon github"></span>Connect GitHub
+                  </button>
+                {{/if}}
+              </div>
+              <div class='small-4 columns'>
+                {{#if data.twitterIdentity}}
+                  <button class='small-4 columns Button Button--outline Button--fullWidth Button--green Button--social connected-twitter-button' {{action 'unauthenticate' 'twitterIdentity'}}>
+                    <span class="resource-icon twitter-connected"></span><span class="social-button-verb"></span><span class="overflow-ellipsis">{{data.twitterIdentity.username}}</span>
+                  </button>
+                {{else}}
+                  <button class='small-4 columns Button Button--fullWidth Button--twitter unconnected-twitter-button' {{action 'authenticate' 'twitterIdentity' 'twitter'}}>
+                    <span class="resource-icon twitter"></span>Connect Twitter
+                  </button>
+                {{/if}}
+              </div>
+              <div class='small-4 columns'>
+                {{#if data.googleIdentity}}
+                  <button class='small-4 columns Button Button--outline Button--fullWidth Button--green Button--social connected-google-button' {{action 'unauthenticate' 'googleIdentity'}}>
+                    <span class="resource-icon google-connected"></span><span class="social-button-verb"></span><span class="overflow-ellipsis">{{data.googleIdentity.username}}</span>
+                  </button>
+                {{else}}
+                  <button class='small-4 columns Button Button--fullWidth Button--google unconnected-google-button' {{action 'authenticate' 'googleIdentity' 'google-proxy'}}>
+                    <span class="resource-icon google"></span>Connect Google
+                  </button>
+                {{/if}}
+              </div>
+              {{#unless isShowingForm}}
+                <div class='row'>
+                  <div class='small-12 columns'>
+                    <p class="u-mt-4 u-textAlignCenter">
+                      <a role="button" {{action 'clickNoSocialAccount'}}>Don't have a social account?</a>
+                    </p>
+                  </div>
+                </div>
+              {{/unless}}
+            </div>
+          </fieldset>
+
+          <div class="Box {{unless isShowingForm 'hide'}}">
+            <div class='row'>
+              <div class='small-12 columns'>
+                <h2 class="u-textAlignCenter u-mb-4">Personal Information</h2>
+              </div>
+            </div>
+            <div class='row'>
+              <div class='small-6 columns'>
+                {{float-label-input klasses="first-name" required=true placeholder="First name" onInput="updateFirstName"}}
+              </div>
+              <div class='small-6 columns'>
+                {{float-label-input klasses="last-name" required=true placeholder="Last name" onInput="updateLastName"}}
+              </div>
+            </div>
+            <div class='row'>
+              <div class='small-6 columns'>
+                {{float-label-input klasses="phone-number" required=true placeholder="Phone number" onInput="updatePhoneNumber"}}
+              </div>
+              <div class='small-6 columns'>
+                {{float-label-input klasses="location" required=true placeholder='Where are you in the world?' onInput="updateLocation"}}
+              </div>
+            </div>
+            <div class='row'>
+              <div class='small-12 columns'>
+                {{float-label-input required=true klasses="u-mb-0 type-of-traffic" placeholder='What are you planning to do with DigitalOcean?' error="Your plan cannot be blank" onInput="updateTypeOfTraffic"}}
+              </div>
+            </div>
+
+            {{#if data.shouldShowMultipleAccounts}}
+              <fieldset>
+                <div class='row u-mt-3'>
+                  <div class='small-12 columns'>
+                    <legend>Multiple Accounts</legend>
+                    <p class='u-mb-3'>If you have other DigitalOcean accounts, please provide the email addresses associated with those accounts below. Additionally, please tell us the reason you are opening a new account.</p>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='small-6 columns'>
+                    {{float-label-input klasses="other-accounts" required=true placeholder="Other accounts (if you have them)" onInput="updateOtherAccounts"}}
+                  </div>
+                  <div class='small-6 columns'>
+                    {{float-label-input klasses="why-new-account" required=true placeholder="Why are you opening a new account?" onInput="updateWhyNewAccount"}}
+                  </div>
+                </div>
+              </fieldset>
+            {{/if}}
+            <div class='row u-mt-3'>
+              <div class='small-12 columns'>
+                  {{partial "components/partials/form-with-validation-submit-buttons"}}
+              </div>
+            </div>
+          </div>
+        </div>
+        {{#if isShowingForm}}
+          <div class="row u-mt-6">
+            <div class="small-12 columns">
+              <p class="u-textAlignCenter">Once you submit this form, our team will manually review the information. We typically reply within two hours.</p>
+            </div>
+          </div>
+        {{/if}}
+      </form>
+      <div class='row'>
+        <div class='small-12 column-centered'>
+          <p class="u-mt-4 u-textAlignCenter">
+            {{#link-to 'sketchy.deactivate' class='sketchy-deactivate'}}Deactivate Account{{/link-to}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}}

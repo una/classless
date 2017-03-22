@@ -1,0 +1,42 @@
+<div class="row ssh-key-row u-mb-7">
+  <div class="columns small-12">
+    <h2>Add your SSH keys
+        {{tool-tip
+            title='Adding an SSH key is a recommended security measure. If you choose not to add one, you will receive a root password via email.'
+            class='Hint'
+            multiline=true
+        }}
+    </h2>
+    <ul class="small-block-grid-5 ssh-key-list">
+      <li>
+        <Button class="Button {{unless model.meta.ssh_keys.pagination.total "Button--blue"}}" {{action "showSshModal"}}>New SSH Key</button>
+      </li>
+      {{#each model.ssh_keys as |key|}}
+        <li class="ssh-key-check">
+          {{#tool-tip title=key.content class='ssh-key-tooltip' multiline=true}}
+            {{check-box inputId=(concat "sshKey_" key.id) disabled=feature.isDisabled checked=key.checked label=key.name}}
+          {{/tool-tip}}
+        </li>
+      {{/each}}
+    </ul>
+
+    {{#if (gt model.meta.ssh_keys.pagination.pages 1)}}
+      {{paginator-full
+        useActions=true
+        isLoading=sshKeyPaginationLoading
+        pages=model.meta.ssh_keys.pagination.pages
+        currentPage=model.meta.ssh_keys.pagination.current_page
+        action="changeSshKeyPage"
+      }}
+    {{/if}}
+  </div>
+</div>
+
+{{#if showModal}}
+  {{ssh-key-modal
+    onHide=(action "hideSshModal")
+    title="New SSH key"
+    submitAction=(action "saveSshKey")
+    submitButtonText="Add SSH Key"
+  }}
+{{/if}}

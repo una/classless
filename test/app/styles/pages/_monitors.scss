@@ -1,0 +1,318 @@
+//////////////////////////////////////////////////////////////////////
+// Global monitoring styles
+//////////////////////////////////////////////////////////////////////
+
+// Monitor view h1 header
+.monitors-header {
+  width: auto;
+}
+
+// Position monitor create button in header
+.monitors-create-button {
+  position: relative;
+  top: -0.2rem;
+  width: 14rem;
+}
+
+// Loaders in create buttons
+.monitors-create-button,
+.monitors-create-button.empty-state-button {
+  .Loader--basic {
+    position: absolute;
+    right: 1rem;
+    top: 0.7rem;
+  }
+}
+
+// Back to monitors link
+.monitors-back-link {
+  a {
+    color: $gray7;
+
+    &:hover {
+      color: $gray8;
+    }
+  }
+
+  .Icon--arrowRight {
+    color: $gray6;
+    font-size: 0.5rem;
+  }
+}
+
+// Position Monitor setup dropdown
+.monitor-setup-instructions {
+  .menu-dropdown {
+    left: 54%;
+    width: 34rem;
+
+    &::before,
+    &::after {
+      left: 89%;
+    }
+  }
+}
+
+//////////////////////////////////////////////////////////////////////
+// Monitor list styles
+//////////////////////////////////////////////////////////////////////
+
+// Monitor list columns widths
+.table-col--monitor {
+  width: 50%;
+
+  // Ensures long monitor names get truncated
+  .Resource-meta .Resource-title {
+    width: 100%;
+  }
+}
+
+.table-col--droplet {
+  width: 40%;
+
+  .disabled {
+    .Resource-image,
+    .Resource-title,
+    .Resource-description:not(.disabled-reason) {
+      opacity: 0.4;
+    }
+
+    .Resource-title {
+      color: $gray8;
+    }
+
+    .disabled-reason {
+      color: $blue--brand;
+    }
+  }
+}
+
+.table-col--action {
+  float: none;
+  text-align: right;
+  width: 7%;
+}
+
+.table-col--monitor {
+  .Loader--basic {
+    position: absolute;
+    margin: 9px 0 0 5px;
+  }
+}
+
+.expand-btn {
+  background: transparent;
+  border: 1px solid $gray6;
+  border-radius: 3px;
+  width: 15px;
+  height: 15px;
+  color: $gray6;
+  padding: 0;
+  text-align: center;
+  outline: none;
+  overflow: hidden;
+
+  > span {
+    font-size: 0;
+
+    &::before {
+      font-size: 10px;
+    }
+  }
+}
+
+.sublist-item {
+  background-color: $gray1;
+
+  .droplet-link {
+    font-weight: map-get($font-weight, bold);
+
+    &::before {
+      content: '';
+      display: inline-block;
+      position: relative;
+      top: 1px;
+      @include icon-sprite($icon-droplet-no-circle);
+    }
+  }
+}
+
+// Monitoring empty state image
+.EmptyState-image--monitoring {
+  background: url('../assets/images/empty-monitors.svg') no-repeat;
+  height: 100px;
+  width: 144px;
+}
+
+// Monitoring empty state create Monitor button
+.monitors-create-button.empty-state-button {
+  width: 23rem;
+}
+
+//////////////////////////////////////////////////////////////////////
+// Add/edit monitor styles
+//////////////////////////////////////////////////////////////////////
+.create-monitor-component {
+  // Makes h4's in component darker for contrast issues
+  h4 {
+    color: inherit;
+  }
+
+  .search-results-box .result-list {
+    position: static;
+  }
+}
+
+.Chart-d3.Threshold-chart {
+  min-height: 15rem;
+
+  .aurora-droplet-graph {
+    opacity: 1;
+  }
+}
+
+// Metric input in Monitor add/edit modal
+.input--has-suffix-container {
+  position: relative;
+}
+
+input.has-suffix {
+  padding-right: 0.5rem;
+
+  + span {
+    color: $gray6;
+    right: 1.5rem;
+    height: 3rem;
+    line-height: 3rem;
+    position: absolute;
+    top: 0;
+  }
+}
+
+// Utility class to align text vertically with inputs
+.u-verticalAlignWithInput {
+  line-height: 3rem;
+}
+
+// Utility class to display element inline
+.u-displayInline {
+  display: inline;
+}
+
+// Utility class to display element inline-block
+.u-displayInlineBlock {
+  display: inline-block;
+}
+
+// Adjust checkbox height in monitor modal
+.Modal.monitor-add-edit {
+  .checkbox {
+    height: 22px;
+  }
+}
+
+// Slack icon
+.Icon--slack {
+  background: url('../assets/images/slack.svg');
+  display: inline-block;
+  height: 1.5rem;
+  position: relative;
+  vertical-align: middle;
+  top: -2px;
+  width: 1.5rem;
+}
+
+// Make checkbox text stay default color
+.monitoring-alert-container {
+  input[type='checkbox']:checked + span + label {
+    color: inherit;
+  }
+}
+
+// No alert type selected error message in add/edit monitor modal
+.alert-error-message {
+  @extend %font--semibold;
+
+  color: $red--brand;
+}
+
+.monitor-resource-select-container {
+  margin-bottom: 1rem;
+
+  .search-results-box {
+    z-index: 1;
+  }
+
+  .tags-editor {
+    min-height: 0;
+    padding-bottom: 6px;
+    overflow: visible;
+    border-color: #dfdfdf;
+  }
+
+  .monitors-droplet-selector {
+    margin-bottom: -6px;
+
+    > li {
+      display: inline-block;
+      float: none;
+      vertical-align: top;
+
+      &.token-input-item {
+        margin-bottom: 6px;
+        padding: 3px 0;
+      }
+
+      &.token-item {
+        background-color: $grey_2;
+        border-color: $grey_2;
+        color: $grey_9;
+        cursor: default;
+        transition: background 0.12s ease-out;
+
+        &::before {
+          content: '';
+          display: inline-block;
+          position: relative;
+          top: 1px;
+        }
+
+        &.highlighted {
+          background-color: $grey_3;
+          border-color: $grey_3;
+        }
+      }
+
+      &.token-item.selectedDroplet::before {
+        @include icon-sprite($icon-droplet-no-circle);
+      }
+
+      &.token-item.selectedTag::before {
+        @include icon-sprite($icon-tag-no-circle);
+      }
+    }
+
+    .Icon--close {
+      opacity: 0.3;
+      cursor: pointer;
+      position: relative;
+      top: 6px;
+      transition: background 0.12s ease-out;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.tooltip-content {
+  font-feature-settings: 'tnum';
+  position: relative;
+  top: -0.2rem;
+
+  .date-time {
+    color: $gray7;
+    margin-right: 0.5rem;
+  }
+}

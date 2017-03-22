@@ -1,0 +1,351 @@
+///////////////////////////////////////////////////
+/// General dashboard layout styles
+///////////////////////////////////////////////////
+body.insights-dashboard {
+
+  // Top nav and filter bar
+  .Insights-fixed-filters {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+  }
+
+  .Cloud-logo {
+    display: block;
+    height: 30px;
+    position: absolute;
+    top: 0.5rem;
+    width: 30px;
+  }
+
+  // Time range selector
+  .Action-list {
+    display: inline-block;
+    list-style: none;
+    margin-top: 0.75rem;
+
+    li {
+      display: inline-block;
+      margin-right: 8px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      a {
+        border-bottom: 2px solid transparent;
+        padding-bottom: 3px;
+      }
+    }
+
+    & + .Dropdown {
+      display: inline-block;
+      vertical-align: middle;
+      cursor: pointer;
+
+      > .Dropdown-content {
+        cursor: default;
+        min-width: 132px;
+
+        &::before {
+          right: 16px;
+        }
+
+        &::after {
+          right: 18px;
+        }
+
+        span {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .Dropdown-inner {
+    text-align: center;
+  }
+
+  // Droplet filter
+  .Insights-droplet-filter {
+    display: inline-block;
+    left: 0.2rem;
+    position: relative;
+    top: -0.02rem;
+    width: calc(100% - 3.14rem);
+  }
+
+  // Tweaks to autocomplete
+  .aurora-auto-complete .Resource.selected {
+    border-radius: 3px;
+    height: 3rem;
+    left: 0;
+    padding: 0.35rem 0.5rem;
+    right: 0;
+    top: 0;
+    transition: border 0.2s ease-in-out, padding 0.2s ease-in-out;
+  }
+
+  // Keep input from flashing when transitioning themes
+  input[type='text'] {
+    transition: border 0.2s ease-in-out, padding 0.2s ease-in-out;
+  }
+
+  // Keep the Just now from being uppercase. It comes out capitalized from moment-init.js for other use case
+  .small {
+    time {
+      text-transform: lowercase;
+    }
+  }
+
+  // Darkmode graph styles
+  .Insights-graph-container {
+    padding-top: 6rem;
+  }
+
+  .Graph {
+    border-radius: 3px;
+    display: inline-block;
+    padding-top: 1rem 0 1rem 1rem;
+    margin: 0.2rem 0.07rem;
+    vertical-align: top;
+    width: calc(50% - 0.25rem);
+
+    &:nth-child(odd) {
+      margin-left: 0;
+    }
+
+    &:nth-child(even) {
+      margin-right: 0;
+    }
+
+    h2 {
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  // Graph empty state
+  .aurora-droplet-graph.c3-empty {
+    border: none;
+  }
+
+  // Full width layout
+  .row.full-width {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  ///////////////////////////////////////////////////
+  /// Darkmode visual styles
+  ///////////////////////////////////////////////////
+  &.darkmode {
+    background: $darkmode_background;
+    color: $white;
+
+    .Cloud-logo {
+      background-image: url('/assets/images/cloud-logo--white.svg');
+    }
+
+    // Top nav and filter bar
+    .Insights-fixed-filters {
+      background: $darkmode_background;
+      box-shadow: 0 -0.05rem 1rem $darkmode_background;
+    }
+
+    // Settings gear
+    .Icon--gear {
+      color: $white;
+    }
+
+    // Page level last updated message
+    .small {
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    // Time range selector
+    .Action-list li a {
+      color: $white;
+      opacity: 0.65;
+
+      &.active,
+      &.active:hover {
+        opacity: 1;
+        border-color: $white;
+      }
+
+      &:hover {
+        opacity: 0.8;
+        border-color: rgba(255, 255, 255, 0.7);
+      }
+    }
+
+    .searchInput input.FloatLabel-input {
+      background: none;
+      border-color: rgba(255, 255, 255, 0.3);
+      color: $white;
+
+      &:hover {
+        border-color: rgba(255, 255, 255, 0.8);
+      }
+    }
+
+    // Tweaks to autocomplete
+    .aurora-auto-complete .Resource.selected {
+      background: $darkmode_background;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: $white;
+
+      &:hover {
+        border-color: rgba(255, 255, 255, 0.8);
+      }
+    }
+
+    // Region selector
+    .aurora-auto-complete .list-wrap ul {
+      background: $darkmode_background_light;
+      border: none;
+      box-shadow: 0 0 0 1px darken($darkmode_background, 5%), 0 0.25rem 1rem rgba(0, 0, 0, 0.9);
+    }
+
+    .aurora-auto-complete .list-wrap ul li {
+      border-color: rgba(255, 255, 255, 0.1);
+
+      &.hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        border-color: transparent;
+
+        .Resource {
+          background: transparent;
+        }
+      }
+    }
+
+    .list-wrap .Resource {
+      background: transparent;
+      color: $white;
+    }
+
+    .FloatLabel-label {
+      color: $white;
+    }
+
+    // Tooltip
+    .aurora-droplet-graph .c3-tooltip-container {
+      background: rgba(33, 33, 33, 0.95);
+      box-shadow: 0 0 0 1px darken($darkmode_background, 5%), 0 0.25rem 1rem rgba(0, 0, 0, 0.9);
+
+      .c3-tooltip {
+        th {
+          color: $white;
+          opacity: 0.65;
+        }
+
+        td {
+          color: $white;
+
+          &.value {
+            opacity: 0.65;
+          }
+        }
+      }
+    }
+
+    // Graph styles
+    .Graph {
+      background-color: $darkmode_background_light;
+
+      h2 {
+        color: $white;
+      }
+    }
+
+    .Loader--basic {
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-bottom-color: transparent;
+    }
+
+    .aurora-droplet-graph.c3 text {
+      fill: rgba(255, 255, 255, 0.6);
+    }
+
+    .aurora-droplet-graph .c3-axis-x .tick line,
+    .aurora-droplet-graph .c3-axis-y .tick line,
+    .aurora-droplet-graph .c3-ygrids line,
+    .aurora-droplet-graph .c3-xgrids line {
+      stroke: rgba(255, 255, 255, 0.15);
+    }
+
+    .aurora-droplet-graph .c3-grid line.c3-xgrid-focus {
+      stroke: $white;
+    }
+
+    .Dropdown-content {
+      background-color: $darkmode_background_light;
+      border-color: darken($darkmode_background, 5%);
+      color: $white;
+
+      &::after {
+        border-bottom-color: $darkmode_background_light;
+      }
+
+      &::before {
+        border-bottom-color: darken($darkmode_background, 5%);
+      }
+    }
+  }
+
+  ///////////////////////////////////////////////////
+  /// Lightmode visual styles
+  ///////////////////////////////////////////////////
+  &.lightmode {
+    background: $gray1;
+
+    .Cloud-logo {
+      background-image: url('/assets/images/cloud-logo.svg');
+    }
+
+    // Top nav and filter bar
+    .Insights-fixed-filters {
+      background: $white;
+      box-shadow: 0 0 0 1px $gray3, 0 0.1rem 0.3rem rgba(0, 0, 0, 0.05);
+    }
+
+    // Tweaks to autocomplete
+    .aurora-auto-complete .Resource.selected {
+      background: $white;
+      border: 1px solid $gray4;
+    }
+
+    // Time range selector
+    .Action-list li a {
+      color: $gray7;
+
+      &.active,
+      &.active:hover {
+        color: $blue--brand;
+        border-color: $blue--brand;
+      }
+
+      &:hover {
+        color: $gray8;
+        border-color: $gray7;
+      }
+    }
+
+    // Graph styles
+    .Graph {
+      background: $white;
+      box-shadow: inset 0 0 0 1px $gray3;
+    }
+  }
+}
+
+// Display graphs 1-up when on smaller screens
+@media only screen and (max-width: 1150px) {
+  body.insights-dashboard .Graph {
+    margin: 0.2rem 0;
+    width: 100%;
+  }
+}

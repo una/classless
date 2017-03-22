@@ -1,0 +1,14 @@
+<span class="context-avatar">
+  {{#if model.isOrganization}}
+    <span class="avatar-image b-{{model.avatarColor}}">
+      <span class="initials">{{model.avatarInitials}}</span>
+    </span>
+  {{else}}
+    <img src="{{model.avatar}}" class="avatar-circle" width="36" height="36" alt="{{model.name}}" />
+  {{/if}}
+</span>
+{{#if model.isOrganization}}
+  {{model.name}}
+{{else}}
+  {{model.email}}
+{{/if}}

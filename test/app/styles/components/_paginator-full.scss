@@ -1,0 +1,96 @@
+.Pagination {
+  text-align: center;
+  margin: 1.3rem 0 0;
+  display: inline-block;
+  width: 100%;
+
+  ul,
+  li {
+    display: inline;
+  }
+
+  .prev,
+  .next {
+    margin: 0 15px;
+    display: inline-block;
+    border-bottom: none;
+
+    &:hover {
+      color: $blue--brand_hover;
+    }
+
+    &.is-disabled {
+      color: $gray4;
+      cursor: default;
+      text-decoration: none;
+      border-bottom: none;
+    }
+  }
+}
+
+.pagination-button {
+  @extend %font--semibold;
+
+  border-radius: 3px;
+  user-select: none;
+  transition: all, 0.2s, ease-in-out;
+  background: $gray3;
+  color: $gray8;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  font-size: 1rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  line-height: 2.5rem;
+  text-decoration: none;
+  border-bottom: none;
+
+  &:hover {
+    background: $gray4;
+  }
+
+  &.is-active {
+    background: $blue--brand;
+    color: $white;
+  }
+}
+
+.Pagination {
+  > a {
+    vertical-align: middle;
+
+    .Loader--basic {
+      display: none;
+    }
+
+    &.hasLoader {
+      position: relative;
+
+      .Loader--basic {
+        display: inline-block;
+        position: absolute;
+      }
+
+      .Label {
+        opacity: 0;
+      }
+    }
+  }
+
+  > .prev.hasLoader .Loader--basic {
+    top: 0.25rem;
+    left: -2rem;
+  }
+
+  > .next.hasLoader .Loader--basic {
+    top: 0.25rem;
+    right: -2rem;
+  }
+
+  > .pagination-button.hasLoader .Loader--basic {
+    top: 0.65rem;
+    left: 50%;
+    margin-left: -0.65rem;
+  }
+}

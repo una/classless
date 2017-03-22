@@ -1,0 +1,14 @@
+<div class="Ticket Ticket-comment ticket-reply reply-new Ticket__Reply--new u-mb-8">
+  <div class="Ticket-inner">
+    <div class="author-and-timestamp">
+      <p class="author">{{ replyToName }}</p>
+    </div>
+    <div class="form">
+      {{textarea autoresize=true autofocus=true placeholder="Enter your reply here..." value=replyBody}}
+      <nav class="u-textAlignRight">
+        <button class="Button {{if isClosed 'is-disabled' ''}}" {{action "closeTicket"}}>Close Ticket</button>
+        <button class="Button Button--blue" {{action "sendReply" }}>Submit Reply</button>
+      </nav>
+    </div>
+  </div>
+</div>

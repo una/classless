@@ -1,0 +1,29 @@
+{{#if (or model.isUserContext model.isOwner)}}
+  <section class="u-mt-6 barriers-page u-textAlignCenter">
+    <div class="Box u-mb-6 u-mt-4">
+      <div class="row">
+        <div class="small-12 columns">
+          <img class="EmptyState-image" src="/assets/images/barrier.svg" alt="Account Locked">
+        </div>
+      </div>
+      <div class="row">
+        <h3>Account Locked</h3>
+        <div class="small-12 columns">
+          <p>We are sorry to inform you that your {{if model.isOrganizationContext 'team'}} account has been locked by DigitalOcean staff. None of your virtual servers have been destroyed.
+          {{#if (or model.isHold model.currentContext.isHold)}}
+            <span>Your {{if model.isOrganizationContext 'team'}} account is currently overdrawn. Please navigate to the Billing settings page to clear out your balance and unlock your account.</span>
+            <p class="u-mt-2"><strong>Thank You,</strong></p>
+            <p><strong>DigitalOcean Staff</strong></p>
+            {{#relative-link shortContextId=model.shortCurrentContextId href='/settings/billing' class="Button Button--fullWidth Button--blue u-mb-0 u-mt-3"}}View Billing Settings{{/relative-link}}
+          {{else}}
+            <span>We have opened a support ticket with you regarding the cause of this lock.</span>
+            {{#link-to "support.tickets" class="Button Button--fullWidth Button--blue u-mb-0 u-mt-3"}}View Support Ticket{{/link-to}}
+          {{/if}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+{{else}}
+  {{partial "partials/team-locked"}}
+{{/if}}

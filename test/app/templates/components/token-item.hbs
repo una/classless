@@ -1,0 +1,9 @@
+{{#if showIcon}}
+  <span class="token-item-icon {{iconClass}}"></span>
+{{/if}}
+<span class="token-item-text" tabindex="0">{{text}}</span>
+{{#if hasX}}
+  <span class="token-input-remove js-remove-token" tabindex="0" {{action "removeToken"}}>
+    <span class="Icon--close"></span>
+  </span>
+{{/if}}

@@ -1,0 +1,410 @@
+---
+title: Forms
+---
+
+<div class="row u-mb-5">
+   <div class="small-12 columns">
+    <h1>Forms</h1>
+   </div>
+</div>
+
+
+<div class="row u-mb-4">
+   <div class="small-12 columns">
+    <h2>Form Components</h2>
+    <p>We use a float label pattern for all text input fields, including text areas. If you must, you can get around this by using a class of <code>Input--noLabel</code>, though it's not recommended.</p>
+    <h3>Text Inputs</h3>
+    <p>By default, input fields occupy the full width of their parent container. For better usability, you can see the labels at all times via float labels.</p>
+   </div>
+</div>
+
+<div class="row u-mb-7">
+  <div class="columns small-12">
+    <div class="example">
+      <input type="text" placeholder="Here is an input" class="u-mb-0" value="Test">
+    </div>
+    <pre>
+      <code><%= display_code('
+<input type="text" placeholder="Here is an input">') %></code>
+    </pre>
+  </div>
+</div>
+
+<div class="row u-mb-4">
+   <div class="small-12 columns">
+    <h3>Textarea</h3>
+    <p>Textareas also occupy the full width of their parent container, as well as use the float label feature.</p>
+   </div>
+</div>
+
+<div class="row u-mb-7">
+  <div class="columns small-12">
+    <div class="example">
+      <textarea placeholder="Here is a textarea" class="u-mb-0"></textarea>
+    </div>
+    <pre>
+      <code><%= display_code('
+<textarea placeholder="Here is a textarea"></textarea>') %></code>
+    </pre>
+  </div>
+</div>
+
+<section>
+  <div class="row u-mb-5">
+     <div class="small-12 columns">
+      <h3>Radios and Checkboxes</h3>
+      <p>We've made checkboxes and radios work by hiding the input, and using a <code>span</code> tag to create an icon. We then position the label on top of the icon so we can simulate selecting and deselecting our checkboxes and radios.</p>
+     </div>
+  </div>
+
+  <div class="row u-mb-4">
+     <div class="small-12 columns">
+      <h3>Checkboxes</h3>
+      <p>Checkboxes are skinned, so a specific pattern must be followed. After the input, we must include an empty set of <code>span</code> tags and a label. All syntax is wrapped in a <code>.checkbox</code> to group them together.</p>
+     </div>
+  </div>
+
+  <div class="row u-mb-7">
+    <div class="small-12 columns">
+      <div class="example">
+        <div class="row u-mb-0">
+          <div class="small-12 columns">
+            <div class="checkbox">
+              <input type='checkbox' name='chackbox' value='' id="checkbox" checked/>
+              <span></span>
+              <label for="checkbox">Option A</label>
+            </div>
+            <div class="checkbox">
+              <input type='checkbox' name='chackbox' value='' id="checkboxB"/>
+              <span></span>
+              <label for="checkboxB">Option B</label>
+            </div>
+            <div class="checkbox">
+              <input type='checkbox' name='checkbox' value='' id="checkboxC" disabled checked/>
+              <span></span>
+              <label for="checkboxC">Disabled</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <pre>
+        <code><%= display_code('
+<div class="checkbox">
+  <input type="checkbox" name="checkbox" value="" id="checkbox" checked/>
+  <span></span>
+  <label for="checkbox">Option A</label>
+</div>
+<div class="checkbox">
+  <input type="checkbox" name="checkboxB" value="" id="checkboxB"/>
+  <span></span>
+  <label for="checkboxB">Option B</label>
+</div>
+<div class="checkbox">
+  <input type="checkbox" name="checkboxC" value="" id="checkboxC" disabled checked/>
+  <span></span>
+  <label for="checkboxC">Disabled</label>
+</div>') %></code>
+      </pre>
+    </div>
+  </div>
+
+
+  <div class="row u-mb-4">
+     <div class="small-12 columns">
+      <h3>Radios</h3>
+      <p>Radios work the same way as checkboxes but we wrap them in <code>.radio</code>.</p>
+     </div>
+  </div>
+
+
+  <div class="row u-mb-7">
+    <div class="small-12 columns">
+      <div class="example">
+        <div class="row u-mb-0">
+          <div class="small-12 columns">
+            <div class="radio">
+              <input type='radio' name='radio1' value='' id="radioA" checked>
+              <span></span>
+              <label for="radioA">Option A</label>
+            </div>
+            <div class="radio">
+              <input type='radio' name='radio1' value='' id="radioB"/>
+              <span></span>
+              <label for="radioB">Option B</label>
+            </div>
+            <div class="radio">
+              <input type='radio' name='radio1' value='' id="radioC" disabled>
+              <span></span>
+              <label for="radioC">Disabled</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <pre>
+        <code><%= display_code('
+<div class="radio">
+  <input type="radio" name="radio" value="" id="radio" checked>
+  <span></span>
+  <label for="radioA">Option A</label>
+</div>
+<div class="radio">
+  <input type="radio" name="radio" value="" id="radioB"/>
+  <span></span>
+  <label for="radioB">Option B</label>
+</div>
+<div class="radio">
+  <input type="radio" name="radio" value="" id="radioC" disabled>
+  <span></span>
+  <label for="radioC">Disabled</label>
+</div>') %></code>
+      </pre>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="row">
+     <div class="small-12 columns u-mb-5">
+      <h3>Select Menus</h3>
+      <p>Native select menus must be enclosed in a <code>.Select</code> in order for the arrow to appear. Chosen select menus must include a class of <code>.chosen</code> and <code>.select</code>. There is a threshold set on the search input within the chosen select menu. If the menu includes less than 5 options, the search input will not be displayed.</p>
+     </div>
+  </div>
+
+  <div class="row u-mb-7">
+    <div class="small-6 columns">
+      <h4>Native Select</h4>
+      <div class="example">
+        <div class="Select">
+          <select class="u-mb-0">
+            <option value="Apples">Apples</option>
+            <option value="Mangos">Mangos</option>
+            <option value="Pears">Pears</option>
+            <option value="Plums">Plums</option>
+            <option value="Nectarine">Nectarine</option>
+          </select>
+        </div>
+      </div>
+      <pre class="u-mb-4">
+        <code><%= display_code('
+<select class="select">
+  <option value="Apples">Apples</option>
+  <!--More options-->
+</select>') %></code>
+      </pre>
+      <h4>Disabled Native Select</h4>
+      <div class="example">
+        <div class="Select">
+          <select class="u-mb-0" disabled>
+            <option value="Apples">Apples</option>
+            <option value="Mangos">Mangos</option>
+            <option value="Pears">Pears</option>
+            <option value="Plums">Plums</option>
+            <option value="Nectarine">Nectarine</option>
+          </select>
+        </div>
+      </div>
+      <pre>
+        <code><%= display_code('
+<select class="select" disabled>
+  <option value="Apples">Apples</option>
+  <!--More options-->
+</select>') %></code>
+      </pre>
+    </div>
+
+    <div class="small-6 columns">
+      <h4>Chosen Select</h4>
+      <div class="example">
+        <select data-placeholder="Choose an Option" class="select chosen is-requiredSelect">
+          <option value=""></option>
+          <option value="Apples">Apples</option>
+          <option value="Mangos">Mangos</option>
+          <option value="Pears">Pears</option>
+          <option value="Plums">Plums</option>
+          <option value="Nectarine">Nectarine</option>
+        </select>
+      </div>
+      <pre>
+        <code><%= display_code('
+<select data-placeholder="Choose an Option" class="select chosen">
+  <option value=""></option>
+  <option value="Apples">Apples</option>
+  <option value="Mangos">Mangos</option>
+  <option value="Pears">Pears</option>
+  <option value="Plums">Plums</option>
+  <option value="Nectarine">Nectarine</option>
+</select> ') %></code>
+      </pre>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="row">
+     <div class="small-12 columns u-mb-5">
+      <h3>Multiple Select Menus</h3>
+      <p>To use a multiple select add the <code>multiple</code> attribute to a chosen select object.</p>
+     </div>
+  </div>
+
+  <div class="row u-mb-7">
+    <div class="small-12 columns">
+      <h4>Multiple Select</h4>
+      <div class="example">
+        <div class="Select">
+        <select data-placeholder="Choose an Option" class="select chosen is-requiredSelect" multiple>
+            <option value="Apples">Apples</option>
+            <option value="Mangos">Mangos</option>
+            <option value="Pears">Pears</option>
+            <option value="Plums">Plums</option>
+            <option value="Nectarine">Nectarine</option>
+          </select>
+        </div>
+      </div>
+      <pre>
+        <code><%= display_code('
+<select class="select" multiple>
+  <option value="Apples">Apples</option>
+  <!--More options-->
+</select>') %></code>
+      </pre>
+    </div>
+
+  </div>
+</section>
+
+<section class="">
+  <div class="row u-mb-5">
+     <div class="small-12 columns">
+      <h3>Submit Buttons</h3>
+      <p>For form submit buttons, we use standard button syntax which can be viewed in greater detail on the <a href="/buttons/">buttons page</a>. Standard submit buttons should use <code>.Button--blue</code>.</p>
+     </div>
+  </div>
+
+  <div class="row u-mb-7">
+     <div class="small-12 columns">
+      <div class="example">
+        <input type="submit" value="Submit" class="Button Button--blue">
+      </div>
+      <pre>
+        <code><%= display_code('
+  <input type="submit" value="Submit" class="Button Button--blue">') %></code>
+      </pre>
+     </div>
+  </div>
+</section>
+
+<div class="row u-mb-5">
+   <div class="small-12 columns">
+    <h2>Building Forms</h2>
+    <p>Often you'll want to combine these components to create larger forms.</p>
+    <p>For this we have the <code>fieldset</code> and <code>legend</code> tags. Fieldset defines a set of components that are in a certain group. Legend is the label for that group. Following is an example of creating a form using these fields.</p>
+
+    <h3>Form Validation</h3>
+    <p>We take advantage of a forms <code>required</code> attribute which will check for a <code>pattern</code> attribute and base validation of the pattern's regex rules. If no pattern is found, it assumes that the field cannot be left blank.</p>
+    <p>Select boxes are validated by wraping the select in <code>.is-requiredSelect</code>. There must be a blank option and a <code>data-placeholder="Choose an Option"</code> on the select element.</p>
+   </div>
+</div>
+
+<div class="row u-mb-5">
+  <div class="small-12 columns">
+    <div class="example">
+      <form data-validate="true">
+        <fieldset>
+          <div class="row">
+            <div class="small-6 columns">
+              <input type="text" placeholder="First name" title="must be 5 or more characters" pattern=".{4,}" required>
+            </div>
+            <div class="small-6 columns">
+              <input type="text" placeholder="Last name" required>
+            </div>
+          </div>
+          <div class="row u-mb-2">
+            <div class="small-12 columns">
+              <textarea type="textarea" placeholder="Notes" required></textarea>
+            </div>
+          </div>
+          <div class="row u-mb-4">
+            <div class="small-6 columns">
+              <div class="formGroup required">
+                <div class="checkbox">
+                  <input type='checkbox' name='chackbox' value='' id="checkboxy"/>
+                  <span></span>
+                  <label for="checkboxy">Option A</label>
+                </div>
+                <div class="checkbox">
+                  <input type='checkbox' name='chackbox' value='' id="checkboxyB"/>
+                  <span></span>
+                  <label for="checkboxyB">Option B</label>
+                </div>
+              </div>
+            </div>
+            <div class="small-6 columns">
+              <div class="is-requiredSelect">
+                <select data-placeholder="Choose a fruit" class="select chosen">
+                  <option class="placeholder" value=""></option>
+                  <option value="Apples">Apples</option>
+                  <option value="Mangos">Mangos</option>
+                  <option value="Pears">Pears</option>
+                  <option value="Plums">Plums</option>
+                  <option value="Nectarine">Nectarine</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <input type="submit" value="Submit Verification Request" class="Button Button--blue Button--fullWidth" disabled>
+      </form>
+    </div>
+    <pre>
+      <code><%= display_code('
+<form data-validate="true">
+  <fieldset>
+    <div class="row">
+      <div class="small-6 columns">
+        <input type="text" placeholder="First name" title="must be 5 or more characters" pattern=".{4,}" required>
+      </div>
+      <div class="small-6 columns">
+        <input type="text" placeholder="Last name" required>
+      </div>
+    </div>
+    <div class="row u-mb-2">
+      <div class="small-12 columns">
+        <textarea type="textarea" placeholder="Notes" required></textarea>
+      </div>
+    </div>
+    <div class="row u-mb-4">
+      <div class="small-6 columns">
+        <div class="formGroup required">
+          <div class="checkbox">
+            <input type="checkbox" name="chackbox" value='' id="checkboxy"/>
+            <span></span>
+            <label for="checkboxy">Option A</label>
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" name="chackbox" value='' id="checkboxyB"/>
+            <span></span>
+            <label for="checkboxyB">Option B</label>
+          </div>
+        </div>
+      </div>
+      <div class="small-6 columns">
+        <div class="is-requiredSelect">
+          <select data-placeholder="Choose a fruit" class="select chosen">
+            <option class="placeholder" value=""></option>
+            <option value="Apples">Apples</option>
+            <option value="Mangos">Mangos</option>
+            <option value="Pears">Pears</option>
+            <option value="Plums">Plums</option>
+            <option value="Nectarine">Nectarine</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  <input type="submit" value="Submit Verification Request" class="Button Button--blue Button--fullWidth" disabled>
+</form>') %></code>
+    </pre>
+  </div>
+</div>
+

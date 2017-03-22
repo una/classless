@@ -1,0 +1,28 @@
+<div class="dropletCreate">
+  <div class="row">
+    <div class="columns small-12">
+      <h1>Create Droplets</h1>
+    </div>
+  </div>
+  {{#if dropletLimitReached}}
+    {{partial 'droplet/partials/create/droplet-limit-reached'}}
+  {{else}}
+    {{partial 'droplet/partials/create/choose-image'}}
+    {{droplet/create-choose-size
+      sizesProps=sizesProps
+      onSelectSize='onSelectSize'
+      changeSizesTab='changeSizesTab'
+      onSetSelectedSize='onSetSelectedSize'
+    }}
+    {{partial 'droplet/partials/create/add-volume'}}
+    {{droplet/create-choose-region
+      regionsProps=regionsProps
+      onSelectRegion='onSelectRegion'
+      setFilteredRegions='setFilteredRegions'
+      onSetSelectedRegion='onSetSelectedRegion'
+    }}
+    {{partial 'droplet/partials/create/choose-options'}}
+    {{partial 'droplet/partials/create/add-ssh-keys'}}
+    {{partial 'droplet/partials/create/finalize'}}
+  {{/if}}
+</div>

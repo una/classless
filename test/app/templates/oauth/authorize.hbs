@@ -1,0 +1,55 @@
+<div class="oauth-authorize row">
+  <div class="small-8 columns small-centered u-textAlignCenter">
+    {{#if model.error}}
+      <h2>An error has occurred</h2>
+      <p>
+        <pre>{{model.error}}</pre>
+      </p>
+    {{else}}
+      <h1>Authorize {{model.application.name}}</h1>
+
+      <section class="Box u-mb-6">
+        <img class="EmptyState-image" src="/assets/images/auth.svg" alt="Authorize {{model.application.name}}">
+        <h2>{{join ' & ' model.scopes}} Access</h2>
+        <p>{{model.application.name}} would like permission to access your account.</p>
+
+        <form action="/oauth/authorize" method="post">
+          <input type="hidden" name="authenticity_token" value="{{csrfToken}}" />
+          <input type="hidden" name="client_id" value="{{model.application.uid}}" />
+          <input type="hidden" name="redirect_uri" value="{{model.preAuth.redirect_uri}}" />
+          <input type="hidden" name="state" value="{{model.preAuth.state}}" />
+          <input type="hidden" name="response_type" value="{{model.preAuth.response_type}}" />
+          <input type="hidden" name="scope" value="{{scopes}}" />
+          <input type="hidden" name="context_id" value="{{contextId}}" />
+
+          <div class="contexts-list u-mb-4">
+            {{context-row account=model.user authorizations=authorizations action='clickContext'}}
+            {{#each model.user.organizations as |account|}}
+              {{context-row account=account authorizations=authorizations action='clickContext'}}
+            {{/each}}
+          </div>
+
+          <div class="row">
+            <div class="small-6 columns">
+              <input type="submit" name="cancel" class="Button Button--gray Button--fullWidth" value="Cancel" />
+            </div>
+            <div class="small-6 columns">
+              <input type="submit" class="Button Button--blue Button--fullWidth" value="Authorize application" disabled={{submitDisabled}} />
+            </div>
+          </div>
+        </form>
+      </section>
+
+      {{#if model.application.description}}
+        <p class='u-mb-0'>
+          About {{model.application.name}}: {{model.application.description}}
+        </p>
+      {{/if}}
+      {{#if model.application.url}}
+        <p class='u-mt-0'>
+          <a href="{{model.application.url}}" target="_blank" rel="noopener noreferrer">View website</a>
+        </p>
+      {{/if}}
+    {{/if}}
+  </div>
+</div>

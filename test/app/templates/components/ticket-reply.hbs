@@ -1,0 +1,31 @@
+<div class="Ticket-inner">
+  <div class="Ticket-supportHeader u-clearfix u-mb-3">
+
+    {{#if reply.admin.gravatarUrl}}
+      <img class="avatar u-floatLeft" src="{{reply.admin.gravatarUrl}}" alt="">
+    {{else}}{{#if reply.user.gravatarUrl}}
+      <img class="avatar u-floatLeft" src="{{reply.user.gravatarUrl}}" alt="">
+    {{/if}}{{/if}}
+
+    {{#if reply.isFromAdmin}}
+      <span class="Ticket-reply u-floatLeft">Reply from {{reply.admin.fullName}} (Support Team)</span>
+    {{else}}
+      <span class="Ticket-reply u-floatLeft">Reply from {{reply.user.fullName}}</span>
+    {{/if}}
+
+    <span class="Ticket-timestamp u-floatRight">{{date-to-human-time date=reply.createdAt}}</span>
+  </div>
+  <div class="Ticket-supportBody">
+    {{ break-lines (custom-linkify reply.content) }}
+  </div>
+</div>
+
+{{#if reply.isFromAdmin}}
+  {{#if reply.feedback}}
+    <div class="Reply__Feedback--given">
+      Thanks for your feedback!
+    </div>
+  {{else}}
+    {{reply-feedback submit="sendFeedback" reply=reply}}
+  {{/if}}
+{{/if}}

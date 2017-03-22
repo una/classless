@@ -1,0 +1,7 @@
+{{#unless noTooltip}}
+  {{#tool-tip title=tooltipDate data-placement=tooltipPlacement}}
+    <time datetime="{{date}}">{{humanTime}}</time>
+  {{/tool-tip}}
+{{else}}
+  <time datetime="{{date}}">{{humanTime}}</time>
+{{/unless}}

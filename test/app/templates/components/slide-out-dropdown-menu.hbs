@@ -1,0 +1,23 @@
+{{#if tooltip}}
+  {{#tool-tip title=tooltip multiline=true show=true}}
+    {{partial "components/partials/dropdown-menu-title"}}
+  {{/tool-tip}}
+{{else}}
+  {{partial "components/partials/dropdown-menu-title"}}
+{{/if}}
+<div class="menu-dropdown">
+	{{!-- MENU TAB --}}
+	<div class="menu-dropdownView sliding">
+		<div role="button" class="menu-dropdownBacktoMenu Icon--arrowLongLeft {{if isShowingMenuItems "hideMenuButton"}}" {{action 'backToMenu'}}></div>
+	  {{partial "components/partials/dropdown-menu-items"}}
+    {{!-- Optional Slide Tabs --}}
+  	{{yield}}
+    {{#if deleteAction}}
+      <div class="dropdown-view dropdown-view--delete">
+        <p class="dropdown__headline">{{or deleteTitle "Confirm delete Item"}}</p>
+        <p class="small-dark u-textAlignLeft">{{or deleteCopy "This action is irreversible. To confirm deletion, click the button below."}}</p>
+        <button class="Button Button--fullWidth Button--red" {{action "deleteRecord"}} tabindex="-1">{{or deleteButton "Delete Item"}}</button>
+      </div>
+    {{/if}}
+  </div>
+</div>

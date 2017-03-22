@@ -1,0 +1,31 @@
+<ul class="{{klasses}} size-chooser-list small-block-grid-{{columns}}">
+  {{#each sizes as |size|}}
+    <li class="size-{{size.disk}}-{{size.id}}">
+      {{#if size.available}}
+        {{#if size.custom}}
+          {{size-chooser
+            tagName="div"
+            action="select" 
+            disabled=disabled 
+            selected=size.isCurrent 
+            size=size 
+            onCustomVolumeChange="onCustomVolumeChange"
+            onCustomInputValidation=onCustomInputValidation
+            }}
+        {{else}}
+          {{size-chooser
+            tagName="button"
+            action="select" 
+            disabled=disabled 
+            selected=size.isCurrent 
+            size=size 
+            }}
+        {{/if}}
+      {{else}}
+        {{#tool-tip multiline=true title=size.error}}
+          {{size-chooser tagName="button" disabled=true selected=size.isCurrent size=size}}
+        {{/tool-tip}}
+      {{/if}}
+    </li>
+  {{/each}}
+</ul>

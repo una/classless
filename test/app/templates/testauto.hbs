@@ -1,0 +1,28 @@
+<div class="u-ml-5 u-mr-5 u-mt-5">
+  {{auto-complete items=autoCompleteItems isSearching=autoCompleteIsSearching isShowingMore=autoCompleteIsShowingMore placeholder="Search for a Droplet"}}
+</div>
+<div class="u-ml-5 u-mr-5 u-mt-5">
+  {{auto-complete items=autoComplete2Items name="autoComplete2" isSearching=autoComplete2IsSearching isShowingMore=autoComplete2IsShowingMore placeholder="Search for a Droplet"}}
+</div>
+<div class="u-ml-5 u-mr-5 u-mt-5">
+  {{auto-complete items=autoComplete3Items name="autoComplete3" isSearching=autoComplete3IsSearching isShowingMore=autoComplete3IsShowingMore  placeholder="Search for a Droplet"}}
+</div>
+
+
+<h1 class="u-ml-5 u-mt-5">Tokens</h1>
+<table class="u-ml-5 u-mr-5 u-mt-5 u-mb-5">
+  <tbody>
+    {{#each model as |token|}}
+      <tr>
+        <td class="inner-token">
+          <p class="u-floatLeft u-mr-2 u-mb-0">{{token.name}}</p>
+          {{#each token.scopes as |scope|}}
+            {{#tool-tip title="Token Scope"}}
+              <p class="Badge Badge--uppercase Badge--grey u-floatLeft u-mr-2 u-mb-0">{{scope}}</p>
+            {{/tool-tip}}
+          {{/each}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

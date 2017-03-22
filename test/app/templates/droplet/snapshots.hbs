@@ -1,0 +1,51 @@
+{{#unless isReadOnly}}
+  <div class="Box u-mb-5">
+    <h2>Take snapshot</h2>
+    {{#if (not droplet.isPoweredOff)}}
+      <p><a role="button" class="{{if dropletCtrl.isBusy "is-disabled u-lightgrey"}}" {{action "shutDownDroplet"}}>Power down</a> your Droplet before taking a snapshot to ensure data consistency. Snapshots cost is based on space used and charged at a rate of ${{PRICE_PER_GB}}/GB/mo</p>
+    {{else}}
+      <p>This may take more than an hour, depending on how much content is on your Droplet and how large the disk is. Snapshots cost is based on space used and charged at a rate of ${{PRICE_PER_GB}}/GB/mo</p>
+    {{/if}}
+
+    <div class="row">
+      {{#form-with-validation
+        onSubmit="onSubmitCreateImage"
+        resetOnSubmit=true
+        submitButtonText=powerButtonCopy
+        isInlineForm=true
+        disableFocusFirstEl=true
+        submitButtonWrapperClasses="small-4 columns"
+        disabled=submitIsDisabled
+      }}
+        <div class="small-8 columns">
+          {{float-label-input
+            placeholder="Enter snapshot name"
+            required=true
+            title=""
+            value=newSnapshotName
+          }}
+        </div>
+      {{/form-with-validation}}
+    </div>
+  </div>
+{{/unless}}
+
+<div class="Box imagesListing">
+  <h2>Droplet snapshots</h2>
+  {{#if filteredSnapshots.length}}
+      <div class="row">
+        <div class="small-12 columns">
+          {{partial "images/partials/snapshot-table"}}
+        </div>
+      </div>
+    {{#unless isReadOnly}}
+      {{partial "images/partials/restore-image-modal"}}
+    {{/unless}}
+  {{else}}
+    <div class="row">
+      <div class="small-12 columns">
+        <p>You currently don't have any snapshots of this Droplet.</p>
+      </div>
+    </div>
+  {{/if}}
+</div>

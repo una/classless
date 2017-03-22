@@ -1,0 +1,296 @@
+{{#unless loading}}
+  <div class="lb-graphs">
+    <section class="u-dividerBottomSmall u-mb-5">
+      <div class="row">
+        <div class="small-3 columns">
+          <h2>Frontend</h2>
+        </div>
+        <div class="small-3 small-offset3 columns last">
+          <div class="Select">
+            <select class="select" onchange={{action 'onChangeGraphPeriod' value="target.value"}}>
+              <option value="hour" selected={{eq period 'hour'}}>6 hours</option>
+              <option value="day" selected={{eq period 'day'}}>24 hours</option>
+              <option value="week" selected={{eq period 'week'}}>7 days</option>
+              <option value="month" selected={{eq period 'month'}}>30 days</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          <ul class="small-block-grid-2">
+            <li class="lb-graph-outer">
+              <div class="lb-graph">
+                  <h4>
+                    Requests per second
+                    {{#tool-tip
+                      title="This lets you understand the load over time on the Load Balancer."
+                      multiline=true
+                    }}
+                      <span class="Hint" data-placement="top" data-toggle="tooltip"></span>
+                    {{/tool-tip}}
+                  </h4>
+
+                {{line-chart
+                  palette=graphColors
+                  name='frontendReqPerSec'
+                  data=frontendReqPerSec
+                  outerWidth=470
+                  isFocused=commonIsFocused
+                  focusedDate=commonFocusedDate
+                  onFocusChanged=(action "updateTooltipValues")
+                  range=numericPeriod
+                  useClipPath=true
+                }}
+              </div>
+            </li>
+            <li class="lb-graph-outer">
+              <div class="lb-graph">
+                <h4>
+                  Requests duration
+                  {{#tool-tip
+                    title="This is measured at the Load Balancer and is useful for detecting slow responses."
+                    multiline=true
+                  }}
+                    <span class="Hint" data-placement="top" data-toggle="tooltip"></span>
+                  {{/tool-tip}}
+                </h4>
+                {{line-chart
+                  palette=graphColors
+                  name='frontendReqDuration'
+                  data=frontendReqDuration
+                  outerWidth=470
+                  isFocused=commonIsFocused
+                  focusedDate=commonFocusedDate
+                  onFocusChanged=(action "updateTooltipValues")
+                  range=numericPeriod
+                  useClipPath=true
+                }}
+              </div>
+            </li>
+            <li class="lb-graph-outer">
+              <div class="lb-graph">
+                <h4>
+                  Connections
+                  {{#tool-tip
+                    title="This shows how many concurrent connections the Load Balancer is handling."
+                    multiline=true
+                  }}
+                    <span class="Hint" data-placement="top" data-toggle="tooltip"></span>
+                  {{/tool-tip}}
+                </h4>
+                {{line-chart
+                  palette=graphColors
+                  name='frontendConnections'
+                  data=frontendConnections
+                  outerWidth=470
+                  isFocused=commonIsFocused
+                  focusedDate=commonFocusedDate
+                  onFocusChanged=(action "updateTooltipValues")
+                  range=numericPeriod
+                  useClipPath=true
+                }}
+              </div>
+            </li>
+            <li class="lb-graph-outer">
+              <div class="lb-graph">
+                <h4>
+                  HTTP responses
+                  {{#tool-tip
+                    title="This detects erratic behavior as perceived by users."
+                    multiline=true
+                  }}
+                    <span class="Hint" data-placement="top" data-toggle="tooltip"></span>
+                  {{/tool-tip}}
+                </h4>
+                {{line-chart
+                  palette=graphColors
+                  name='frontendHttpResponses'
+                  data=frontendHttpResponses
+                  outerWidth=470
+                  isFocused=commonIsFocused
+                  focusedDate=commonFocusedDate
+                  onFocusChanged=(action "updateTooltipValues")
+                  range=numericPeriod
+                  useClipPath=true
+                }}
+              </div>
+            </li>
+            <li class="lb-graph-outer">
+              <div class="lb-graph">
+                <h4>
+                  Traffic Received/Sent
+                  {{#tool-tip
+                    title="This shows how much traffic the Load Balancer is pushing."
+                    multiline=true
+                  }}
+                    <span class="Hint" data-placement="top" data-toggle="tooltip"></span>
+                  {{/tool-tip}}
+                </h4>
+                {{line-chart
+                  palette=graphColors
+                  name='frontendTrafficRecAndSent'
+                  data=frontendTrafficRecAndSent
+                  outerWidth=470
+                  isFocused=commonIsFocused
+                  focusedDate=commonFocusedDate
+                  onFocusChanged=(action "updateTooltipValues")
+                  range=numericPeriod
+                  useClipPath=true
+                }}
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="u-mb-3">
+      <div class="row u-mb-2">
+        <div class="small-3 columns">
+          <h2>Droplets</h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          <ul class="small-block-grid-2">
+            <li class="lb-graph-outer">
+              <div class="lb-graph">
+                <h4>
+                  Downtime
+                  {{#tool-tip
+                    title="The accumulated downtime per backend Droplet; useful for identify misbehaving Droplets."
+                    multiline=true
+                  }}
+                    <span class="Hint" data-placement="top" data-toggle="tooltip"></span>
+                  {{/tool-tip}}
+                </h4>
+                {{line-chart
+                  palette=graphColors
+                  name='backendDowntime'
+                  data=backendDowntime
+                  outerWidth=470
+                  isFocused=commonIsFocused
+                  focusedDate=commonFocusedDate
+                  onFocusChanged=(action "updateTooltipValues")
+                  range=numericPeriod
+                  useClipPath=true
+                }}
+              </div>
+            </li>
+            <li class="lb-graph-outer">
+              <div class="lb-graph">
+                <h4>
+                  HTTP responses
+                  {{#tool-tip
+                    title="The accumulated downtime per backend Droplet; useful for identify misbehaving Droplets."
+                    multiline=true
+                  }}
+                    <span class="Hint" data-placement="top" data-toggle="tooltip"></span>
+                  {{/tool-tip}}
+                </h4>
+                {{line-chart
+                  palette=graphColors
+                  name='backendHttpResponses'
+                  data=backendHttpResponses
+                  outerWidth=470
+                  isFocused=commonIsFocused
+                  focusedDate=commonFocusedDate
+                  onFocusChanged=(action "updateTooltipValues")
+                  range=numericPeriod
+                  useClipPath=true
+                }}
+              </div>
+            </li>
+            <li class="lb-graph-outer">
+              <div class="lb-graph">
+                <h4>
+                  Queue size
+                  {{#tool-tip
+                    title="This helps you identify bottlenecks on the backend, especially regarding slow responses from specific Droplets."
+                    multiline=true
+                  }}
+                    <span class="Hint" data-placement="top" data-toggle="tooltip"></span>
+                  {{/tool-tip}}
+                </h4>
+                {{line-chart
+                  palette=graphColors
+                  name='backendQueueSize'
+                  data=backendQueueSize
+                  outerWidth=470
+                  isFocused=commonIsFocused
+                  focusedDate=commonFocusedDate
+                  onFocusChanged=(action "updateTooltipValues")
+                  range=numericPeriod
+                  useClipPath=true
+                }}
+              </div>
+            </li>
+            <li class="lb-graph-outer">
+              <div class="lb-graph">
+                <h4>
+                  Health checks
+                  {{#tool-tip
+                    title="This should be 100% most of the time. Lower numbers indicate the backend is failing to respond to health checks."
+                    multiline=true
+                  }}
+                    <span class="Hint" data-placement="top" data-toggle="tooltip"></span>
+                  {{/tool-tip}}
+                </h4>
+                {{line-chart
+                  palette=graphColors
+                  name='backendHealthChecks'
+                  data=backendHealthChecks
+                  outerWidth=470
+                  isFocused=commonIsFocused
+                  focusedDate=commonFocusedDate
+                  onFocusChanged=(action "updateTooltipValues")
+                  range=numericPeriod
+                  useClipPath=true
+                }}
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    {{#if targetDropletsWithStats.length}}
+      {{load-balancers/target-droplets-table
+        targetDropletsWithStats=targetDropletsWithStats
+        showActionDropdown=false
+      }}
+    {{/if}}
+  </div>
+
+  <div class="c3-tooltip-container common-tooltip {{unless commonIsFocused "hidden"}}">
+    <table class="c3-tooltip">
+      <tbody>
+        <tr>
+          <th colspan="2">{{formattedFocusedDate}}</th>
+        </tr>
+        {{#each graphsList as |entry|}}
+          <tr>
+            <th colspan=2>
+              <h4>{{entry.caption}}</h4>
+            </th>
+          </tr>
+          {{#each entry.focusedVals as |val|}}
+            <tr>
+              <td class="name"><span style={{val.colorStyle}}></span>{{val.name}}</td>
+              <td class="value">{{val.value}} {{val.unit}}</td>
+            </tr>
+          {{else}}
+            <tr>
+              <td class="empty" colspan="2">No data</td>
+            </tr>
+          {{/each}}
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+{{else}}
+  {{loading-animation}}
+{{/unless}}

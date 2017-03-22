@@ -1,0 +1,60 @@
+{{#modal-window
+  title="Upload Files"
+  contentClasses="file-upload"
+  size="large"
+  saveText="Upload"
+  saveClasses=(unless files.length "Button--blue is-disabled" "Button--blue")
+  onHide="hideModal"
+}}
+  <p>Drag and drop files to the area below or click the button to select files from your computer.</p>
+  <div class="upload-area">
+    <input class="fileUpload" id="{{myId}}" type="file" multiple />
+    <label for="{{myId}}">Select a file from your computer</label>
+  </div>
+  {{#if filteredFiles}}
+    <p>
+      Select whether to set {{files.length}} file{{#if (gt files.length 1)}}s{{/if}} to private or publically readable:<br>
+      {{radio-button checked=aclRadioValue value='private' id='private' radioChange='aclChange'}}
+      <span></span>
+      <label for="private">Private</label>
+      {{radio-button checked=aclRadioValue value='public-read' id='public' radioChange='aclChange'}}
+      <span></span>
+      <label for="public">Public</label>
+    </p>
+    <table class="header-clone">
+      <thead>
+        <tr>
+          <th class="name">Name</th>
+          <th class="size">Size</th>
+          <th class="type">Type</th>
+          <th class="action"></th>
+        </tr>
+      </thead>
+    </table>
+    <div class="file-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Type</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each filteredFiles as |file|}}
+            <tr>
+              <td class="name">
+                <span class="resource-icon {{if file.isDir "folder" "file"}}"></span>
+                {{file.displayName}}
+              </td>
+              <td class="size">{{bytes-to-human-size precision=0 b=file.displaySize}}</td>
+              <td class="type">{{file.displayType}}</td>
+              <td class="action" role="button" {{action 'removeFile' file}}>Remove</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  {{/if}}
+{{/modal-window}}

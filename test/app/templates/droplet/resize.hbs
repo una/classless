@@ -1,0 +1,63 @@
+<div class="Box aurora-resize {{if flexible "flexible-resize"}}">
+  <h2>Resize Droplet</h2>
+
+  {{#unless sizePlan}}
+    <p class="u-mb-4 u-mt-3">
+      This Droplet can not be resized.
+    </p>
+  {{else}}
+    <p class="u-mb-4 u-mt-3">
+      This Droplet is on a {{sizePlan}} plan.
+      {{#if (not model.droplet.isPoweredOff)}}
+        You must
+        {{#if dropletCtrl.isTogglingPower}}
+          {{#tool-tip title=dropletCtrl.togglingMessage class="u-lightgrey link"}}
+            power off your Droplet
+          {{/tool-tip}}
+        {{else}}
+          <a role="button" class="{{if dropletCtrl.isBusy "is-disabled u-lightgrey"}}" {{action "shutDownDroplet"}}>power off your Droplet</a>
+        {{/if}}
+        to resize it.
+      {{/if}}
+    </p>
+
+    <div class="row">
+      <div class="columns small-6">
+        <div role="button" {{action "selectTab" "flexible"}} class="tab {{unless permanent "selected"}}">
+          CPU and RAM only
+          <span>This will only increase or decrease the CPU and RAM of your Droplet, not disk size. This can be reversed.</span>
+        </div>
+      </div>
+      <div class="columns small-6 u-mb-4">
+        <div role="button" {{action "selectTab" "permanent"}} class="tab {{if permanent "selected"}}">
+          Disk, CPU and RAM
+          <span>This will increase the disk size, CPU and RAM of your Droplet. This is a <strong>permanent</strong> change and cannot be reversed.</span>
+        </div>
+      </div>
+    </div>
+    <div class="note u-mb-4 {{if permanent "visible"}}">
+      Because your Droplet’s filesystem will be expanded, this resize is not reversible.
+    </div>
+
+    {{size-chooser-list disabled=(or dropletCtrl.isBusy isResizing) sizes=filteredModel columns=4 action="toggleSizeSelection"}}
+
+    {{#if selectedSize.longOperation}}
+      <div class="note visible u-mt-2 u-mb-1">
+        This Resize event may take longer than normal
+      </div>
+    {{/if}}
+
+    {{#if (not model.droplet.isPoweredOff)}}
+      {{#tool-tip class="tooltip-wrap btn-tooltip" multiline=true title="You must power off your Droplet before resizing."}}
+        <button class="Button Button--blue Button--fullWidth u-mt-3 is-disabled">Resize</button>
+      {{/tool-tip}}
+    {{else}}
+      <button class="Button Button--blue Button--fullWidth u-mt-3 {{if submitDisabled "is-disabled"}}" {{action "resize"}}>Resize</button>
+    {{/if}}
+
+    {{#if (or model.droplet.resizeEvent isResizing)}}
+      {{loading-spinner spinnerClass="resize-spinner"}}
+    {{/if}}
+  {{/unless}}
+
+</div>

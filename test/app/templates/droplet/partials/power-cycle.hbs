@@ -1,0 +1,18 @@
+<div class="Box">
+  <h2>Power cycle</h2>
+  <p>This action is equivalent to hard resetting the server, which can cause data corruption. You should do this only if you’re unable to reboot your Droplet from the command line.</p>
+  <p>Do you wish to proceed?</p>
+  <div class="row">
+    <div class="columns small-4">
+      <button
+        class="Button Button--fullWidth"
+        disabled="{{if (or isCyclingPower dropletCtrl.isTogglingPower dropletCtrl.isBusy) 'disabled'}}"
+        {{action "powerCycleDroplet"}}
+      >Power Cycle
+        {{#if (or isCyclingPower dropletCtrl.model.powerCycleEvent)}}
+          {{loading-spinner white=true spinnerClass="spinner-power spinner-power-cycle"}}
+        {{/if}}
+      </button>
+    </div>
+  </div>
+</div>

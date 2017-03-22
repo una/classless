@@ -27,3 +27,4 @@ TODO:
 - make stylesheet linkable externally or as node module in the repo
 - make this pass or fail tests
 - CSS as local or URL link
+- Ember plugin

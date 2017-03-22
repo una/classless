@@ -1,0 +1,65 @@
+// Font Stack
+$font_stack: "proxima-nova", "proxima nova", "helvetica neue", "helvetica", "arial", sans-serif;
+
+// Borders
+$border_radius: 3px;
+
+// Brand colors
+$white: #ffffff;
+$type: #676767;
+$blue: #0069ff;
+$blue_hover: #0052ff;
+$brand_blue: #0080ff;
+$green: #15CD72;
+$green_hover: #0CB863;
+$red: #ED4F32;
+$red_hover: #DA4429;
+$yellow: #faee6c;
+$yellow_hover: #efe252;
+$yellow_text: #444509;
+$focus: $blue;
+// $focus: #04a499;
+$focus_glow: rgba(4, 164, 153, 0.4);
+
+$link_border_color: #7DC1FF;
+$light_blue_border: #c0e0f6;
+
+$validation_border: #FF918D;
+
+//GREYS - sorted by dark to light
+$grey_9: #444;
+$grey_8: #676767;
+$grey_7: #999999;
+$grey_6: #bbbbbb;
+$grey_5: #cbcbcb;
+$grey_4: #dfdfdf;
+$grey_3: #ececec;
+$grey_2: #f1f1f1;
+$grey_1: #fafafa;
+
+$transparent_black: rgba(1, 1, 1, 0.85);
+
+//white space variables
+$ws_0: 0;
+$ws_1: 0.25rem;
+$ws_2: 0.5rem;
+$ws_3: 1rem;
+$ws_4: 1.5rem;
+$ws_5: 2rem;
+$ws_6: 2.5rem;
+$ws_7: 3rem;
+$ws_8: 4rem;
+$ws_9: 5rem;
+
+$ws_vars: (
+  0: 0rem,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 1rem,
+  4: 1.5rem,
+  5: 2rem,
+  6: 2.5rem,
+  7: 3rem,
+  8: 4rem,
+  9: 5rem,
+);

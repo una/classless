@@ -1,0 +1,10 @@
+{{yield}}
+{{#unless noCopy}}
+  <span class="Label {{unless showLabel "hidden"}}" data-label="{{copySuccessText}}">{{copyText}}</span>
+{{/unless}}
+{{#if showCopyButton}}
+  {{#unless text}}
+    {{loading-spinner spinnerClass="copy-loader"}}
+  {{/unless}}
+  <button class="Button Button--blue {{unless text "is-disabled"}}">{{or copyButtonText "Copy"}}</button>
+{{/if}}

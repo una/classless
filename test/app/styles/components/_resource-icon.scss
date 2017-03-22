@@ -1,0 +1,133 @@
+.resource-icon {
+  &.droplet {
+    @include icon-sprite($icon-droplet);
+
+    &.large {
+      @include icon-sprite($icon-droplet-lrg);
+    }
+  }
+
+  &.floating-ip {
+    @include icon-sprite($icon-floating-ip);
+  }
+
+  &.snapshot {
+    @include icon-sprite($icon-droplet-snapshot);
+  }
+
+  &.volume-snapshot {
+    @include icon-sprite($icon-volume-snapshot);
+  }
+
+  &.storage {
+    @include icon-sprite($icon-storage);
+  }
+
+  &.load-balancer {
+    @include icon-sprite($icon-load-balancer);
+
+    &.large {
+      @include icon-sprite($icon-load-balancer-lrg);
+    }
+  }
+
+  &.bucket {
+    @include icon-sprite($icon-bucket);
+
+    &.large {
+      @include icon-sprite($icon-bucket-lrg);
+    }
+  }
+
+  &.file {
+    @include icon-sprite($icon-file);
+
+    &.large {
+      @include icon-sprite($icon-file-lrg);
+    }
+  }
+
+  &.news-notification {
+    @include icon-sprite($icon-news-notification);
+  }
+
+  &.folder {
+    @include icon-sprite($icon-folder);
+  }
+
+  &.default-notification {
+    @include icon-sprite($icon-default-notification);
+  }
+
+  &.download {
+    @include icon-sprite($icon-download);
+  }
+
+  &.copy {
+    @include icon-sprite($icon-copy);
+  }
+
+  &.twitter {
+    @include icon-sprite($icon-twitter);
+  }
+
+  &.twitter-connected {
+    @include icon-sprite($icon-twitter-connected);
+  }
+
+  &.twitter-grey {
+    @include icon-sprite($icon-twitter-grey);
+  }
+
+  &.google {
+    @include icon-sprite($icon-google);
+  }
+
+  &.google-connected {
+    @include icon-sprite($icon-google-connected);
+  }
+
+  &.google-color {
+    @include icon-sprite($icon-google-color);
+  }
+
+  &.google-grey {
+    @include icon-sprite($icon-google-grey);
+  }
+
+  &.github {
+    @include icon-sprite($icon-github);
+  }
+
+  &.github-connected {
+    @include icon-sprite($icon-github-connected);
+  }
+
+  &.github-grey {
+    @include icon-sprite($icon-github-grey);
+  }
+
+  &.threshold {
+    @include icon-sprite($icon-threshold);
+  }
+
+  &.tag {
+    @include icon-sprite($icon-tag);
+
+    &.large {
+      @include icon-sprite($icon-tag-lrg);
+    }
+  }
+
+  &.firewall {
+    @include icon-sprite($icon-firewall);
+
+    &.large {
+      @include icon-sprite($icon-firewall-lrg);
+    }
+
+    &.nocircle {
+      @include icon-sprite($icon-firewall-nocircle);
+    }
+  }
+}

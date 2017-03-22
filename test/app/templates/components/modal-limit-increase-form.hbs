@@ -1,0 +1,33 @@
+{{#unless hideLimitAlert}}
+	<div class="Alert Alert--blue u-mb-5">
+	  <div class="Alert-content">
+			{{#if submittedSuccess}}
+				<p>We're reviewing your {{limitType}} increase request. Our support team will be in touch with you soon.</p>
+	    {{else}}
+		    <p>{{alertBody}}</p>
+		    <a role="button" class="Button Button--alert" {{action "showModal"}}>Request Increase</a>
+	    {{/if}}
+	  </div>
+	</div>
+{{/unless}}
+
+{{#if showResourceLimitForm}}
+
+	{{#modal-window title=modalTitle showCancel=false showSave=false size=size onHide="onModalHide" bodyClasses="u-pt-0" contentClasses="u-pl-2 u-pr-2 settings-team-volume-limit-increase"}}
+		<p>{{bodyMessage}}</p>
+		{{#form-with-validation submitButtonColor="blue" onSubmit="onSubmit" submitButtonText="Submit Request"   isShowingSubmitLoader=isSubmitting}}
+			{{float-label-textarea
+			  required=true
+			  placeholder=(concat "Please tell us why you need a " limitType " increase")
+			  error="Explanation cannot be blank"
+			  value=reason
+			}}
+		  {{float-label-input pattern="\d+"
+		  	error=(concat limitType " limit must be a number" )
+		  	required=true
+		  	value=requestedLimit
+		  	placeholder="Enter required amount"}}
+		{{/form-with-validation}}
+	{{/modal-window}}
+
+{{/if}}

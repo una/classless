@@ -1,0 +1,25 @@
+<div>
+  <div class="Ticket Ticket--new u-mb-8">
+    <div class="Ticket-inner">
+      <div class="Ticket-supportHeader u-clearfix u-mb-3">
+        <span class="Ticket-reply">New Support Ticket</span>
+      </div>
+      {{input class="ticket-subject" value=topic placeholder="Subject" key-up="checkIsValid"}}
+
+      <div class="u-mb-3">
+        {{auto-complete
+          items=autoCompleteItems
+          isSearching=autoCompleteIsSearching
+          isShowingMore=autoCompleteIsShowingMore
+          onSelect="onSelectDroplet"
+          placeholder="Search for a Droplet"}}
+      </div>
+
+      {{textarea autoresize=true value=description class="noTransition" placeholder="Describe the problem you're having in great detail" key-up="checkIsValid"}}
+
+      <div class="Actions Actions--right">
+        <button class="Button Button--blue ticket-submit-button" disabled {{action "createTicket"}}>Submit Ticket</button>
+      </div>
+    </div>
+  </div>
+</div>

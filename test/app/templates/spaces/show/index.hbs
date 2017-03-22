@@ -1,0 +1,102 @@
+<div class="file-browser">
+  <div class="action-header">
+    <div class="row object--actionBar u-pb-2">
+      <div class="columns small-6 fileKeyInput--wrapper">
+        {{search-input value=searchQuery klasses="fileKey--input" onInput=(action "search") onEnter=(action "searchEnter") placeholder="File key lookup" isLoading=isSearching}}
+      </div>
+      <div class="columns small-6">
+        <a class="Button Button--small Button--blue u-floatRight" role="button" {{action "openFileBrowser"}}>Upload Files</a>
+        <input id="FileBrowser" type="file" style="display: none" multiple/>
+        <a class="Button Button--small u-floatRight button--newFolder" role="button" {{action "createDir"}}>New Folder</a>
+        {{slide-out-dropdown-menu
+          items=multiSelectMenuItems
+          closeOnClick=true
+          classes="u-floatRight"
+          titleClasses=(concat "Button Button--small " (unless hasMultipleSelections "is-disabled" ""))
+          title=(unless hasMultipleSelections "Actions" (concat "Actions (" selectedCount ")"))
+          deleteAction=(if hasMultipleSelections "deleteItem" "deleteSelectedItems")
+          deleteTitle=(if hasMultipleSelections (concat "Confirm delete " selectedItems.length " items") "")
+          deleteButton=(if hasMultipleSelections (concat "Delete " selectedItems.length " items") "")
+          action=(if hasMultipleSelections "multiSelectmenuItemClick" "menuItemClick")
+          actionParams=(unless hasMultipleSelections selectedItems.firstObject)
+        }}
+      </div>
+    </div>
+    <div class="breadCrumb-header">
+      <span class="icon"></span>
+      <div class="object-crumbs">
+        <span class="path-crumb u-floatRight">
+          {{#if selectedCount}}
+            {{selectedCount}} of {{totalFilesCount}} {{#if (eq totalFilesCount 1)}}file{{else}}files{{/if}} selected
+          {{else}}
+            {{totalFilesCount}} {{#if (eq totalFilesCount 1)}}file{{else}}files{{/if}}
+          {{/if}}
+        </span>
+        <span class="path-crumb" role="button" {{action "openRootPath"}}>{{spaceController.model.name}}</span>
+        {{#each pathArray as |path index|}}
+          <span role="button" class="path-crumb Icon--arrowRight" {{action "goToPath" path index}}>{{path}}</span>
+        {{/each}}
+        {{#if (and (eq loadingPath BREADCRUMB_PATH) (not isSearching))}}
+          {{loading-spinner}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+
+  <div class="sticky-header">
+    {{table-header tagName="span" action="sort" noSorting=true col="name" text="Name"}}
+    {{table-header tagName="span" action="sort" noSorting=true col="size" text="Size"}}
+    {{table-header tagName="span" action="sort" noSorting=true col="last_modified" text="Last Modified"}}
+    {{#unless isReadOnly}}
+      {{table-header tagName="span" col="action" noSorting=true}}
+    {{/unless}}
+  </div>
+
+  <table class="table--compact table-files table-header--grey">
+    <thead>
+      <tr>
+        {{table-header action="sort" noSorting=true col="name" text="Name"}}
+        {{table-header action="sort" noSorting=true col="size" text="Size"}}
+        {{table-header action="sort" noSorting=true col="last_modified" text="Last Modified"}}
+        {{#unless isReadOnly}}
+          {{table-header col="action" noSorting=true}}
+        {{/unless}}
+      </tr>
+    </thead>
+    <tbody>
+      {{#each filteredObjects as |item index|}}
+        {{files-table-row
+          item=item
+          index=index
+          hasMultipleSelections=hasMultipleSelections
+          menuItems=(if item.isDir directoryMenuItems menuItems)
+          acl=permissions
+          updatePermissions="updatePermissions"
+          menuItemClick="menuItemClick"
+          selectItem="selectItem"
+          openDir="openDir"
+          submitEdit="submitEdit"
+          editName="editName"
+          cancelEdit="cancelEdit"
+          deleteItem="deleteItem"
+          getMetaData="getMetaData"
+        }}
+      {{/each}}
+    </tbody>
+  </table>
+
+  {{#unless filteredObjects.length}}
+    <div class="empty-table">
+      <h3>Looks empty in here!</h3>
+      <a role="button" {{action "openFileBrowser"}}>Upload files {{#unless path}}to your Space{{/unless}}</a>
+    </div>
+  {{/unless}}
+
+  {{#if isDoingInfiniteScroll}}
+    <span class="infinite-loader">
+      {{loading-spinner message="Loading"}}
+    </span>
+  {{/if}}
+</div>
+
+{{partial 'spaces/partials/file-browser-modals'}}

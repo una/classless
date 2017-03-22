@@ -1,0 +1,17 @@
+<section class="u-mt-6 barriers-page u-textAlignCenter">
+  <div class="Box u-mb-6 u-mt-4">
+    <div class="row">
+      <div class="small-12 columns">
+        <img class="EmptyState-image" src="/assets/images/barrier.svg" alt="Account Locked">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <h3>{{if model.isOrganizationContext 'Team'}} Account Locked</h3>
+        <p>Your {{if model.isOrganizationContext 'team'}} account has been flagged for abuse.  If you feel that our system has made an error please open a support ticket.</p>
+        {{#link-to "support.tickets.new" class="Button Button--fullWidth Button--blue u-mb-0 u-mt-3"}}Open a support ticket{{/link-to}}
+      </div>
+    </div>
+  </div>
+</section>

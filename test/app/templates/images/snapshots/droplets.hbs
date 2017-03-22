@@ -1,0 +1,17 @@
+{{#if filteredSnapshots}}
+  {{partial "images/partials/snapshot-table"}}
+  {{partial "images/partials/restore-image-modal"}}
+{{else}}
+  <div class="EmptyState image-empty Box u-mb-4">
+    <img class="EmptyState-image" src="/assets/images/empty-images.svg" alt="Empty snapshots">
+    <h3>Looks like you don’t have any Droplet snapshots</h3>
+    {{#if snapshotsCtrl.dropletCount}}
+      <p>Snapshots allow you to manually copy and store an image of your Droplet. Take one using the form up top or from an individual Droplet’s page.</p>
+    {{else}}
+      <p>Snapshots allow you to manually copy and store an image of your Droplet. Snapshots are created from Droplets, so you'll need to create one of those first.</p>
+      {{#unless isReadOnly}}
+        {{#link-to 'droplet_create' class="Button Button--blue"}}Create Droplet{{/link-to}}
+      {{/unless}}
+    {{/if}}
+  </div>
+{{/if}}

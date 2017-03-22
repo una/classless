@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Depends on $APP
+
+# Middleman: Prep and store vendored dependencies without git history
+mv build/ public/
+bundle package --all
+bundle install --local --path vendor/bundle --deployment --without development test
+echo $DRONE_COMMIT > REVISION_SHA
+rm -rf .git
+tar czf "/tmp/$APP.tar.gz" .
+artifactctl store --branch $DRONE_BRANCH --project "$APP" --name "$APP.tar.gz" --filepath "/tmp/$APP.tar.gz"

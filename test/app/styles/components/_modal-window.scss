@@ -1,0 +1,29 @@
+.Modal-dialog {
+  .Modal-content.confirm-small {
+    .Modal-body {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .Modal-footer {
+      padding-top: 15px;
+    }
+  }
+
+  .Modal-content.form-modal form {
+    margin-top: -15px;
+
+    .buttons-col {
+      padding: 0;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .Modal--xlarge {
+    .Modal-dialog {
+      margin: 1.5rem auto;
+      width: 1000px;
+    }
+  }
+}

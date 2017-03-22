@@ -1,0 +1,109 @@
+{{#if (and filteredDomains.length (not isReadOnly))}}
+
+  {{#if (gte domainsMeta.domain_count domainsMeta.domain_limit)}}
+    {{modal-limit-increase-form
+    limitCount=domainsMeta.domain_limit
+    limitType="domain"
+    modalTitle="Increase Domain Limit"
+    bodyMessage="To request an increase to the number of domains on your account, please complete the form below."
+    }}
+  {{else if filteredDomains.length}}
+    <div class="Box u-mb-5">
+      <div class="row">
+        <div class="small-12 columns">
+          <h2>{{t "domains.add.title"}}</h2>
+          <p class="u-mb-4">{{t "domains.new.add.body"}}</p>
+        </div>
+      </div>
+      {{partial "networking/partials/domains-form"}}
+    </div>
+  {{/if}}
+{{/if}}
+
+
+<div class="u-mb-5">
+  <section class="row">
+    <div class="small-12 columns">
+      {{#if filteredDomains.length}}
+        <h2>{{t "domains.list.title"}}</h2>
+        {{#if currentPageVisible}}
+          <span class="pagination-legend">{{currentPageVisible}}</span>
+        {{/if}}
+        <table class="domains--list">
+          <thead>
+            <tr>
+              {{table-header action="sort" isLoading=sorting sortCol=sort sortDir=sort_direction col="name" text="Domain"}}
+              {{table-header col="Directs" text="Directs to" noSorting=true}}
+              {{#unless isReadOnly}}
+                {{table-header col="action" noSorting=true}}
+              {{/unless}}
+            </tr>
+          </thead>
+          <tbody>
+            {{#each filteredDomains as |domain|}}
+              <tr>
+                <td>{{resource-item item=domain hideIcon=true link-to="domain" }}</td>
+                <td>
+                  {{#if domain.directsToResource}}
+                    {{#if (is-type domain.directsToResource "droplet")}}
+                      {{resource-item
+                        showIpMeta=true
+                        link-to="droplet"
+                        item=domain.directsToResource
+                      }}
+                    {{else}}
+                      {{resource-item
+                        showIpMeta=true
+                        item=domain.directsToResource
+                      }}
+                    {{/if}}
+                  {{else}}
+                    {{#ellipsis-text text=domain.directsTo}}
+                      {{domain.directsTo}}
+                    {{/ellipsis-text}}
+                  {{/if}}
+                </td>
+                <td class="u-textAlignRight">
+                  {{#unless isReadOnly}}
+                    {{#if domain.isDeleting}}
+                      {{loading-spinner message="Deleting"}}
+                    {{else if domain.isInitializing}}
+                      {{loading-spinner message="Initializing"}}
+                    {{else}}
+                      {{#slide-out-dropdown-menu
+                        title="More"
+                        items=menuItems
+                        action="menuItemClick"
+                        closeOnClick=true
+                        actionParams=domain
+                      }}
+                        {{!-- Delete --}}
+                        <div class="dropdown-view dropdown-view--delete">
+                          <p class="dropdown__headline">{{t "aurora.dropdown.delete.headline" type="domain"}}</p>
+                          <p class="small-dark">{{t "aurora.dropdown.delete.confirmation"}}</p>
+                          <button class="Button Button--fullWidth Button--red" {{action 'deleteDomain' domain}} tabindex="-1">{{t "aurora.dropdown.delete.button" type="Domain"}} </button>
+                        </div>
+                      {{/slide-out-dropdown-menu}}
+                    {{/if}}
+                  {{/unless}}
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        {{#if needsPagination}}
+          {{paginator-full
+            linkToPage='networking.domains'
+            isLoading=paginating
+            pages=model.meta.pagination.pages
+            currentPage=model.meta.pagination.current_page
+            scrollToAfterLoad="#aurora-container"
+            action="changePage"
+          }}
+        {{/if}}
+      {{else}}
+        {{partial "networking/partials/domains-empty"}}
+      {{/if}}
+    </div>
+  </section>
+</div>

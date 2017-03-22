@@ -1,0 +1,61 @@
+<td class="rule-entry-protocol">
+  {{float-label-select
+    label="Protocol"
+    selectedOption=rule.entry_protocol
+    options=protocols
+    onChange="onEntryProtocolChange"
+    onFocusOut=(action "onFocusOut")
+  }}
+</td>
+<td class="rule-entry-port">
+  {{float-label-input
+    placeholder="Port"
+    value=rule.entry_port
+    customValidation=validateEntryPort
+    setErrorMessage=setEntryPortErrorMessage
+    onEnter="onEnter"
+    onFocusOut=(action "onFocusOut")
+  }}
+</td>
+{{#if hasHttpsRules}}
+  <td class="rule-certificate">
+    {{float-label-select
+      required=true
+      noCheckmark=true
+      label="Certificate"
+      error="Select a certificate"
+      selectedOption=rule.certificate_id
+      options=certificateOptions
+      onChange="onCertificateChange"
+      onFocusOut=(action "onFocusOut")
+      disabled=certificateIsDisabled
+    }}
+  </td>
+{{/if}}
+<td class="rule-arrow">
+  <span class="Icon--arrowLongRight"></span>
+</td>
+<td class="rule-target-protocol">
+  {{float-label-select
+    label="Protocol"
+    selectedOption=rule.target_protocol
+    options=targetProtocols
+    disabled=targetProtocolIsDisabled
+    onFocusOut=(action "onFocusOut")
+  }}
+</td>
+<td class="rule-target-port">
+  {{float-label-input
+    class="forwarding-rules-target-port"
+    value=rule.target_port
+    placeholder="Port"
+    customValidation=validatePortRange
+    setErrorMessage=setPortRangeErrorMessage
+    disableValidationAfterParentChange=true
+    onEnter="onEnter"
+    onFocusOut=(action "onFocusOut")
+  }}
+</td>
+<td class="rule-delete">
+  <a role="button" class="rule-delete-link" {{action "onRemove" index}}>Delete</a>
+</td>

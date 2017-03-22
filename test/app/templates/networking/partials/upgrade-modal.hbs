@@ -1,0 +1,35 @@
+{{#modal-window
+  size="large"
+  onHide="onUpgradeModalHide"
+  bodyClasses="u-pb-3 floating-ip-upgrade-droplet"
+  showCancel=false
+  showSave=false
+  title="You must first upgrade this Droplet!"
+}}
+  <div class="row">
+    <div class="small-12 columns">
+      <p>Droplets created prior to October 20th 2015 require running the following command on your Droplet before assigning it a floating IP:</p>
+
+      <div class="instructions">
+        {{{upgradeDroplet.upgradeInstructions}}}
+      </div>
+      <div class="checkbox u-mt-4">
+        {{input id="hasUpgrade" type="checkbox" checked=upgradeDroplet.acknowledgedFloatingConfig}}
+        <span></span>
+        <label for="hasUpgrade">I have executed the command on my Droplet and it is ready to go.</label>
+      </div>
+    </div>
+  </div>
+  <div class="row u-mt-2 u-mb-4">
+    <div class="small-6 columns u-pl-0">
+      <button class="Button Button--red Button--fullWidth u-mt-4" {{action "onUpgradeModalHide"}}>Cancel</button>
+    </div>
+    <div class="small-6 columns u-pl-0">
+      <button class="Button Button--blue Button--fullWidth u-mt-4" disabled="{{if (or (not upgradeDroplet.acknowledgedFloatingConfig) isUpgrading) 'disabled'}}" {{action "onUpgradeModalHide" true}}>Continue
+        {{#if isUpgrading}}
+          {{loading-spinner}}
+        {{/if}}
+      </button>
+    </div>
+  </div>
+{{/modal-window}}

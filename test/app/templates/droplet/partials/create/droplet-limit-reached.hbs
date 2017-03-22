@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="columns small-12">
+    <div class="EmptyState Box">
+      <img class="EmptyState-image dropletLimit-image" src="/assets/images/droplet-limit.svg" alt="Droplet limit reached">
+      <h3>Droplet limit reached</h3>
+      {{#if isUserContext}}
+        <p class="small-10 small-centered">You've reached your current droplet limit of {{dropletLimit}}. To raise your droplet limit, <br />please submit a droplet limit increase from your profile.</p>
+
+        {{#link-to "settings.profile.droplet_limit_increase" class="Button Button--blue"}}Increase Droplet Limit{{/link-to}}
+      {{else}}
+        <p class="small-10 small-centered">Your team has reached its current droplet limit of {{dropletLimit}}. To raise your team's droplet limit, <br />please submit a droplet limit increase from your team settings.</p>
+
+        {{#link-to "settings.team.droplet_limit_increase" class="Button Button--blue"}}Increase Droplet Limit{{/link-to}}
+      {{/if}}
+    </div>
+  </div>
+</div>

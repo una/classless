@@ -1,0 +1,77 @@
+<div class="row tags-show">
+  <div class="small-12 columns">
+    {{#if hasContent}}
+      <div class="header u-mb-5">
+        <div class="Resource Resource--rightContext">
+          <div class="Resource-image large">
+            {{resource-icon resource="tag" large=true}}
+          </div>
+          <div class="Resource-meta">
+            <div class="Resource-title">
+              {{#ellipsis-text text=tagName}}
+                {{tagName}}
+              {{/ellipsis-text}}
+            </div>
+            <div class="Resource-description">
+              {{totalDroplets}} Droplet{{if (gt totalDroplets 1) 's'}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <table class="droplet-listing">
+        <thead>
+          <tr>
+            {{table-header action="sort" isLoading=sorting sortCol=sort sortDir=sort_direction col="name" text="Name"}}
+            {{table-header action="sort" isLoading=sorting sortCol=sort sortDir=sort_direction col="ip_address" text="IP Address"}}
+            {{table-header action="sort" isLoading=sorting sortCol=sort sortDir=sort_direction col="created_at" text="Created"}}
+            {{table-header noSorting=true col="tags" text="Tags"}}
+            {{#unless isReadOnly}}
+              {{table-header col="action" noSorting=true}}
+            {{/unless}}
+          </tr>
+        </thead>
+        <tbody>
+          {{#each filteredContent as |droplet|}}
+            {{droplet-list-item
+              droplet=droplet
+              isReadOnly=isReadOnly
+              menuItemClick="menuItemClick"
+            }}
+          {{/each}}
+        </tbody>
+      </table>
+      {{#if needsPagination}}
+        {{paginator-full
+          linkToPage="droplets"
+          isLoading=paginating
+          pages=model.meta.pagination.pages
+          currentPage=model.meta.pagination.current_page
+          action="changePage"
+          scrollToAfterLoad="#aurora-container"
+        }}
+      {{/if}}
+    {{else}}
+      <section class="EmptyState u-clear Box u-mt-4">
+        {{#if error}}
+          <h2>Sorry an error occurred</h2>
+          <p class="u-mb-0">Please try again.</p>
+        {{else}}
+          {{#if emptyState}}
+            <img class="EmptyState-image" src="/assets/images/empty-tags.svg" alt="Empty tag">
+            <h3>Looks like you don't have droplets tagged "{{tagName}}".</h3>
+            {{#link-to 'droplets.index' tagName="a" class="Button Button--blue u-mb-0 u-mt-3"}}Go back to your Droplets{{/link-to}}
+          {{/if}}
+        {{/if}}
+      </section>
+    {{/if}}
+  </div>
+</div>
+{{#if showEditTagsModal}}
+  {{edit-tags-modal
+    taggable=currentDroplet
+    saveTags=(action "saveTags")
+    queryTags=(action "queryTags")
+    hideModal=(action "hideModal")
+    searchResults=searchResults
+  }}
+{{/if}}

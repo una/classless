@@ -1,0 +1,80 @@
+.target-selector {
+  position: relative;
+  width: 100%;
+  min-height: 3em;
+  list-style: none;
+  background-color: #fff;
+  padding: 0.5em 0.55em 0.1em;
+  border: 1px solid $grey_4;
+  border-radius: 3px;
+  cursor: text;
+  // The 0.1s delay on this transition helps reduce the focus/unfocus "flash"
+  // that occurs when clicking on an item in the search results dropdown.
+  transition: border-color 0.2s ease-in-out 0.1s;
+
+  .search-results-box {
+    max-height: 200px;
+    min-width: 410px;
+  }
+
+  .result-list {
+    position: relative;
+    z-index: 20;
+    list-style: none;
+  }
+
+  .search-item-text {
+    display: inline-block;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+  }
+
+  .token-input {
+    position: relative;
+    top: 1px;
+    padding-left: 5px;
+    margin-bottom: 6px;
+
+    input {
+      min-height: 1.5rem;
+    }
+  }
+
+  .target-droplet-count {
+    opacity: 0;
+    position: absolute;
+    top: 11px;
+    right: 47px;
+    color: $grey_7;
+    text-align: right;
+    transition: 0.3s opacity;
+  }
+
+  .target-droplet-count-visible {
+    opacity: 1;
+  }
+
+  .target-clear {
+    position: absolute;
+    // NOTE: Due to a strange inconsistency with buoycon line heights,
+    // this will look misaligned locally, but it's correct on production.
+    // Please avoid modifying this `top` value unless we can solve the
+    // underlying line height issue. See HA-628 and HA-415 for more.
+    top: 2px;
+    right: 0;
+    cursor: pointer;
+    color: $grey_5;
+    padding: 0.7em 1em;
+  }
+
+  &.tag-is-selected {
+    background-color: $grey_2;
+  }
+
+  &.is-focused {
+    border-color: $blue--brand;
+  }
+}

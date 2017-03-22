@@ -1,0 +1,63 @@
+<div class="row u-mb-5 billing-settings-amounts">
+  <div class="u-equalHeight">
+    <div class="small-6 columns u-pl-0">
+      {{partial 'settings/partials/billing/account-balance'}}
+    </div>
+    <div class="small-6 columns u-pr-0">
+      {{partial 'settings/partials/billing/current-charges'}}
+    </div>
+  </div>
+</div>
+
+{{#if model.billingState.alert_dollars_amount}}
+  {{partial 'settings/partials/billing/billing-alert'}}
+{{/if}}
+
+{{partial 'settings/partials/billing/payment-methods'}}
+
+{{#if taxationStatus.taxation_enabled_in_taxation_location}}
+  {{partial 'settings/partials/billing/taxation-box'}}
+{{/if}}
+
+{{partial 'settings/partials/billing/promo-box'}}
+
+{{partial 'settings/partials/billing/history'}}
+
+{{#if showPayNowModal}}
+  {{#modal-window title="Pay Balance Now" contentClasses="confirm-small" size="small" saveText="Pay Now" saveClasses="Button--blue" onHide="confirmPayNow"}}
+    <p>This will charge the credit card you have on file for ${{formattedBalance}}.</p>
+    <p>Are you sure you want to continue?</p>
+  {{/modal-window}}
+{{/if}}
+
+{{#if showDeleteBankAccountModal}}
+  {{#modal-window title="Remove Bank Account" contentClasses="confirm-small" size="small" saveText="Remove" saveClasses="Button--red" onHide="deleteBankAccount"}}
+    <p>Are you sure you want to remove your bank account?</p>
+  {{/modal-window}}
+{{/if}}
+
+{{#if showCCModal}}
+  {{#modal-window
+    title="New Credit Card"
+    contentClasses="onboarding-cc-modal cc-form"
+    bodyClasses="u-pt-3"
+    showSave=false
+    showCancel=false
+    onHide="hideCCModal"
+  }}
+    {{cc-form
+      savingCreditCard=savingCreditCard
+      isShowingSubmitLoader=savingCreditCard
+      actionReceiver=creditCardForm
+      countries=model.countries
+      billingService=billingService
+      onStripeSuccess=(action 'onStripeSuccess')
+    }}
+  {{/modal-window}}
+{{/if}}
+
+{{#if showDeleteTaxationIdentityModal}}
+  {{#modal-window title=taxationModalTitle contentClasses="confirm-small" size="small" saveText="Remove" saveClasses="Button--red" onHide="deleteTaxId"}}
+    <p>Are you sure you want to remove your {{taxationType}}?</p>
+  {{/modal-window}}
+{{/if}}

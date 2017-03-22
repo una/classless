@@ -1,0 +1,103 @@
+---
+title: Dividers
+---
+
+<div class="row u-mb-5">
+  <div class="small-12 columns">
+    <h1>Dividers</h1>
+    <p>There are two options for creating dividers. The first it to wrap content into sections with a utility class of <code>.u-divider{Direction}{Size}</code>. The second is to simply add an <code>hr</code> below the <code>div</code> you want to create a border.</p>
+  </div>
+</div>
+
+<div class="row u-mb-5">
+  <div class="small-12 columns code-space">
+    <h2>Dividers on Elements</h2>
+    <h3>Direction</h3>
+    <p><code>Top</code> or <code>Bottom</code></p>
+  </div>
+</div>
+
+<div class="row u-mb-5">
+  <div class="small-12 columns code-space">
+    <h3>Size</h3>
+    <p><code>Small</code> or <code>Large</code></p>
+  </div>
+</div>
+
+<div class="row u-mb-6">
+  <div class="small-12 columns">
+    <h3>Examples</h3>
+    <section class="u-dividerBottomSmall">
+      <p>This <code>section</code> has a small border on the bottom.</p>
+    </section>
+    <section class="u-dividerBottomLarge">
+      <p>This <code>section</code> has a large border on the bottom.</p>
+    </section>
+    <section>
+      <p>This <code>section</code> does not have a border.</p>
+    </section>
+  </div>
+</div>
+
+<div class="row u-mb-7">
+   <div class="small-12 columns">
+    <pre>
+      <code><%= display_code('
+<section class="u-dividerBottomSmall">
+  <p>This section has a small border on the bottom.</p>
+</section>
+<section class="u-dividerBottomLarge">
+  <p>This section has a large border on the bottom.</p>
+</section>
+<section>
+  <p>This section does not have a border.</p>
+</section>') %></code>
+    </pre>
+   </div>
+</div>
+
+<div class="row u-mb-5">
+  <div class="small-12 columns code-space">
+    <h2>Dividers Separate from Elements</h2>
+    <h3>Size</h3>
+    <p><code>.Divider--small</code> or <code>.Divider--large</code></p>
+    <h3>Color</h3>
+    <p><code>.Divider--dark</code></p>
+  </div>
+</div>
+
+<div class="row u-mb-6">
+  <div class="small-12 columns">
+    <h3>Examples</h3>
+    <section>
+      <p>This <code>section</code> has a <code>.Divider--small</code> <code>hr</code> below it.</p>
+    </section>
+    <hr class="Divider--small">
+    <section>
+      <p>This <code>section</code> has a <code>.Divider--large</code> <code>hr</code> below it.</p>
+    </section>
+    <hr class="Divider--large">
+    <section>
+      <p>This <code>section</code> does not have an <code>hr</code> below it.</p>
+    </section>
+  </div>
+</div>
+
+<div class="row u-mb-7">
+   <div class="small-12 columns">
+    <pre>
+      <code><%= display_code('
+<section>
+  <p>This section has a .Divider--small hr below it.</p>
+</section>
+<hr class="Divider--small">
+<section>
+  <p>This section has a .Divider--large hr below it.</p>
+</section>
+<hr class="Divider--large">
+<section>
+  <p>This section does not have an hr below it.</p>
+</section>') %></code>
+    </pre>
+   </div>
+</div>

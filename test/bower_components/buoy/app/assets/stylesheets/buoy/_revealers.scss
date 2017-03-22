@@ -1,0 +1,117 @@
+.Revealer {
+  .is-flipped {
+    @include rotate(0);
+      &:before {
+      @include rotate(180);
+    }
+  }
+}
+
+/* TODO: rethink shelf. Maybe Revealer-hidden? */
+
+table .revealerRow {
+  padding: 0;
+  border: 0;
+}
+
+.Revealer-shelf {
+  width: 100%;
+  padding: 0;
+  height: 0;
+  overflow: hidden;
+  position: relative;
+  clear: both;
+  @include transition(height, .3s, ease-in-out);
+  @extend .u-clearfix;
+
+  &.is-open {
+    overflow: hidden;
+  }
+}
+.Revealer-header {
+  &.is-open .Icon--arrowDown {
+    @include rotate(0);
+    &:before {
+      @include rotate(180);
+    }
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.Box {
+  .Revealer-shelf {
+
+    &:before {
+      content: "";
+      position: absolute;
+      display: block;
+      top: -2rem;
+      left: 0;
+      right: 0;
+      border-top: 1px solid $grey_3;
+    }
+  }
+}
+
+
+/* TODO: rethink shelf. Maybe Revealer-hidden? */
+
+.legacy.Revealer-shelf {
+  width: 100%;
+  padding: 0;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  position: relative;
+  clear: both;
+  @include transition(all, 0.35s, cubic-bezier(0, 1, 0.5, 1));
+  @extend .u-clearfix;
+
+  & > *:first-child {
+    margin-top: $ws-4;
+  }
+  &.is-open {
+      max-height: 2500px;
+      height:auto;
+      opacity: 1;
+      overflow: auto;
+      @include transition(all, .3s, ease-in-out);
+  }
+}
+.legacy.Revealer-header {
+  position: relative;
+  &.is-open .Icon--arrowDown {
+    @include rotate(0);
+    &:before {
+      @include rotate(180);
+    }
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.Box {
+  .legacy.Revealer-shelf {
+
+    & > *:first-child {
+      margin-top: $ws-8;
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      display: block;
+      top: -2rem;
+      left: 0;
+      right: 0;
+      border-top: 1px solid $grey_3;
+    }
+  }
+}
+
+

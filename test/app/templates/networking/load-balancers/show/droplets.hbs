@@ -1,0 +1,101 @@
+<div class="lb-droplets">
+  {{#if targetDropletsWithStats.length}}
+    <section class="row u-mb-5">
+      <div class="small-9 columns">
+        <div class="lb-stats">
+          <div class="lb-stats-item">
+            <h2 class="lb-stats-count">
+              {{#if (not-eq healthyDropletsCount collectingMetrics)}}
+                {{healthyDropletsCount}}/{{loadBalancer.backendDropletCount}}
+              {{else}}
+                {{partial "networking/partials/collecting-metrics-lb-droplet"}}
+              {{/if}}
+            </h2>
+            <p>Healthy Droplets</p>
+          </div>
+          {{#if loadBalancer.tag}}
+            <div class="lb-stats-item">
+              <h2 class="lb-stats-count">{{loadBalancer.tag}}</h2>
+              <p>Tag</p>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+      <div class="small-3 columns u-textAlignRight">
+        <button class="Button Button--blue" {{action "openEditTargetsModal"}} disabled={{actionsDisabled}}>{{editTargetsText}}</button>
+      </div>
+    </section>
+  {{/if}}
+
+  {{#if isRefreshing}}
+    <section class="lb-droplets-loading row">
+      <div class="small-12 columns">
+        <div class="Loader"></div>
+      </div>
+    </section>
+  {{else}}
+    {{#if targetDropletsWithStats.length}}
+      {{load-balancers/target-droplets-table
+        targetDropletsWithStats=targetDropletsWithStats
+        actionDropdownItems=actionDropdownItems
+        hideDeleteAction=hasTargetTag
+        actionMenuItemClick="menuItemClick"
+      }}
+    {{else}}
+      <div class="Box">
+        <div class="EmptyState row">
+          <div class="small-8 columns small-centered">
+            <img class="EmptyState-image" src="/assets/images/empty-state-droplet.svg" alt="No Load Balancers">
+            <h3>You don’t have any associated Droplets</h3>
+            <p>Select Droplets now to get started with Load Balancers.</p>
+            <button class="Button Button--blue" {{action "openEditTargetsModal"}} disabled={{actionsDisabled}}>Choose Droplets</button>
+          </div>
+        </div>
+      </div>
+    {{/if}}
+  {{/if}}
+
+  {{#if editTargetsModalIsVisible}}
+    {{#modal-window
+      title=editTargetsText
+      showSaveButton=false
+      showCancelButton=false
+      cancelText="Cancel"
+      onHide=(action "closeEditTargetsModal")
+      bodyClasses="u-pt-1"
+    }}
+      {{#if hasNoTargets}}
+        <p>The Load Balancer will send traffic to specified Droplets. Choose
+        them now by adding their name or tag below.</p>
+      {{else}}
+        {{#if hasTargetDropletsAndNoTag}}
+          <p>The Load Balancer will send traffic to all specified Droplets.
+            To use a tag, you must remove all associated Droplets first.</p>
+        {{else}}
+          <p>The Load Balancer will send traffic to all Droplets with the specified tag.
+            To select individual droplets, you must remove the tag first.</p>
+        {{/if}}
+      {{/if}}
+      <div class="lb-target-selector-container">
+        {{target-selector
+          targets=newTargets
+          tagIsSelected=firstTargetIsTag
+          searchResults=targetSearchResults
+          excludeFromSearchResults=targetDroplets
+          tagDropletCount=(or tagDropletCount loadBalancer.backendDropletCount)
+          isUpdatingTagDropletCount=isUpdatingTagDropletCount
+          region=loadBalancer.region
+          dropletsOnly=hasTargetDropletsAndNoTag
+          queryTargets=(action "queryTargets")
+          onSelectTag=(action "onSelectTargetTag")
+        }}
+      </div>
+      <button class="Button Button--blue Button--large Button--fullWidth u-mt-3" disabled={{editTargetsButtonDisabled}} {{action "onAddTargets"}}>
+        {{editTargetsText}}
+        {{#if isUpdatingTargets}}
+          {{loading-spinner plain=true}}
+        {{/if}}
+      </button>
+    {{/modal-window}}
+  {{/if}}
+</div>

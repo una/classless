@@ -1,0 +1,47 @@
+$border-width: 2px;
+.Tabs {
+  width: 100%;
+  border-bottom: $border-width solid $grey_2;
+  list-style: none;
+  li {
+    display: inline-block;
+    margin: 0 22px (-$border-width) 0;
+    height: 50px;
+    line-height: 50px - $border-width;
+    &:last-of-type {
+      margin-right: 0;
+    }
+    > a {
+      display: block;
+      border-bottom: none;
+      color: $grey_7;
+    }
+    &:hover {
+      border-bottom:$border-width solid $grey_7;
+      > a {
+        color: $grey_8;
+      }
+    }
+    &.is-active {
+      border-bottom:$border-width solid $blue;
+      > a {
+        color: $blue;
+      }
+    }
+  }
+}
+.Tabs-content {
+  padding: 0;
+  > .Tabs-pane {
+    display: none;
+    &.is-active {
+      display: block;
+    }
+  }
+}
+.Tabs-content--box {
+  border: $border-width solid $grey_2;
+  border-top: 0;
+  padding: $ws-5;
+  border-radius: 0 0 $border_radius $border_radius;
+}

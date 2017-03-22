@@ -1,0 +1,21 @@
+.billing-credit-card-list {
+  list-style: none;
+  position: relative;
+}
+
+.team-billing-form {
+  .Icon--lock {
+    font-size: 11px;
+    margin-right: 1px;
+  }
+
+  .credit-pane {
+    .is-disabled {
+      .Loader--basic {
+        height: 30px;
+        width: 30px;
+        margin-top: 20px;
+      }
+    }
+  }
+}

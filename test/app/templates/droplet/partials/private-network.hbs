@@ -1,0 +1,51 @@
+<h2>Private network</h2>
+{{#if dropletCtrl.model.privateIpv4}}
+  <ul class="small-block-grid-1">
+    <li>
+      <h4>Private IP:</h4>
+      <span>
+        {{ip-address text=dropletCtrl.model.privateIpv4}}
+      </span>
+    </li>
+    <li>
+      <h4>Netmask:</h4>
+      <span>
+        {{ip-address text=dropletCtrl.model.privateNetmask}}
+      </span>
+    </li>
+  </ul>
+{{else if (not isReadOnly)}}
+  {{#if model.isPoweredOn}}
+    <p>Your Droplet must be powered off before enabling private IP network.</p>
+    <div class="row">
+      <div class="columns small-4">
+        <button
+          class="Button Button--fullWidth"
+          disabled="{{if dropletCtrl.isBusy 'disabled'}}"
+          {{action "shutDownDroplet"}}
+        >Power Off
+          {{#if dropletCtrl.isTogglingPower}}
+            {{loading-spinner white=true spinnerClass="spinner-power"}}
+          {{/if}}
+        </button>
+      </div>
+    </div>
+  {{else}}
+    <p>You must reboot your Droplet and then manually modify the network settings for the new interface to be functional. Read more about private networking {{#community-link slug="how-to-enable-digitalocean-private-networking-on-existing-droplets"}}here{{/community-link}}.</p>
+    <div class="row">
+      <div class="columns small-4">
+        <button
+          disabled="{{if (or isEnablingPrivateNetwork isEnablingIpv6 dropletCtrl.isBusy) 'disabled'}}"
+          {{action "enablePrivateNetworking"}}
+          class="Button Button--fullWidth"
+        >Enable
+          {{#if (or isEnablingPrivateNetwork dropletCtrl.model.enablePrivateNetworkingEvent)}}
+            {{loading-spinner white=true spinnerClass="spinner-networking"}}
+          {{/if}}
+        </button>
+      </div>
+    </div>
+  {{/if}}
+{{else}}
+  <p>Private network not enabled.</p>
+{{/if}}

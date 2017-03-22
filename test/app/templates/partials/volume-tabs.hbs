@@ -1,0 +1,15 @@
+<ul class="Tabs u-mb-4 {{if attachingVolume "is-disabled"}} " role="tablist">
+  <li role="presentation" class="{{if (eq storageTab 'new') 'is-active'}} {{if (eq selectedStorageTab 'new') 'has-selected-image'}}">
+    <a aria-controls="new-volume" role="tab" {{ action 'changeStorageTab' 'new' }}>Create new</a>
+  </li>
+  {{#if volumeSnapshots.length}}
+    <li role="presentation" class="{{if (eq storageTab "snapshots") "is-active"}} {{if (eq selectedStorageTab 'snapshots') 'has-selected-image'}}">
+      <a aria-controls="volume-snapshots" role="tab" {{ action 'changeStorageTab' 'snapshots' }}>Create from snapshot</a>
+    </li>
+  {{/if}}
+  {{#if unattachedVolumes.length}}
+    <li role="presentation" class="{{if (eq storageTab "existing") "is-active"}} {{if (eq selectedStorageTab 'existing') 'has-selected-image'}}">
+      <a aria-controls="existing-volume" role="tab" {{ action 'changeStorageTab' 'existing' }}>Attach existing</a>
+    </li>
+  {{/if}}
+</ul>

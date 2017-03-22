@@ -1,0 +1,133 @@
+<div class="settings-profile">
+  <div class="row u-mb-6">
+    <div class="small-12 columns">
+        <div class="Box">
+          <div class="row">
+          <div class="small-2 columns">
+            {{avatar-image
+              isTeam=false
+              src=user.avatar
+            }}
+          </div>
+          <div class="small-7 columns">
+            <h2 class="username">{{user.name}}</h2>
+            <div class="social-icons">
+              {{#if socialAccountData.githubIdentity}}
+                {{#tool-tip title=socialAccountData.githubIdentity.username}}
+                  <a href="https://www.github.com/{{socialAccountData.githubIdentity.username}}" rel="noopener noreferrer" target="_blank" class="u-ml-2">
+                    <span class="resource-icon github-grey"></span>
+                  </a>
+                {{/tool-tip}}
+              {{/if}}
+              {{#if socialAccountData.twitterIdentity}}
+                {{#tool-tip title=socialAccountData.twitterIdentity.username}}
+                  <a href="https://www.twitter.com/{{socialAccountData.twitterIdentity.username}}" rel="noopener noreferrer" target="_blank" class="u-ml-2">
+                    <span class="resource-icon twitter-grey"></span>
+                  </a>
+                {{/tool-tip}}
+              {{/if}}
+              {{#if socialAccountData.googleIdentity}}
+                {{#tool-tip title=socialAccountData.googleIdentity.username}}
+                  <a href="{{socialAccountData.googleIdentity.profileUrl}}" target="_blank" rel="noopener noreferrer" class="u-ml-2">
+                    <span class="resource-icon google-grey"></span>
+                  </a>
+                {{/tool-tip}}
+              {{/if}}
+            </div>
+
+            <ul class="List--noBullets">
+              <li>{{user.email}}</li>
+              <li>Member since {{format-date user.createdAt format="MM/DD/YYYY" isUTC=false}}</li>
+              {{#if user.location}}
+                <li>{{user.location}}</li>
+              {{else}}
+                <li>{{#link-to "settings.profile.edit"}}Add your address{{/link-to}}</li>
+              {{/if}}
+              {{#if user.isOnboarded}}
+                <li>
+                  {{#if resourceLimits.eligibleForDropletLimitIncrease}}
+                    {{#link-to "settings.profile.droplet_limit_auto_increase"}}Droplet limit: {{resourceLimits.dropletLimit}}{{/link-to}}
+                  {{else}}
+                    Droplet Limit: {{resourceLimits.dropletLimit}}
+                    {{#link-to "settings.profile.droplet_limit_increase"}}Increase{{/link-to}}
+                  {{/if}}
+                </li>
+              {{/if}}
+              <li>
+                {{#link-to "settings.security"}}
+                  {{#if user.tfaEnabled}}
+                    Edit two-factor authentication settings
+                  {{else}}
+                    Enable two-factor authentication
+                  {{/if}}
+                {{/link-to}}
+              </li>
+            </ul>
+          </div>
+          <div class="small-3 columns">
+            {{#link-to "settings.profile.edit" class="Button u-floatRight"}}Edit Profile{{/link-to}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row social-accounts">
+    <div class="small-12 columns">
+      <section class="Box u-mb-5">
+        <h2>Connect your social networks</h2>
+        <p>Connect your Twitter and Github accounts with DigitalOcean. We only use this information to verify your account. We'll never spam you, post on your behalf or do anything sketchy like that.</p>
+
+        <div class='row'>
+          <div class='small-4 columns'>
+            {{#if socialAccountData.githubIdentity}}
+              <button class='small-4 columns Button Button--outline Button--fullWidth Button--social Button--green connected-github-button' {{action 'unauthenticate' 'githubIdentity'}}>
+                <span class="resource-icon github-connected"></span><span class="social-button-verb"></span><span class="overflow-ellipsis">{{socialAccountData.githubIdentity.username}}</span>
+              </button>
+            {{else}}
+              <button class='small-4 columns Button Button--fullWidth Button--github unconnected-github-button' {{action 'authenticate' 'githubIdentity' 'github-proxy'}}>
+                <span class="resource-icon github"></span>Connect GitHub
+              </button>
+            {{/if}}
+          </div>
+          <div class='small-4 columns'>
+            {{#if socialAccountData.twitterIdentity}}
+              <button class='small-4 columns Button Button--outline Button--fullWidth Button--green Button--social connected-twitter-button' {{action 'unauthenticate' 'twitterIdentity'}}>
+                <span class="resource-icon twitter-connected"></span><span class="social-button-verb"></span><span class="overflow-ellipsis">{{socialAccountData.twitterIdentity.username}}</span>
+              </button>
+            {{else}}
+              <button class='small-4 columns Button Button--fullWidth Button--twitter unconnected-twitter-button' {{action 'authenticate' 'twitterIdentity' 'twitter'}}>
+                <span class="resource-icon twitter"></span>Connect Twitter
+              </button>
+            {{/if}}
+          </div>
+          <div class='small-4 columns'>
+            {{#if socialAccountData.googleIdentity}}
+              <button class='small-4 columns Button Button--outline Button--fullWidth Button--green Button--social connected-google-button' {{action 'unauthenticate' 'googleIdentity'}}>
+                <span class="resource-icon google-connected"></span><span class="social-button-verb"></span><span class="overflow-ellipsis">{{socialAccountData.googleIdentity.username}}</span>
+              </button>
+            {{else}}
+              <button class='small-4 columns Button Button--fullWidth Button--google unconnected-google-button' {{action 'authenticate' 'googleIdentity' 'google-proxy'}}>
+                <span class="resource-icon google"></span>Connect Google
+              </button>
+            {{/if}}
+          </div>
+        </div>
+      </section>
+
+      <section class="Box u-mb-5 u-mt-5">
+        <h2>
+          Deactivate account
+          {{#link-to "settings.profile.deactivate" class="Button Button--red Button--outline u-floatRight"}}Deactivate Account{{/link-to}}
+        </h2>
+        <span>
+          {{#if user.organizations.length}}
+            This will remove your account from the team and disable your account.
+          {{else}}
+            This will permanently delete all Droplets and Backups.
+          {{/if}}
+        </span>
+      </section>
+    </div>
+  </div>
+</div>

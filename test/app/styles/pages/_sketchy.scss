@@ -1,0 +1,98 @@
+.sketchy-deactivate {
+  color: $red--brand;
+}
+
+.settings-profile .social-accounts,
+.sketchy-social-connections {
+  .resource-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 7px 3px 0;
+  }
+
+  .Button--twitter {
+    background: $blue--brand;
+    border-color: $blue--brand;
+    color: $white;
+
+    &:not(.Button--noHover):hover {
+      background: $blue--brand_hover;
+    }
+
+    &.Button--outline {
+      background: none;
+      border-color: $blue--brand;
+      color: $blue--brand_hover;
+
+      &:not(.Button--noHover):hover {
+        background: none;
+        border: 1px solid $blue--brand_hover;
+        color: $blue--brand;
+      }
+    }
+  }
+
+  .Button--github {
+    background: $gray8;
+    border-color: $gray8;
+    color: $white;
+
+    &:not(.Button--noHover):hover {
+      background: $gray9;
+    }
+
+    &.Button--outline {
+      background: none;
+      border-color: $gray7;
+      color: $gray9;
+
+      &:not(.Button--noHover):hover {
+        background: none;
+        border: 1px solid $gray9;
+        color: $gray9;
+      }
+    }
+  }
+
+  .Button--google {
+    background: $red--brand;
+    border-color: $red--brand;
+    color: $white;
+
+    &:not(.Button--noHover):hover {
+      background: $red--brand_hover;
+    }
+
+    &.Button--outline {
+      background: none;
+      border-color: $red--brand;
+      color: $red--brand_hover;
+
+      &:not(.Button--noHover):hover {
+        background: none;
+        border: 1px solid $red--brand_hover;
+        color: $red--brand_hover;
+      }
+    }
+  }
+
+  .Button--social {
+    .social-button-verb::before {
+      content: 'Connected: ';
+    }
+
+    .overflow-ellipsis {
+      text-overflow: ellipsis;
+      max-width: 100px;
+      display: inline-block;
+      vertical-align: bottom;
+      overflow: hidden;
+    }
+
+    &:hover {
+      .social-button-verb::before {
+        content: 'Disconnect ';
+      }
+    }
+  }
+}

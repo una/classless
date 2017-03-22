@@ -1,0 +1,28 @@
+{{#if showDeactivateModal}}
+  {{#modal-window title="Deactivate team" contentClasses="confirm-small" size="small" saveText="Deactivate Team" onHide="onDeactivateModalHide"}}
+    <p class="u-grey">Are you sure you want to deactivate this team? All Droplets must be destroyed before deactivation.</p>
+  {{/modal-window}}
+{{else}}
+  {{#modal-window size="small" onHide="onModalHide" bodyClasses="u-pb-3" contentClasses="confirm-small settings-team-edit"  saveClasses="Button--blue Button-fullWidth u-mr-5" showCancel=false showSave=false title=modalTitle}}
+    {{#form-with-validation onSubmit="updateProfile" submitButtonText="Update Team Profile" submitButtonWrapperClasses="u-mb-2"}}
+      <div class="row">
+        {{float-label-input error="Team Name cannot be blank" required=true value=name placeholder="Team name"}}
+      </div>
+      <div class="row">
+        {{float-label-input error="Team contact email cannot be blank" required=true value=contactEmail placeholder="Team contact email"}}
+      </div>
+      <div class="row">
+        {{float-label-input required=false value=company placeholder="Team company"}}
+      </div>
+      <div class="row is-sensitive">
+        {{float-label-input required=false value=location placeholder="Team address"}}
+      </div>
+      <div class="row is-sensitive">
+        {{float-label-input required=false value=phoneNumber placeholder="Phone number"}}
+      </div>
+    {{/form-with-validation}}
+    <div class="row u-textAlignCenter u-mb-2">
+      <a class="deactivate-link" {{action 'toggleDeactivateModal'}} role="button">Deactivate team</a>
+    </div>
+  {{/modal-window}}
+{{/if}}

@@ -1,0 +1,22 @@
+{{#if model.wasClosed}}
+  <div class="closed-ticket-banner Alert Alert--neutral small-dark u-mb-3">
+    <div class="Alert-content">
+      This ticket has been closed. To re-open this ticket, simply reply below!
+    </div>
+  </div>
+{{/if}}
+
+<div class="Ticket Ticket-support {{if model.isCollapsed 'is-collapsed' ''}} {{if model.replies.length 'hasReplies' ''}} {{if model.collapsedReplyCount 'hasCollapsed' ''}}" {{action "collapseTicket" on="click"}} role="button">
+  <div class="Ticket-inner">
+    <div class="Ticket-supportHeader u-clearfix u-mb-3">
+      <span class="Ticket-reply supportRequest u-floatLeft">Support Request</span>
+      <span class="Ticket-timestamp u-floatRight">
+        Created {{date-to-human-time date=model.createdAt}}
+      </span>
+    </div>
+
+    {{ticket-main-body model=model}}
+  </div>
+</div>
+
+{{outlet}}

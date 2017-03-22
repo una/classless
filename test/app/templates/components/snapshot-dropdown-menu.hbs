@@ -1,0 +1,127 @@
+{{partial "components/partials/dropdown-menu-title"}}
+<div class="menu-dropdown">
+  <div class="menu-dropdownView">
+    {{!-- Transfer Received --}}
+    {{#if isTransferReceived}}
+      <div class="dropdown-view dropdown-view--transferreceived u-textAlignLeft">
+        <p class="dropdown__headline">Snapshot Transfer Received</p>
+        <p class="small-dark"><strong>{{senderEmail}}</strong> transferred this Snapshot to you. Should you accept, this image will appear under "Snapshots".</p>
+        <div class="row">
+          <div class="columns small-6">
+            <button class="Button Button--fullWidth Button--red Button--outline" {{action 'declineSnapshotTransfer'}}>Decline</button>
+          </div>
+          <div class="columns small-6">
+            <button class="Button Button--fullWidth Button--green" {{action 'acceptSnapshotTransfer'}}>Accept</button>
+          </div>
+        </div>
+      </div>
+    {{else}}
+      <div role="button" class="menu-dropdownBacktoMenu Icon--arrowLongLeft {{if isShowingMenuItems "hideMenuButton"}}" {{action 'backToMenu'}}></div>
+      <ul class="menu-dropdownItems">
+        <li role="button" class="noLink" {{action 'renameSnapshot'}}>Rename</li>
+        <li role="button" class="noLink" {{action 'createFromSnapshot'}}>Create Droplet</li>
+        <li role="button" class="noLink" {{action 'click' 'distribute'}}>
+          {{#if (or regionTransfers.length ongoingRegionTransfers)}}
+            {{loading-spinner gif=true}}
+          {{/if}}
+          Add to region
+        </li>
+        <li role="button" class="noLink" {{action 'click' 'transfer'}}>
+          {{#if isTransferring}}
+            {{loading-spinner gif=true}}
+          {{/if}}
+          Change owner
+        </li>
+        <li role="button" class="noLink {{if restoreDisabled "is-disabled u-lightgrey"}}" {{action 'restoreSnapshot'}}>Restore Droplet</li>
+        <li role="button" class="noLink" {{action 'click' 'delete'}}>Delete</li>
+      </ul>
+
+      {{!-- Transfer --}}
+      <div class="dropdown-view dropdown-view--transfer u-textAlignLeft">
+        {{#if isTransferring}}
+          {{!-- Transfer Pending --}}
+          <p class="dropdown__headline">Snapshot Transfer Pending</p>
+          <p class="small-dark">Once this snapshot transfer has been approved by <strong>{{transferRecipientEmail}}</strong>, you will no longer have access to it.</p>
+          <div class="images__transferImage"></div>
+          <button {{action 'cancelSnapshot' bubbles=false}} class="Button Button--fullWidth Button--red">Cancel Transfer</button>
+        {{else}}
+          <p class="dropdown__headline">Transfer to another user</p>
+          <p class="small-dark">Transfer your snapshot to another user. Once the user accepts the transfer, you will lose access to this snapshot.</p>
+
+          <div class="images__transferForm">
+            {{#form-with-validation
+              onSubmit="submitTransferSnapshot"
+              submitButtonColor="green"
+              submitButtonText="Transfer Snapshot"
+              submitButtonWrapperClasses="u-mt-3"
+              isNotBubblingOnSubmit=true
+              isShowingSubmitLoader=isSubmittingTransfer
+              revalidateOnPropertyChange=transferType}}
+
+              {{#if hasOrganizations}}
+              <div class="u-clearfix u-mb-3">
+                <div class="radio">
+                  {{radio-button checked=transferType name="transferType" id=transferTypeId1 value="user"}}
+                  <span></span>
+                  <label for={{transferTypeId1}}>User</label>
+                </div>
+
+                <div class="radio">
+                  {{radio-button checked=transferType name="transferType" id=transferTypeId2 value='team'}}
+                  <span></span>
+                  <label for={{transferTypeId2}}>Team</label>
+                </div>
+              </div>
+              {{/if}}
+
+              {{#if (eq transferType "user")}}
+                {{float-label-input
+                  type="email"
+                  error="Recipient email must be a valid address"
+                  klasses="recipientEmail"
+                  required=true
+                  placeholder="Enter recipients email"
+                  value=transferRecipientEmail}}
+              {{else}}
+                <div class="select-wrapper FloatLabel">
+                  <div class="Select">
+                    <select class="select" required="required" onChange={{action "onTransferTeamChange" value="target.value"}}>
+                      {{#each organizations as |organization|}}
+                        <option value={{organization.internalIdentifier}}>{{organization.name}}</option>
+                      {{/each}}
+                    </select>
+                  </div>
+                </div>
+              {{/if}}
+
+            {{/form-with-validation}}
+          </div>
+        {{/if}}
+      </div>
+
+      {{!-- Distribute --}}
+      <div class="dropdown-view dropdown-view--distribute u-textAlignLeft">
+        <p class="dropdown__headline">Snapshot availability</p>
+        <p class="small-dark">Select the regions that you would like your snapshot to be available in.</p>
+        <div class="dropdown__regions">
+          {{#each regionsList as |region|}}
+            {{#if (not-eq region.slug "disabled")}}
+              {{#if region.isEnabled}}
+                {{region-button isDisabled=true region=region}}
+              {{else}}
+                {{region-button action="regionButtonClick" region=region isLoaderVisible=region.isLoaderVisible bubbles=false}}
+              {{/if}}
+            {{/if}}
+          {{/each}}
+        </div>
+      </div>
+
+      {{!-- Delete --}}
+      <div class="dropdown-view dropdown-view--delete">
+        <p class="dropdown__headline">Confirm snapshot delete</p>
+        <p class="small-dark">This action is irreversible. To confirm deletion, click the button below.</p>
+        <button class="Button Button--fullWidth Button--red" {{action 'deleteSnapshot'}} tabindex="-1">Delete Snapshot</button>
+      </div>
+    {{/if}}
+  </div>
+</div>

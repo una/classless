@@ -1,0 +1,38 @@
+<tr id="{{myId}}" class="{{if filteredDir.selected "selected"}} {{if filteredDir.invalid "invalid"}}" role="button" {{action "onToggleSelectFolder" filteredDir}}>
+	<td class="name">
+	  <div class="object-move-dir">
+	    {{#if filteredDir.children}}
+				<span role="button" class="icon {{unless filteredDir.childrenOpen "plus"}}" {{action "onToggleDirTree" filteredDir bubbles=false}}></span>
+	  	{{/if}}
+	    <div class="Resource-image">
+	      <div class="resource-icon folder"></div>
+	    </div>
+			{{#if filteredDir.children}}
+		    <div role="button" class="objectMove-dir-name" {{action "onToggleDirTree" filteredDir bubbles=false}}>
+		      {{filteredDir.name}}
+					{{#if filteredDir.isLoadingChildren}}
+						{{loading-spinner}}
+					{{/if}}
+		    </div>
+			{{else}}
+				<div class="objectMove-dir-name">
+					{{filteredDir.name}}
+				</div>
+			{{/if}}
+	  </div>
+		</td>
+</tr>
+{{#if (and filteredDir.children filteredDir.childrenOpen)}}
+	{{#each filteredDir.children as |subDir|}}
+		{{object-move-table-row
+			depth=(add depth 1)
+			dir=subDir
+			parentKey=filteredDir.key
+			movingObjs=movingObjs
+			classNames=classNames
+			currentDir=currentDir
+			onToggleSelectFolder=onToggleSelectFolder
+			onToggleDirTree=onToggleDirTree
+		}}
+	{{/each}}
+{{/if}}

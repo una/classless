@@ -1,0 +1,42 @@
+{{#modal-window title=title size="medium" onHide=(action "hide") showCancelButton=false showSave=false contentClasses="backup-codes" bodyClasses="u-pt-0"}}
+  <p>Make sure you have a copy of your codes. Store them using a password manager like <a href="https://lastpass.com/" target="_blank" rel="noopener noreferrer">LastPass</a> or <a href="https://1password.com/" target="_blank" rel="noopener noreferrer">1Password</a>, or in an encrypted file.</p>
+  <div class="Box recovery-code-box">
+    <div class="recovery-code-title">
+      {{#if canDownload}}
+        <strong>Here are your codes</strong>
+        <span role="button" {{action "copyCodes"}} class="is-sensitive u-floatRight">
+            {{#copy-on-content-click text=text}}
+              <a><span class="resource-icon copy"></span>Copy</a>
+            {{/copy-on-content-click}}
+        </span>
+      {{else}}
+        Generating codes...
+      {{/if}}
+    </div>
+    <div class="recovery-code-codes is-sensitive">
+      {{#if recoveryCodes}}
+        <ul class="codes">
+          {{#each recoveryCodes as |code|}}
+            <li>{{code}}</li>
+          {{/each}}
+        </ul>
+      {{else}}
+        <div class="placeholder codes u-textAlignCenter">
+          <div class="Loader--basic Loader--blue"></div>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+  <p>If you lose access to your default authentication method, use one of these codes to regain access to your account.</p>
+  <div class="is-sensitive">
+    {{#if codesRetrieved}}
+      <a role="button" {{action "hide"}} class='Button Button--blue Button--large Button--fullWidth'>
+        OK
+      </a>
+    {{else}}
+      <a {{action "downloadCodes" preventDefault=false}} download="digitalocean_backupcodes.txt" href="{{dataURI}}" class='mchNoDecorate Button Button--blue Button--large Button--fullWidth {{if (not canDownload) 'is-disabled'}}'>
+        <span class="resource-icon download"></span>Download .txt File
+      </a>
+    {{/if}}
+  </div>
+{{/modal-window}}

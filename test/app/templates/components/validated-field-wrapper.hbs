@@ -1,0 +1,7 @@
+{{#if showErrorMessage}}
+  <span class="ValidationMessage ValidationError">{{errorMessage}}</span>
+{{else if showWarningMessage}}
+  <span class="ValidationMessage ValidationWarning">{{warningMessage}}</span>
+{{/if}}
+
+{{yield}}

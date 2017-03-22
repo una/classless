@@ -1,0 +1,81 @@
+{{#modal-window
+  size="small"
+  onHide="onModalHide"
+  bodyClasses="u-pb-3"
+  contentClasses="confirm-small settings-team-edit"
+  showCancel=false
+  showSave=false
+  title="Edit your profile"
+}}
+    {{#form-with-validation
+      onSubmit="updateProfile"
+      submitButtonText="Update Profile"
+      submitButtonWrapperClasses="u-mb-3"
+      isShowingSubmitLoader=isSubmitting
+    }}
+      <div class="row">
+        {{float-label-input error="Name cannot be blank" required=true value=name placeholder="Full name"}}
+      </div>
+      <div class="row profile-edit-input is-sensitive">
+        {{#if isChangingEmail}}
+          {{float-label-input
+            error="Email cannot be blank"
+            required=isEmailChanged
+            value=email
+            placeholder="New email address"
+            autofocus=true
+          }}
+        {{else}}
+          {{float-label-input
+            value=email
+            placeholder="Email address"
+            disabled=true
+            no-checkmark=true
+          }}
+          <a class="profile-edit-input-link" {{action "editEmail"}} role="button">Edit email</a>
+        {{/if}}
+      </div>
+      {{#if isChangingEmail}}
+        <div class="row is-sensitive">
+          {{float-label-input value=emailConfirmation required=isEmailChanged error="Confirm email cannot be blank" placeholder="Confirm Email Address"}}
+        </div>
+      {{/if}}
+      <div class="row profile-edit-input is-sensitive">
+        {{#if isChangingPassword}}
+          {{float-label-input
+            required=isPasswordChanged
+            type="password"
+            value=currentPassword
+            placeholder="Current password"
+            autofocus=true
+          }}
+        {{else}}
+          {{float-label-input
+            type="password"
+            value="*****"
+            placeholder="Password"
+            disabled=true
+            no-checkmark=true
+          }}
+          <a class="profile-edit-input-link" {{action "editPassword"}} role="button">Edit password</a>
+        {{/if}}
+      </div>
+      {{#if isChangingPassword}}
+        <div class="row is-sensitive">
+          {{float-label-input error="Must contains 6 characters with at least 1 letter" required=isPasswordChanged type="password" value=password placeholder="New password" pattern=passwordRegEx}}
+        </div>
+        <div class="row is-sensitive">
+          {{float-label-input error="Must contains 6 characters with at least 1 letter" required=isPasswordChanged type="password" value=passwordConfirmation placeholder="Confirm new password" pattern=passwordRegEx}}
+        </div>
+      {{/if}}
+      <div class="row is-sensitive">
+        {{float-label-input required=false value=phone placeholder="Phone number"}}
+      </div>
+      <div class="row">
+        {{float-label-input required=false value=company placeholder="Your company"}}
+      </div>
+      <div class="row is-sensitive">
+        {{float-label-input googlePlaces=true required=false value=location placeholder="Your address"}}
+      </div>
+    {{/form-with-validation}}
+  {{/modal-window}}

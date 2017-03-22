@@ -1,0 +1,160 @@
+.aurora-size {
+  width: 100%;
+  background: $white;
+  border-radius: 3px;
+  color: $gray9;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid $gray4;
+
+  &:hover,
+  &:focus {
+    border-color: $gray5;
+    outline: none;
+
+    .pricing {
+      border-color: $gray5;
+      background: $gray2;
+    }
+  }
+
+  &.disabled {
+    cursor: default;
+    cursor: not-allowed;
+    opacity: 0.4;
+
+    &:hover {
+      border-color: $gray3;
+
+      .pricing {
+        border-color: $gray3;
+        background: $white;
+      }
+    }
+  }
+
+  &.selected {
+    border-color: $blue--brand;
+    pointer-events: none;
+
+    &.custom {
+      pointer-events: auto;
+    }
+
+    .pricing {
+      background: $blue--light-1;
+      border-bottom: 1px solid $blue--brand;
+      color: $blue--brand;
+    }
+
+    &.disabled {
+      opacity: 0.9;
+      border-color: $gray6;
+
+      .pricing {
+        background-color: $gray6;
+        border-color: $gray6;
+        color: $white;
+      }
+    }
+  }
+
+  .pricing {
+    border-bottom: 1px solid $gray4;
+    padding: 18px 0 11px;
+  }
+
+  .price {
+    text-align: center;
+    line-height: 18px;
+
+    .period {
+      font-size: 12px;
+      right: 3px;
+      position: relative;
+    }
+  }
+
+  .monthly {
+    .cost {
+      @extend %font--semibold;
+
+      font-size: 26px;
+
+      &.cost-placeholder {
+        @extend %font--regular;
+      }
+    }
+
+    .dollar {
+      display: inline-block;
+      font-size: 14px;
+      line-height: 15px;
+      vertical-align: top;
+      position: relative;
+      left: 5px;
+      top: 0;
+    }
+
+    .period {
+      font-size: 16px;
+    }
+  }
+
+  .hourly {
+    font-size: 14px;
+  }
+
+  .details {
+    padding: 15px 0;
+    font-size: 14px;
+
+    span {
+      display: block;
+      margin: 0;
+      color: $gray6;
+    }
+
+    .memory_and_cpu,
+    .disk,
+    .bandwidth {
+      strong {
+        @extend %font--regular;
+
+        color: $gray8;
+      }
+    }
+  }
+
+  &.custom {
+    .details {
+      padding: 0;
+
+      .FloatLabel {
+        input {
+          margin: 1px 0;
+          border: none;
+        }
+      }
+    }
+  }
+
+  &:not(.selected) {
+    .FloatLabel {
+      &.is-required::before,
+      &.validatePass::after {
+        content: '';
+      }
+
+      &.validateFail .FloatLabel-label {
+        color: inherit !important;
+      }
+    }
+  }
+}
+
+.size-chooser-list {
+  .tooltip-wrap {
+    display: block;
+  }
+}

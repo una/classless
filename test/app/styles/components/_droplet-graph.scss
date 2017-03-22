@@ -1,0 +1,249 @@
+$aurora-droplet-graph-stroke-color: $gray5;
+$aurora-droplet-graph-text-fill: $gray8;
+$aurora-droplet-graph-tick-fill: $gray--overlay;
+$aurora-droplet-graph-grid-line-fill: $gray9;
+$aurora-droplet-graph-tick-line-stroke: $aurora-droplet-graph-tick-fill;
+$aurora-droplet-graph-chart-arcs-guage-fill: $gray8;
+$aurora-droplet-graph-text-when-empty-fill: $gray6;
+$aurora-droplet-graph-text-color-fill: $gray8;
+$aurora-droplet-graph-chart-arcs-background-fill: $gray4;
+
+.ember-view.loaded {
+  > .aurora-droplet-graph {
+    opacity: 0.999;
+  }
+}
+
+// Old c3 chart component to be phased out
+.aurora-droplet-graph {
+  transition: opacity 0.2s linear;
+  opacity: 0.001;
+  position: relative;
+
+  &.loaded {
+    opacity: 1;
+  }
+
+  /* -- Chart -- */
+  &.c3 svg {
+    font-family: 'proxima-nova';
+  }
+
+  &.c3 path,
+  &.c3 line {
+    fill: none;
+    stroke: $aurora-droplet-graph-stroke-color;
+  }
+
+  &.c3 text {
+    fill: $aurora-droplet-graph-text-fill;
+    font-feature-settings: 'tnum';
+    font-size: 0.7rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+
+  .c3-legend-item-tile,
+  .c3-xgrid-focus,
+  .c3-ygrid,
+  .c3-event-rect,
+  .c3-bars path {
+    shape-rendering: crispEdges;
+  }
+
+  .c3-chart-arc path {
+    stroke: $white;
+  }
+
+  .c3-chart-arc text {
+    fill: $white;
+    font-size: 13px;
+  }
+
+  /* -- Axis -- */
+  .c3-axis-x .tick {
+    fill: $aurora-droplet-graph-tick-fill;
+
+    line {
+      stroke: $aurora-droplet-graph-tick-line-stroke;
+    }
+  }
+
+  .c3-axis-x-label {
+    fill: $aurora-droplet-graph-tick-fill;
+  }
+
+  .c3-axis-y .tick {
+    fill: $aurora-droplet-graph-tick-fill;
+
+    line {
+      stroke: $aurora-droplet-graph-tick-line-stroke;
+    }
+  }
+
+  .c3-axis-y-label {
+    fill: $aurora-droplet-graph-tick-fill;
+  }
+
+  /* -- Grid -- */
+
+  //x grid lines, the lib wont do what we want, so some trickery
+  .c3-axis-x line {
+    transform: translateY(-165px) scaleY(27.4);
+  }
+
+  .c3-grid line {
+    stroke: $aurora-droplet-graph-tick-fill;
+  }
+
+  .c3-grid text {
+    fill: $aurora-droplet-graph-text-color-fill;
+  }
+
+  .c3-xgrid-focus line {
+    stroke: $aurora-droplet-graph-grid-line-fill;
+  }
+  //remove left border
+  .c3-axis path.domain {
+    display: none;
+  }
+
+  .c3-ygrid {
+    stroke-dasharray: 0; //override cloud
+  }
+
+  /* -- Text on Chart -- */
+  .c3-text.c3-empty {
+    fill: $aurora-droplet-graph-text-when-empty-fill;
+    font-size: 19px;
+  }
+
+  /* -- Line -- */
+  .c3-line {
+    stroke-width: 1px;
+  }
+
+  /* -- Point -- */
+  .c3-circle._expanded_ {
+    stroke-width: 1px;
+    stroke: $white;
+  }
+
+  .c3-selected-circle {
+    fill: $white;
+    stroke-width: 2px;
+  }
+
+  /* -- Bar -- */
+  .c3-bar {
+    stroke-width: 0;
+  }
+
+  .c3-bar._expanded_ {
+    fill-opacity: 0.75;
+  }
+
+  /* -- Arc -- */
+  .c3-chart-arcs-title {
+    font-size: 1.3rem;
+  }
+
+  /* -- Focus -- */
+  .c3-target.c3-focused path.c3-line,
+  .c3-target.c3-focused path.c3-step {
+    stroke-width: 1;
+  }
+
+  /* -- Region -- */
+  .c3-region {
+    fill: $blue--brand;
+    fill-opacity: 0.1;
+  }
+
+  /* -- Brush -- */
+
+  .c3-brush .extent {
+    fill-opacity: 0.1;
+  }
+
+  .c3-area {
+    stroke-width: 0;
+    opacity: 0.2;
+  }
+
+  .c3-chart-arcs .c3-chart-arcs-background {
+    fill: $aurora-droplet-graph-chart-arcs-background-fill;
+    stroke: none;
+  }
+
+  .c3-chart-arcs .c3-chart-arcs-gauge-unit {
+    fill: $black;
+    font-size: 16px;
+  }
+
+  .c3-chart-arcs .c3-chart-arcs-gauge-max {
+    fill: $aurora-droplet-graph-chart-arcs-guage-fill;
+  }
+
+  .c3-chart-arcs .c3-chart-arcs-gauge-min {
+    fill: $aurora-droplet-graph-chart-arcs-guage-fill;
+  }
+
+  .c3-chart-arc .c3-gauge-value {
+    fill: $black;
+    font-size: 28px;
+  }
+
+  &.c3-empty {
+    border: 1px solid $gray4;
+    margin-left: 1rem;
+    text-indent: -35px;
+    padding-top: 15px;
+    border-radius: 2px;
+
+    .c3-ygrids,
+    .c3-axis-y .tick {
+      display: none;
+    }
+  }
+}
+
+// Should remove when we kill c3 charts. Nested under #content to override some c3 specific styling from cloud
+#content {
+  table.c3-tooltip tbody tr td {
+    padding: 0.1rem 0;
+  }
+
+  // Bringing back metric grouping borders in tooltip for the old charts
+  // Also some hacky padding stuff to get group borders to look ok
+  .c3-tooltip-container:not(.common-tooltip) table.c3-tooltip tbody {
+    tr {
+      &:nth-child(2n+1) {
+        border-bottom: 1px solid $gray3;
+
+        td {
+          padding-bottom: 0.3rem; // Padding for bottom tr's in a group. On the td because can't do padding on tr
+        }
+      }
+
+      &:nth-child(4),
+      &:nth-child(6) {
+        td {
+          padding-top: 0.3rem; // Padding for top tr's in a group. On the td because can't do padding on tr
+        }
+      }
+
+      &:first-child,
+      &:last-child {
+        border: none;
+      }
+
+      &:last-child {
+        td {
+          padding-bottom: 0;
+        }
+      }
+    }
+  }
+}

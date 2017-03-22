@@ -1,0 +1,19 @@
+{{#if atMaxCapacity}}
+  <div class="gmail-limit-banner">You can only send {{limit}} invites per day.</div>
+{{/if}}
+<div class="gmail-contact-search">
+  {{input class="gmail-contact-search-input" type="text" placeholder="Search Gmail Contacts" name="searchQuery" value=searchQuery}}
+  <span class="Icon--search"></span>
+</div>
+
+<div class="gmail-contact-list">
+  {{#each filteredContacts as |contact|}}
+    {{gmail-contact
+      fullName=contact.fullName
+      email=contact.email
+      label=contact.label
+      atMaxCapacity=atMaxCapacity
+      isSelected=contact.isSelected
+    }}
+  {{/each}}
+</div>

@@ -1,0 +1,82 @@
+<div class="row">
+  {{#unless emptyState}}
+    <div class="small-6 columns">
+      <h1 class="u-floatLeft u-mb-0 heading">Notifications</h1>
+    </div>
+  {{/unless}}
+</div>
+<div class="row">
+  <div class="small-12 columns u-mb-4">
+    {{#if hasContent}}
+      <table class="notification-listing">
+        <thead>
+          <tr>
+            {{table-header noSorting=true col="type" text="Type"}}
+            {{table-header noSorting=true col="subject" text="Subject"}}
+            {{table-header noSorting=true col="created_at" text="Date"}}
+            {{table-header col="action" noSorting=true}}
+          </tr>
+        </thead>
+        <tbody>
+          {{#each model as |notification|}}
+            <tr role="button" {{action 'toggleShow' notification preventDefault=false}} class="notification-row {{if notification.acknowledged 'acknowledged'}}" id="notification-{{notification.id}}">
+              <td class="type">
+                {{#if notification.isNewsNotification}}
+                  <div class="resource-icon news-notification"></div>
+                {{else}}
+                  <div class="resource-icon default-notification"></div>
+                {{/if}}
+              </td>
+              <td class="subject">
+                <p class="u-mb-0">
+                  {{#ellipsis-text text=notification.subject}}
+                    {{notification.subject}}
+                  {{/ellipsis-text}}
+                </p>
+                <div class="body">
+                    <div class="full">
+                      {{{notification.formattedBody}}}
+                    </div>
+                    <div class="blurb">
+                      {{{notification.blurb}}}
+                    </div>
+                </div>
+              </td>
+              <td class="created_at">
+                {{date-to-human-time date=notification.createdAt}}
+              </td>
+              <td class="action">
+                {{#if notification.isShowing}}
+                  <span>Hide<span class="Icon--arrowUp"></span></span>
+                {{else}}
+                  <span>Show<span class="Icon--arrowDown"></span></span>
+                {{/if}}
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{#if needsPagination}}
+        {{paginator-full
+          linkToPage="notifications"
+          isLoading=paginating
+          pages=model.meta.pagination.pages
+          currentPage=model.meta.pagination.current_page
+          action="changePage"
+          scrollToAfterLoad="#aurora-container"
+        }}
+      {{/if}}
+    {{else}}
+      <section class="EmptyState u-clear Box u-mt-4">
+        {{#if error}}
+          <h2>Sorry an error occurred</h2>
+          <p class="u-mb-0">Please try again.</p>
+        {{else}}
+          <img class="EmptyState-image" src="/assets/images/empty-notifications.svg" alt="Looks like you don’t have any notifications yet!">
+          <h3>Looks like you don’t have any notifications yet!</h3>
+          <p>We’ll share important platform updates and information about your account with you here.</p>
+        {{/if}}
+      </section>
+    {{/if}}
+  </div>
+</div>

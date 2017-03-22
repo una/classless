@@ -1,0 +1,177 @@
+.droplet-listing {
+  table-layout: fixed;
+
+  td {
+    padding-top: 13px !important;
+    padding-bottom: 13px !important;
+    position: relative;
+  }
+
+  .name {
+    width: 40%;
+
+    .Resource-title {
+      @extend %font--semibold;
+    }
+
+    .details,
+    a {
+      display: block;
+    }
+
+    .details {
+      @extend %font--regular;
+
+      font-size: 13px;
+      color: $gray8;
+    }
+
+    a {
+      &:hover {
+        color: $blue--brand_hover;
+      }
+    }
+  }
+
+  .ip {
+    width: 16%;
+    position: relative;
+  }
+
+  .created_at {
+    width: 16%;
+    white-space: nowrap;
+
+    time {
+      display: inline-block;
+      padding: 0;
+    }
+  }
+
+  .tags {
+    width: 20%;
+
+    .token-item {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      max-width: 80%;
+      overflow: hidden;
+    }
+  }
+
+  .action {
+    width: 8%;
+
+    .aurora-dropdown-menu {
+      .menu-dropdown {
+        min-width: 170px;
+        margin-bottom: 40px;
+      }
+    }
+  }
+
+  .loading-indicator {
+    background: $white;
+    position: absolute;
+    z-index: 1;
+    top: calc(50% - 4px);
+    width: 315%;
+    transition: opacity 0.3s ease;
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    opacity: 0.999;
+
+    &.droplet-loaded {
+      opacity: 0.01;
+    }
+  }
+
+  tbody tr:first-child:last-child td .loading-indicator {
+    top: calc(50% + 3px);
+  }
+
+  .create-error {
+    @extend %font--bold;
+
+    width: 530px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    padding: 23px 0 0;
+    z-index: 1;
+    background: $white;
+    color: $red--brand;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  tr.done {
+    .statusIndicator {
+      animation: status 0.5s ease 0.25s forwards;
+      border: 0;
+    }
+
+    .loading-indicator {
+      display: none;
+    }
+  }
+
+  .statusIndicator.new {
+    position: absolute;
+    top: 38px;
+    left: 40px;
+    pointer-events: none;
+  }
+}
+
+// MATCHING CLOUD DELIVERED STYLES
+table tbody tr td {
+  padding: 15px 0;
+}
+
+.droplet-tabs {
+  .metrics-link {
+    position: relative;
+    top: 0.75rem;
+
+    .Icon--newWindow {
+      margin-left: 0.4rem;
+      position: relative;
+      top: 1px;
+    }
+  }
+}
+
+.droplet_search {
+  position: relative;
+
+  .searchInput {
+    width: 415px;
+    position: absolute;
+    right: 0;
+    margin-top: -150px;
+  }
+}
+
+@keyframes status {
+  0% {
+    transform: scale(0.001) translateZ(0);
+    background: $green--brand;
+    border: 0;
+  }
+
+  40% {
+    transform: scale(1.3) translateZ(0);
+    background: $green--brand;
+    border: 0;
+  }
+
+  100% {
+    transform: scale(0.999) translateZ(0);
+    background: $green--brand;
+    border: 0;
+  }
+}

@@ -1,0 +1,122 @@
+.Ticket {
+  border: 1px solid $light_blue_border;
+  padding: $ws-3;
+  color: $grey_8;
+  background: $white;
+  cursor: pointer;
+  position: relative;
+  border-radius: $border_radius;
+  @include transition(all, .5s, ease-in-out);
+
+  &.is-collapsed {
+    background: #fafdff;
+
+    .Ticket-supportBody {
+      max-height: 0;
+      @include transition(all, 0.35s, cubic-bezier(0, 1, 0.5, 1));
+    }
+
+    .Ticket-supportHeader {
+      margin-bottom: 0;
+      opacity: .6;
+    }
+
+    .Ticket-ellipses {
+      opacity: .5;
+    }
+
+    &:hover {
+      .Ticket-ellipses {
+        opacity: .8;
+      }
+    }
+  }
+
+  &:hover {
+    .Ticket-ellipses {
+      opacity: .3;
+    }
+  }
+
+  h3 {
+    color: $type;
+    margin: 0 0 $ws-4 0;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}
+.Ticket-inner {
+  padding: 1rem;
+}
+
+
+.Ticket-supportHeader {
+  @include transition(opacity, .5s, ease-in-out);
+}
+
+.Ticket-supportBody {
+  max-height: 1000px;
+  overflow: hidden;
+  @include transition(all, .5s, ease-in-out);
+
+  & > *:first-child {
+    margin-top: $ws-4;
+  }
+}
+
+.Ticket-reply, .Ticket-timestamp {
+  color: $blue;
+  font-weight: 400;
+  font-size: .9rem;
+}
+
+.Ticket-reply {
+  font-weight: 600;
+
+  span {
+    font-weight: 400;
+  }
+}
+
+.Ticket-timestamp {
+  float: right;
+}
+
+
+.Ticket-ellipses {
+  @include ellipses();
+  border-radius: 50%;
+  @include transition(opacity, .3s, ease-in-out);
+  margin-left: -.25rem;
+  opacity: 0;
+
+  &:before, &:after {
+    @include ellipses();
+    border-radius: 50%;
+    @include transition(opacity, .5s, ease-in-out);
+    content: '';
+    bottom: 0;
+  }
+
+  &:before {
+    left: -.5rem;
+  }
+
+  &:after {
+    left: .5rem;
+  }
+}
+
+
+.Ticket-comment {
+  padding: $ws-2;
+  margin-bottom: $ws-3;
+
+  .Ticket-supportBody {
+    & > *:first-child {
+      margin-top: $ws-1;
+    }
+  }
+}

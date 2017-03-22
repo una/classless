@@ -1,0 +1,38 @@
+{{#if isEditMode}}
+  <div class="health-check-field">
+    {{float-label-select
+      required=true
+      error="Please select a protocol"
+      label="Protocol"
+      selectedOption=selectedProtocol
+      options=availableProtocols
+      onChange="onProtocolChange"
+      onFocus="onProtocolFocus"
+    }}
+  </div>
+  <div class="health-check-field">
+    {{float-label-input
+      value=port
+      placeholder="Port"
+      customValidation=validatePortRange
+      setErrorMessage=setPortRangeErrorMessage
+      required=true
+    }}
+  </div>
+  <div class="health-check-field">
+    {{#if pathVisible}}
+      {{float-label-input
+        error="Invalid path"
+        value=path
+        placeholder="Path"
+        customValidation=validatePath
+        required=true
+      }}
+    {{/if}}
+  </div>
+{{else}}
+  <div class="health-check-url overflow-ellipsis">
+    {{to-lowercase selectedProtocol}}://{{hostname}}:{{port}}{{if pathVisible path}}
+  </div>
+{{/if}}
+

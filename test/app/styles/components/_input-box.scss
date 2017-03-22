@@ -1,0 +1,88 @@
+.input-box {
+  border: 1px solid $gray4;
+  border-radius: 3px;
+  padding: 15px;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid $gray6;
+  }
+}
+
+.input-box-selected {
+  border-color: $blue--brand;
+
+  .input-box-value,
+  input[type='text'].input-box-value {
+    color: $blue--brand;
+  }
+
+  &:hover {
+    border-color: $blue--brand_hover;
+  }
+
+  &.input-box-error {
+    border-color: $red--brand;
+    color: $red--brand;
+
+    .input-box-label,
+    .input-box-value,
+    input[type='text'].input-box-value {
+      color: $red--brand;
+    }
+
+    &:hover {
+      border-color: $red--brand_hover;
+    }
+  }
+}
+
+.input-box-editable {
+  .input-box-value {
+    pointer-events: auto;
+  }
+}
+
+.input-box-value {
+  @extend %font--light;
+
+  display: block;
+  text-align: center;
+  font-size: 2rem;
+  color: $gray8;
+  pointer-events: none;
+  outline: none;
+  height: 3rem;
+}
+
+input[type='text'].input-box-value {
+  border: 0 none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font-size: 2rem;
+  color: $gray8;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    @include appearance(none);
+
+    margin: 0;
+  }
+
+  &::before {
+    content: '$';
+    width: 20px;
+    height: 20px;
+    float: left;
+  }
+}
+
+.input-box-label {
+  display: block;
+  text-align: center;
+  color: $gray7;
+  font-size: 0.9rem;
+  pointer-events: none;
+}

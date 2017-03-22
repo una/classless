@@ -1,0 +1,11 @@
+<div class="small-1 columns context-check-box">
+  {{check-box checked=isChecked disabled=isDisabled}}
+</div>
+<div class="small-7 columns">
+  {{context-name-with-avatar model=account name=account.contact_email}}
+</div>
+<div class="small-4 columns u-textAlignRight context-status">
+  {{#if isDisabled}}
+    Connected
+  {{/if}}
+</div>

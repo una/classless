@@ -1,0 +1,22 @@
+.Pagination {
+  text-align: center;
+  margin: 1.3rem 0 0 0;
+  display: block;
+
+  .Pagination-previousPage, .Pagination-nextPage {
+    margin: 0 15px;
+    display: inline-block;
+    &:hover {
+      color: $blue_hover;
+    }
+    &.is-disabled {
+      color: $grey_4;
+      cursor: default;
+      text-decoration: none;
+      border-bottom: none;
+    }
+  }
+  .Button {
+    min-width: 2rem;
+  }
+}

@@ -1,0 +1,5 @@
+{{#if droplet.hasFwEnabledRegion}}
+  {{ip-address text=droplet.ipAddress}}
+{{else}}
+  Firewalls aren't enabled for this region yet
+{{/if}}

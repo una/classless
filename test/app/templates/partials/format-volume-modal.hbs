@@ -1,0 +1,46 @@
+{{#modal-window title="Configure your volume" contentClasses="confirm-small" size="large" showCancel=false saveText="OK" saveColumnClasses="small-12 u-pr-0" onHide="hideFormatVolumeModal"}}
+  <p>To configure your volume, run the following commands on your Droplet.</p>
+
+  <div class="u-code-block">
+    # SSH into your droplet<br />
+    $ ssh root@{{#if dropletCtrl.model.ipAddress}}{{dropletCtrl.model.ipAddress}}{{else}}{{formatInstructionsVolume.droplet.ipAddress}}{{/if}}
+    {{click-to-copy text=(concat "ssh root@" (or dropletCtrl.model.ipAddress formatInstructionsVolume.droplet.ipAddress))}}
+  </div>
+
+  <p class="u-mb-0">To format the volume, copy and paste the text below:</p>
+
+  <div class="u-code-block">
+    # Format the volume with ext4 <strong>Warning: This will erase all data on the volume. Only run this command on a volume with no existing data.</strong><br />
+    $ <span class="u-code-blue">sudo</span> mkfs.ext4 -F /dev/disk/by-id/scsi-0DO_Volume_{{formatInstructionsVolume.name}}
+    {{click-to-copy text=(concat 'sudo mkfs.ext4 -F /dev/disk/by-id/scsi-0DO_Volume_' formatInstructionsVolume.name)}}
+  </div>
+
+  <p class="u-mb-0">To mount the volume, copy and paste the text below:</p>
+
+  <div class="u-code-block">
+
+    # Create a mount point under /mnt<br />
+    $ <span class="u-code-blue">sudo</span> mkdir -p /mnt/{{formatInstructionsVolume.name}}<br />
+    <br />
+
+    # Mount the volume<br />
+    $ <span class="u-code-blue">sudo</span> mount -o discard,defaults /dev/disk/by-id/scsi-0DO_Volume_{{formatInstructionsVolume.name}} /mnt/{{formatInstructionsVolume.name}}<br />
+    <br />
+
+    # Change fstab so the volume will be mounted after a reboot<br />
+    $ <span class="u-code-blue">echo</span><span class="u-code-green"> '/dev/disk/by-id/scsi-0DO_Volume_{{formatInstructionsVolume.name}} /mnt/{{formatInstructionsVolume.name}} ext4 defaults,nofail,discard 0 0'</span> | <span class="u-code-blue">sudo</span> tee -a /etc/fstab
+
+    {{click-to-copy text=formatVolumeInstructionsCopyText}}
+  </div>
+
+  <p>The volume is now accessible at <strong>/mnt/{{formatInstructionsVolume.name}}</strong>, and you are able to write files and store other data. This data will persist if you detach the volume, and will continue to be available when the volume is reattached to another Droplet. If you want you can customize the commands above, please refer to the following articles:</p>
+
+  <p></p>
+
+  <ul class="u-pl-2">
+    <li><a href="https://www.digitalocean.com/community/tutorials/how-to-partition-and-format-digitalocean-block-storage-volumes-in-linux" target="_blank" rel="noopener noreferrer">How To Partition and Format DigitalOcean Block Storage Volumes in Linux</a></li>
+    <li><a href="https://www.digitalocean.com/community/tutorials/how-to-partition-and-format-storage-devices-in-linux" target="_blank" rel="noopener noreferrer">How To Partition and Format Storage Devices in Linux</a></li>
+  </ul>
+
+
+{{/modal-window}}

@@ -1,0 +1,41 @@
+<td class="name">
+  {{#link-to 'droplet.graphs' droplet}}
+    {{#ellipsis-text text=droplet.name}}
+      {{resource-item includeStorage=true showExtendedMeta=true item=droplet hideStatus=(or droplet.createEvent droplet.isCreating droplet.wasCreated)}}
+    {{/ellipsis-text}}
+  {{/link-to}}
+  {{#if (or droplet.createEvent droplet.isCreating droplet.wasCreated)}}
+    {{droplet-status status="new" showBg=true isLoading=(or droplet.createEvent droplet.isCreating)}}
+  {{/if}}
+</td>
+<td class="ip">
+  {{#if (or droplet.createEvent droplet.isCreating)}}
+    {{droplet-loading-indicator droplet=droplet parentSelector="tr" transitionClass="droplet-loaded"}}
+  {{else if droplet.createError}}
+    {{#link-to 'droplet_create' class="create-error"}}Droplet create event failed, please try again{{/link-to}}
+  {{/if}}
+  {{ip-address text=droplet.ipAddress}}
+</td>
+<td class="created_at">
+  {{#if (or droplet.createEvent droplet.isCreating droplet.wasCreated)}}
+    {{#tool-tip title="Just Now"}}
+      {{welcome-message}}
+    {{/tool-tip}}
+  {{else}}
+    {{date-to-human-time date=droplet.createdAt}}
+  {{/if}}
+</td>
+<td class="tags">
+  {{#if droplet.pendingTagEvent}}
+    {{loading-spinner plain=true spinnerClass="smaller"}}
+  {{else}}
+    {{ tags-table-list tags=droplet.tags tagClick=(action "tagClick") }}
+  {{/if}}
+</td>
+{{#unless isReadOnly}}
+  <td class="action">
+    <div class="u-floatRight">
+      {{dropdown-menu title="More" items=filteredListItems action="menuItemClick" closeOnClick=true actionParams=droplet}}
+    </div>
+  </td>
+{{/unless}}

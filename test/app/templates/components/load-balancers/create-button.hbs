@@ -1,0 +1,12 @@
+{{#if isDisabled}}
+  {{#tool-tip
+    title="New Load Balancers are temporarily unavailable while
+          DigitalOcean is under maintenance."
+    multiline=true
+    data-placement="bottom"
+  }}
+    {{#link-to "networking.loadBalancers.new" class="lb-create-button Button Button--blue is-disabled"}}Create Load Balancer{{/link-to}}
+  {{/tool-tip}}
+{{else}}
+  {{#link-to "networking.loadBalancers.new" class="lb-create-button Button Button--blue"}}Create Load Balancer{{/link-to}}
+{{/if}}

@@ -1,0 +1,16 @@
+<div class="row api-page">
+  <div class="columns small-12">
+    <h1>Applications & API</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columns small-12">
+    <ul class="Tabs u-mb-4 droplet-tabs" role="tablist">
+      {{#link-to 'api.tokens' tagName="li" activeClass="is-active"}}<a>Tokens</a>{{/link-to}}
+      {{#link-to 'api.applications' tagName="li" activeClass="is-active"}}<a>Apps</a>{{/link-to}}
+      {{#link-to 'api.access' tagName="li"  activeClass="is-active"}}<a>Access</a>{{/link-to}}
+    </ul>
+  </div>
+  {{outlet}}
+</div>

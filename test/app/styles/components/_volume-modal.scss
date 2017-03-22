@@ -1,0 +1,169 @@
+.attach-volume-modal {
+  .submit-storage-btn {
+    width: 167px;
+    right: 31px;
+    bottom: 30px;
+    position: absolute;
+  }
+
+  .attach-volume-snapshot-btn {
+    position: relative;
+    z-index: 1;
+    width: 150px;
+  }
+
+  .create-volume-step-2 {
+    width: 280px;
+    float: right;
+  }
+
+  .snapshot-back {
+    color: $blue--brand;
+    cursor: pointer;
+    position: absolute;
+    transform: translateY(-35px);
+    font-size: 1.05rem;
+    padding: 0 10px;
+
+    &::before {
+      font-size: 1rem;
+      padding-right: 15px;
+      vertical-align: middle;
+    }
+  }
+
+  .unattached-tooltip,
+  .region-tooltip {
+    display: block;
+  }
+
+  .tooltip-inner {
+    max-width: 300px;
+  }
+
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+    width: auto;
+  }
+
+  .Pagination {
+    text-align: left;
+    margin: 10px 0 !important;
+
+    &.volume-snapshot-pagination {
+      margin-bottom: -46px !important;
+    }
+  }
+
+  .attach-existing-button {
+    width: 180px;
+    float: right;
+    position: relative;
+    z-index: 1;
+    margin-top: 1em;
+  }
+
+  .errors {
+    @extend %font--bold;
+
+    text-align: center;
+    color: $red--brand;
+    line-height: 30px;
+    border-color: $red--brand;
+    padding: 0.7rem 0;
+  }
+
+  .region-button {
+    border: 1px solid $gray4;
+    display: block;
+    color: $gray4;
+    line-height: 47px;
+    border-radius: 3px;
+    position: relative;
+    text-align: right;
+    padding: 0 43px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 29px;
+      top: 9px;
+      opacity: 0.4;
+      transform: scale(0.6);
+
+      @include icon-sprite($icon-new-york-lrg);
+    }
+  }
+
+  .aurora-auto-complete .list-wrap .Resource .no-meta .Resource-title {
+    @extend %font--bold;
+
+    + .Resource-context.static-meta {
+      @extend %font--regular;
+    }
+  }
+
+  .buttons-col {
+    margin: -0.35rem 0 -1rem;
+  }
+
+  .attach-save-spinner {
+    position: absolute;
+    z-index: 1;
+    right: 50px;
+    margin-top: 8px;
+  }
+
+  .attach-existing-save-spinner {
+    position: absolute;
+    right: 60px;
+    z-index: 2;
+    bottom: 45px;
+  }
+
+  .resource-item__input--single {
+    border: 1px solid $gray4;
+    padding: 0.26rem 0.7rem;
+    border-radius: 3px;
+
+    &.is-disabled {
+      opacity: 0.4;
+    }
+  }
+}
+
+.attach-volume-modal,
+.droplet-create-volumes {
+  .volume-button {
+    text-align: left;
+    border: 1px solid $gray3;
+    outline: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    width: 100%;
+
+    &.is-disabled {
+      opacity: 0.4;
+    }
+
+    &:hover,
+    &:focus {
+      border-color: $gray5;
+    }
+
+    &.selected {
+      background: $blue--light-1;
+      border-color: $blue--brand;
+      color: $blue--brand;
+
+      .Resource-description {
+        color: $blue--brand;
+      }
+    }
+  }
+
+  .tooltip-wrap {
+    display: block;
+  }
+}

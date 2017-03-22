@@ -1,0 +1,28 @@
+.tags-show {
+  .header {
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+
+    .Resource {
+      max-width: 850px;
+
+      .Resource-meta {
+        padding-left: 65px;
+
+        .Resource-title {
+          font-size: 1.5rem;
+          line-height: 1.8rem;
+          margin: -3px 0 0;
+          max-width: 100%;
+        }
+
+        .Resource-description {
+          margin-top: 4px;
+          font-size: 1rem;
+          overflow: visible;
+        }
+      }
+    }
+  }
+}

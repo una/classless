@@ -1,0 +1,30 @@
+<ul class="small-block-grid-3 droplet-create-volumes">
+  {{#each volumeSnapshots as |snapshot|}}
+    <li>
+      {{#if atVolumeMax}}
+        {{#tool-tip class="unattached-tooltip" multiline=true title=maxVolumesMsg}}
+          <button class="unbuttonized volume-button is-disabled">
+            {{resource-item item=snapshot}}
+          </button>
+        {{/tool-tip}}
+      {{else}}
+        <button class="unbuttonized volume-button {{if (eq snapshot selectedVolume) "selected"}}" {{action 'selectVolume' snapshot}}>
+          {{#ellipsis-text text=snapshot.name}}
+            {{resource-item item=snapshot}}
+          {{/ellipsis-text}}
+        </button>
+      {{/if}}
+    </li>
+  {{/each}}
+</ul>
+{{#if (gt volumeSnapshots.meta.pagination.pages 1)}}
+  {{paginator-full
+    useActions=true
+    klasses="volume-snapshot-pagination"
+    isLoading=volumeSnapshotsPaginationLoading
+    pages=volumeSnapshots.meta.pagination.pages
+    currentPage=volumeSnapshots.meta.pagination.current_page
+    action="volumeSnapshotsPaginate"
+    noPrevNext=true
+  }}
+{{/if}}

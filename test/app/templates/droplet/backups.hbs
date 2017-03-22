@@ -1,0 +1,75 @@
+<div class="Box u-mb-5">
+  <h2>Backups</h2>
+  {{#if droplet.backupsEnabled}}
+    <p>Backups are currently enabled. They are scheduled to start
+    <strong>
+    {{droplet.backupFrequency}}
+    {{format-date droplet.backupScheduleStart format="dddd h A" isUTC=false}}
+    to
+    {{format-date droplet.backupScheduleEnd format="dddd h A" isUTC=false}}.
+    </strong>
+    </p>
+    <p>Backups for this Droplet cost {{droplet.formattedBackupPrice}} per month.</p>
+    {{#unless isReadOnly}}
+      <div class="row">
+        <div class="columns small-4 u-mt-3">
+          <a
+            role="button"
+            class="Button Button--fullWidth Button--red Button--outline {{if (or dropletCtrl.isBusy togglingBackups isRestoring) "is-disabled"}}"
+            {{action "disableBackups"}}
+          >Disable Backups</a>
+        </div>
+      </div>
+    {{/unless}}
+  {{else if (not isReadOnly)}}
+    <p>Enabling backups will automatically create a snapshot of your Droplet once a week.</p>
+    <p>Enabling backups for this Droplet will cost {{droplet.formattedBackupPrice}} per month.</p>
+    <div class="row">
+      <div class="columns small-4 u-mt-3">
+        <a
+          role="button"
+          class="Button Button--fullWidth Button--blue {{if (or dropletCtrl.isBusy togglingBackups isRestoring) "is-disabled"}}"
+          {{action "enableBackups"}}
+        >Enable Backups</a>
+      </div>
+    </div>
+  {{else}}
+    <p>Backups are not currently enabled.</p>
+  {{/if}}
+  {{#if togglingBackups}}
+    {{loading-spinner spinnerClass="backups-toggle-loader"}}
+  {{/if}}
+</div>
+<div class="Box">
+  <h2>Droplet backups</h2>
+  {{#unless droplet.backups.length}}
+    <div class="row">
+      <div class="small-12 columns">
+        <p>You currently don't have any backups for this Droplet.</p>
+      </div>
+    </div>
+  {{else}}
+    <div class="row">
+      {{#if (or droplet.isRestoring droplet.restoreEvent)}}
+        <div class="backups-loader">
+          {{loading-spinner message="Restoring Droplet"}}
+        </div>
+      {{else if droplet.isConvertingBackupToSnapshot}}
+        <div class="backups-loader">
+          {{loading-spinner message="Converting Droplet"}}
+        </div>
+      {{/if}}
+      {{backups-drawer
+        backups=droplet.backups
+        showBackups=true
+        disabled=(or dropletCtrl.isBusy togglingBackups droplet.isRestoring)
+        noHeightAnimation=true
+        restoreBackupAction="restoreBackupById"
+        createFromBackupAction="createFromBackupById"
+        convertToSnapshotAction="convertToSnapshotById"
+        isReadOnly=isReadOnly
+      }}
+    </div>
+    {{partial "images/partials/restore-image-modal"}}
+  {{/unless}}
+</div>

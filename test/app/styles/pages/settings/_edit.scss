@@ -1,0 +1,14 @@
+.profile-edit-input {
+  position: relative;
+
+  .FloatLabel-input[disabled] {
+    padding-right: 5.5rem !important; /* override buoy for link spacing */
+    text-overflow: ellipsis;
+  }
+}
+
+.profile-edit-input-link {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}

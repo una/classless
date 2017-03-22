@@ -1,0 +1,27 @@
+<div class="support-overlay">
+  <div class="Support Support__overlayContainer Support--hasSuggestions">
+    <header key="header">
+      <div class="row">
+        <div class="large-8 columns">
+          <h1>Support Center</h1>
+        </div>
+        <div class="large-4 columns u-textAlignRight">
+          {{#if isSearching}}
+            <a {{action 'openTicketsIndex'}} class="page-toggle" role="button">Support tickets</a>
+          {{else}}
+            {{#link-to "support.suggestions" class="page-toggle"}}Back to search{{/link-to}}
+          {{/if}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="large-12 columns">
+          {{outlet "header"}}
+        </div>
+      </div>
+    </header>
+    <div class="inner-container content">
+      {{outlet}}
+    </div>
+  </div>
+</div>

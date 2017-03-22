@@ -1,0 +1,84 @@
+.FloatLabel {
+  &.is-required.validatePass::before {
+    opacity: 0;
+  }
+
+  input:invalid {
+    //firefox always puts a box shadow on invalid els
+    box-shadow: none !important;
+  }
+
+  &.is-required input {
+    padding-right: 1.55rem !important;
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  &.is-required::before {
+    z-index: 1;
+  }
+
+  &.is-active {
+    .FloatLabel-prefix {
+      padding-top: 1.1rem;
+      padding-bottom: 0.45rem;
+    }
+  }
+
+  &.FloatLabel-withPostfixTooltip {
+    input {
+      padding-right: 2.5rem !important; /* override buoy */
+    }
+  }
+
+  .FloatLabel-postfixTooltip.tooltip-wrap {
+    width: auto;
+    position: absolute;
+    top: 14px;
+    right: 12px;
+    z-index: 2;
+  }
+
+  .FloatLabel-input[disabled] {
+    background: $gray2;
+    color: $gray7;
+  }
+}
+
+.FloatLabel-label {
+  pointer-events: none;
+}
+
+.FloatLabel.is-active.no-label {
+  input {
+    padding-top: 0.45em !important; /* override buoy */
+  }
+
+  .FloatLabel-label {
+    display: none;
+  }
+}
+
+.FloatLabel .tooltip-wrap {
+  width: 100%;
+}
+
+.FloatLabel.no-checkmark {
+  &::after {
+    display: none;
+  }
+}
+
+.FloatLabel-prefix {
+  @include transition(all, 0.2s, ease-in-out);
+
+  color: $gray6;
+  padding: 0.75rem 0.85rem;
+  height: 3rem;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

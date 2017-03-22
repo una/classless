@@ -1,0 +1,14 @@
+{{#if atMaxCapacity}}
+  {{#if isSelected}}
+    {{input type="checkbox" id=email checked=isSelected readOnly="readOnly"}}
+  {{else}}
+    {{input type="checkbox" id=email disabled="disabled" readOnly="readOnly"}}
+  {{/if}}
+{{else}}
+  {{input type="checkbox" id=email checked=isSelected readOnly="readOnly" disabled=(not isSelectable)}}
+{{/if}}
+<span></span>
+<label class="gmail-contact-label" for={{email}}>
+  <span class="gmail-contact-name">{{#ellipsis-text text=nameDisplay}}{{nameDisplay}}{{/ellipsis-text}}</span>
+  <span class="gmail-contact-email">{{#ellipsis-text text=emailDisplay}}{{emailDisplay}}{{/ellipsis-text}}</span>
+</label>

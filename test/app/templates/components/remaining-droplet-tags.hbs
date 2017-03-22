@@ -1,0 +1,12 @@
+{{label}}
+<div class="popover-content js-popover-content">
+  <div>
+    {{#each tags as |tag index|}}
+      {{#unless (eq index 0)}}
+        {{#link-to 'tag' tag.name invokeAction=(action "tagClick" tag.name) }}
+          {{token-item text=tag.name isGrey=true}}
+        {{/link-to}}
+      {{/unless}}
+    {{/each}}
+  </div>
+</div>

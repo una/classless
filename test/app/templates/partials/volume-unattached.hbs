@@ -1,0 +1,35 @@
+<ul class="small-block-grid-3 droplet-create-volumes">
+  {{#each unattachedVolumes as |volume|}}
+    <li>
+      {{#if atVolumeMax}}
+        {{#tool-tip class="unattached-tooltip" multiline=true title=maxVolumesMsg}}
+          <button class="unbuttonized volume-button is-disabled">
+            {{resource-item item=volume}}
+          </button>
+        {{/tool-tip}}
+      {{else if volume.disabled}}
+        {{#tool-tip class="unattached-tooltip" multiline=true title=volume.disabled}}
+          <button class="unbuttonized volume-button is-disabled">
+            {{resource-item item=volume}}
+          </button>
+        {{/tool-tip}}
+      {{else}}
+        <button class="unbuttonized volume-button {{if (eq volume selectedVolume) "selected"}}" {{action 'selectVolume' volume}}>
+          {{#ellipsis-text text=volume.name}}
+            {{resource-item item=volume}}
+          {{/ellipsis-text}}
+        </button>
+      {{/if}}
+    </li>
+  {{/each}}
+</ul>
+{{#if (gt unattachedVolumes.meta.pagination.pages 1)}}
+  {{paginator-full
+    useActions=true
+    isLoading=unattachedVolumesPaginationLoading
+    pages=unattachedVolumes.meta.pagination.pages
+    currentPage=unattachedVolumes.meta.pagination.current_page
+    action="unattachedVolumesPaginate"
+    noPrevNext=true
+  }}
+{{/if}}

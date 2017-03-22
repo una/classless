@@ -1,0 +1,37 @@
+{{#modal-window
+  size="small"
+  onHide="onModalHide"
+  bodyClasses="u-pb-3"
+  contentClasses="confirm-small datacenter-modal"
+  showCancel=false
+  showSave=false
+  title="Choose a datacenter"
+  disableFirstInputFocus=true
+}}
+  <div class="row u-mt-5">
+    {{auto-complete
+      items=filteredRegions
+      isSearching=autoCompleteIsSearching
+      onSelect="onDatacenterSelect"
+      onShow="onDatacenterUnselect"
+      onInput="onDatacenterInput"
+      placeholder="Datacenter"
+      isRequired=true
+    }}
+  </div>
+  <div class="row u-mt-3 small">
+  Due to a shortage of available IPv4 addresses, we charge $0.006 per hour for addresses that have been reserved, but not assigned to a Droplet. <a target="_blank" rel="noopener noreferrer" href="/support/suggestions?query=Floating+IPs+cost">Click here</a> to learn more about floating IP pricing.
+  </div>
+  <div class="row u-mt-2 u-mb-4">
+    <div class="small-6 columns u-pl-0">
+      <button class="Button Button--red Button--fullWidth u-mt-4" {{action "onModalHide"}}>Cancel</button>
+    </div>
+    <div class="small-6 columns u-pl-0">
+      <button class="Button Button--blue Button--fullWidth u-mt-4" disabled="{{if (or (not selectedRegion) isSubmitting) 'disabled'}}" {{action "onSubmit"}}>Assign
+        {{#if isSubmitting}}
+          {{loading-spinner}}
+        {{/if}}
+      </button>
+    </div>
+  </div>
+{{/modal-window}}

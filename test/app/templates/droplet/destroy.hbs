@@ -1,0 +1,81 @@
+<div class="droplet-destroy">
+  <div class="Box u-mb-5">
+    <h2>Destroy Droplet</h2>
+    <p>This is irreversible. We will destroy your Droplet and all associated backups. All Droplet data will be scrubbed and irretrievable.</p>
+
+    <div class="row">
+      <div class="columns small-4 u-mt-3 end">
+        <button
+          {{action "destroyDroplet"}}
+          disabled="{{if (or isDestroyingDroplet isRebuildingDroplet dropletCtrl.isBusy) 'disabled'}}"
+          class="Button Button--outline Button--red Button--fullWidth"
+        >Destroy
+          {{#if isDestroyingDroplet}}
+            {{loading-spinner plain=true spinnerClass="spinner-destroy"}}
+          {{/if}}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="Box">
+    <h2>Rebuild Droplet</h2>
+    <p>This will rebuild your Droplet using the image specified below. Please be advised that all data will be lost.</p>
+    <div class="row  u-mt-4">
+      <div class="columns small-8">
+        {{auto-complete
+            items=autoCompleteItems
+            isSearching=autoCompleteIsSearching
+            isShowingMore=autoCompleteIsShowingMore
+            onSelect="onSelectDistro"
+            onShow="onUnselectDistro"
+            placeholder="Select an image"
+        }}
+      </div>
+      <div class="columns small-4">
+        <button
+          class="Button Button--fullWidth Button--blue"
+          disabled={{if isRebuildButtonDisabled 'disabled'}}
+          {{action 'rebuild'}}
+        >Rebuild
+          {{#if (or isRebuildingDroplet dropletCtrl.model.rebuildEvent)}}
+            {{loading-spinner spinnerClass="spinner-destroy"}}
+          {{/if}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{#if showConfirmDestroyModal}}
+  {{#modal-window
+    title="Destroy Droplet"
+    showSaveButton=true
+    saveText="Confirm"
+    saveClasses="Button--red"
+    showCancelButton=true
+    cancelText="Cancel"
+    size="small"
+    contentClasses="confirm-small"
+    onHide="onConfirmDestroy"
+  }}
+    <p>Are you sure you would like to permanently delete {{droplet.name}}?</p>
+    {{#if hasAttachedVolumes}}
+      <p>Attached volumes will be detached and you will continue to be charged for them. Volumes must be deleted separately.</p>
+    {{/if}}
+  {{/modal-window}}
+{{/if}}
+
+{{#if showRebuildConfirm}}
+  {{#modal-window
+    title="Rebuild Droplet"
+    showSaveButton=true
+    saveText="Confirm"
+    showCancelButton=true
+    cancelText="Cancel"
+    size="small"
+    contentClasses="confirm-small"
+    onHide="onConfirmRebuild"
+  }}
+    <p>Are you sure you want to rebuild your Droplet with the image <strong>{{selectedDistro.longName}}</strong>?</p>
+  {{/modal-window}}
+{{/if}}

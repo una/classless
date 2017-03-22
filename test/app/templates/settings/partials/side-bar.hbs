@@ -1,0 +1,78 @@
+<nav class="SideNav settings-side-nav js-settings-side-nav">
+  <h3>
+    {{avatar-image
+      src=model.avatar
+      isTiny=true
+    }}
+    {{model.name}}
+  </h3>
+  <ul class="List--noBullets">
+    <li>
+      <a role="button" {{action 'switchContext' model '/settings/profile'}} href="/settings/profile?i={{model.shortId}}" class="navLink {{if (and (is-current-path 'settings/profile' currentLocationPath) (eq model.id model.currentContextId)) 'active'}}">Profile</a>
+    </li>
+    {{#if model.isUserOnboarded}}
+      <li>
+        {{#if auroraBilling}}
+          <a {{action 'switchContext' model 'settings.billing'}} href="/settings/billing?i={{model.shortId}}" class="navLink {{if (and (is-current-path 'settings/billing' currentLocationPath) (eq model.id model.currentContextId)) 'active'}}">Billing</a>
+        {{else}}
+          <a {{action 'switchContext' model '/settings/billing' true}} href="/settings/billing?i={{model.shortId}}" class="navLink {{if (and (is-current-path 'settings/billing' currentLocationPath) (eq model.id model.currentContextId)) 'active'}}">Billing</a>
+        {{/if}}
+      </li>
+      <li>
+        <a {{action 'switchContext' model 'settings.referrals'}} href="/settings/referrals?i={{model.shortId}}" class="navLink {{if (and (is-current-path 'settings/referrals' currentLocationPath) (eq model.id model.currentContextId)) 'active'}}">Referrals</a>
+      </li>
+    {{/if}}
+    <li>
+      <a {{action 'switchContext' model 'settings.security'}} href="/settings/security?i={{model.shortId}}" class="navLink {{if (and (is-current-path 'settings/security' currentLocationPath) (eq model.id model.currentContextId)) 'active'}}">Security</a>
+    </li>
+    <li>
+      <a {{action 'switchContext' model 'settings.notifications'}} href="/settings/notifications?i={{model.shortId}}" class="navLink {{if (and (is-current-path 'settings/notifications' currentLocationPath) (eq model.id model.currentContextId)) 'active'}}">E-mail subscriptions</a>
+    </li>
+  </ul>
+  {{#each model.organizations as |organization|}}
+    <h3 role="button" class="{{if (not (eq organization.uuid model.currentContextId)) 'inactive'}}" {{action 'switchContext' organization 'settings.team'}}>
+      {{avatar-image
+        color=organization.avatarColor
+        initials=organization.avatarInitials
+        isTeam=true
+        isTiny=true
+      }}
+      {{#ellipsis-text}}{{organization.name}}{{/ellipsis-text}}
+    </h3>
+    {{#if (eq organization.uuid model.currentContextId)}}
+      <ul class="List--noBullets">
+        <li>
+          <a href="/settings/team?i={{organization.shortId}}" class="navLink {{if (and (eq organization.uuid model.currentContextId) (is-current-path 'settings/team' currentLocationPath)) 'active'}}" {{action 'switchContext' organization 'settings.team'}}>
+            Team
+          </a>
+        </li>
+        {{#if (or (eq organization.role 'biller') (eq organization.role 'owner'))}}
+          <li>
+            {{#if auroraBilling}}
+              <a href="/settings/billing?i={{organization.shortId}}" class="navLink {{if (and (eq organization.uuid model.currentContextId) (is-current-path 'settings/billing' currentLocationPath)) 'active'}}" {{action 'switchContext' organization 'settings.billing'}}>
+                Billing
+              </a>
+            {{else}}
+              <a href="/settings/billing?i={{organization.shortId}}" class="navLink {{if (and (eq organization.uuid model.currentContextId) (is-current-path 'settings/billing' currentLocationPath)) 'active'}}" {{action 'switchContext' organization '/settings/billing' true}}>
+                Billing
+              </a>
+            {{/if}}
+          </li>
+        {{/if}}
+        <li>
+          <a href="/settings/security?i={{organization.shortId}}" class="navLink {{if (and (eq organization.uuid model.currentContextId) (is-current-path 'settings/security' currentLocationPath)) 'active'}}" {{action 'switchContext' organization 'settings.security'}}>
+            Security
+          </a>
+        </li>
+      </ul>
+    {{/if}}
+  {{/each}}
+  {{#if model.canCreateTeams}}
+    <h3>
+      {{#link-to "settings.team.new" class="create-a-team"}}
+        <span class="plus">&plus;</span>
+        Create a team
+      {{/link-to}}
+    </h3>
+  {{/if}}
+</nav>

@@ -1,0 +1,23 @@
+<select class="FloatLabelSelect-select select {{if required 'is-required'}}"
+  onChange={{action "onChange"}}
+  onFocus={{action "onFocus"}}
+  onBlur={{action "onFocusOut"}}
+  onKeyPress={{action "onKeyPress"}}
+  required={{required}}
+  disabled={{disabled}}>
+  <option value="" disabled selected={{not selectedOption}}>{{label}}</option>
+  {{#each normalizedOptions as |option|}}
+    <option value={{option.value}} selected={{eq option.value selectedOption}}>{{option.label}}</option>
+  {{/each}}
+</select>
+<label for="" class="FloatLabelSelect-label">
+  {{#if failedValidation}}
+    {{error}}
+  {{else}}
+    {{label}}
+  {{/if}}
+</label>
+{{#if (and required (not noCheckmark))}}
+  <span class="validate-asterisk"></span>
+  <span class="validate-check"></span>
+{{/if}}

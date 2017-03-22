@@ -1,0 +1,25 @@
+---
+title: Buoy, The DigitalOcean UI Kit
+---
+
+<div class="row">
+  <div class="small-12 columns">
+    <h1>Buoy: The DigitalOcean UI Kit</h1>
+    <p>Welcome to <strong>Buoy</strong>&mdash;a collection of CSS classes and components to promote code reusability and rapid development within a highly mantainable code base.</p>
+    <h2>Why Did We Make Buoy?</h2>
+    <p>Before creating Buoy, our control panel included a large amount of legacy CSS with a lot of specificity. The greatest accomplishment of introducing Buoy into the DigitalOcean control panel was killing and removing bad code. Previous style sheets include many variations of the same color, sizes, etc. and nesting many levels deep.</p>
+    <h3>App Agnostic</h3>
+    <p>We can apply these styles to all of our existing apps, as well as any future apps we may end up building. Using Buoy will allow for consistency not just within a certain app, but across our entire ecosystem.</p>
+    <h3>Maintainable</h3>
+    <p>Currently, our styles live in many different files without any apparent pattern or reason. Buoy consolidates all reusable components in a single place and promotes DRY (don’t repeat yourself), which makes updating components a much simpler and safer task.</p>
+    <h2>BEM</h2>
+    <p class="u-mb-3">Buoy is written in an object oriented CSS methodology called BEM, which stands for Block, Element, Modifier. We have adopted Nicolas Gallagher's naming scheme, which is as follows.</p>
+    <p class="u-mb-3"><strong>Blocks</strong>, the top level components, are capitalized. For instance, <code>.Modal</code>.</p>
+    <p class="u-mb-3"><strong>Elements</strong>, or children, of the block elements are named like so: <code>.Modal-header</code>.</p>
+    <p><strong>Modifier</strong> classes are then applied to change the default block styles. For instance <code>.Modal--large</code> or <code>.Modal--small</code>.</p>
+
+    <h2>Units</h2>
+    <p>Buoy uses the rem (root-em) unit which is relative to the root, or the <code>html</code> element. Globally, rem units are a percentage of the baseline font-size of 16px. If we were to change the font-size of the <code>html</code> element every other rem unit on page would scale accordingly.</p>
+    
+  </div>
+</div>

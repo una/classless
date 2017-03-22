@@ -1,0 +1,61 @@
+// sizing
+$nav_height: 100px;
+$aurora_news_modal_width: 500px;
+
+// colors
+$blue--brand: #0069ff;
+$blue--brand_hover: #0052ff;
+$red--brand: #ed4f32;
+$red--brand_hover: #da4429;
+$green--brand: #15cd72;
+$green--brand_hover: #0cb863;
+$yellow--brand: #faee6c;
+
+$blue--light-1: #f5f9ff;
+$blue--light-2: #d4eaf9;
+
+$white: #fff;
+$gray1: #fafafa;
+$gray2: #f1f1f1;
+$gray3: #ececec;
+$gray4: #dfdfdf;
+$gray5: #cbcbcb;
+$gray6: #bbb;
+$gray7: #999;
+$gray8: #676767;
+$gray9: #333;
+$black: #212121;
+$gray--overlay: rgba(0, 0, 0, 0.2);
+
+$light_red_1: #f9f3f4;
+$dark_icon_grey: #818991;
+$darkmode_background: #1a1a1a;
+$darkmode_background_light: #212121;
+
+$compute_data_color: #1e77b4;
+
+// font weight map
+// (we're only sending these weights via typekit)
+// access them via: `font-weight: map-get($font-weight, weight);`
+// i.e. map-get($font-weight, bold)
+$font-weight: (
+  light     : 300,
+  regular   : 400,
+  semibold  : 600,
+  bold      : 700,
+);
+
+// access each font-weight with %font--weight
+// i.e. @extend %font--bold or the class .font--bold
+@each $weight, $val in $font-weight {
+  .font--#{$weight},
+  %font--#{$weight} {
+    font-weight: map-get($font-weight, #{$weight});
+  }
+}
+
+// Sizing
+$table-padding: 15px;
+$table-border-color: $gray2;
+$table-border-radius: 3px;
+$table-border-width: 2px;

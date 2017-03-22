@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="columns small-12">
+    <h1>Images</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columns small-12">
+    <ul class="Tabs u-mb-4 droplet-tabs" role="tablist">
+      {{#link-to 'images.snapshots' tagName="li" activeClass="is-active"}}<a>Snapshots</a>{{/link-to}}
+      {{#link-to 'images.backups' tagName="li" activeClass="is-active"}}<a>Backups</a>{{/link-to}}
+    </ul>
+  </div>
+  <div class="columns small-12 imagesListing">
+    {{outlet}}
+  </div>
+</div>

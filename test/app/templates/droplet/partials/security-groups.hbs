@@ -1,0 +1,36 @@
+<h2>Firewalls</h2>
+
+<div class="row u-mt-2 u-mb-5">
+  <div class="columns small-8">
+    {{#each model.securityGroups as |sg|}}
+      <div class="Resource u-floatLeft u-pr-3">
+        <div class="Resource-image">
+          {{resource-icon resource="firewall nocircle"}}
+        </div>
+        <div class="Resource-meta u-mt-2 u-pl-5">
+          {{#link-to "networking.securityGroups.show" sg.id}}{{sg.name}}{{/link-to}}
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>
+
+<section class="row u-mt-5">
+  <div class="columns">
+    <h3>Inbound</h3>
+    {{security-groups/rules
+      type="inbound"
+      rules=model.allSecurityGroupsRules.inbound
+    }}
+  </div>
+</section>
+
+<section class="row u-mt-5">
+  <div class="columns">
+    <h3>Outbound</h3>
+    {{security-groups/rules
+      type="outbound"
+      rules=model.allSecurityGroupsRules.outbound
+    }}
+  </div>
+</section>

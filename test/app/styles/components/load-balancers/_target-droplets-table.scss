@@ -1,0 +1,45 @@
+.target-droplets-table {
+  .Resource-title {
+    width: 100%;
+  }
+
+  .lb-droplet-name {
+    width: 30%;
+    padding-right: 10px;
+  }
+
+  .lb-droplet-ip {
+    width: 17.5%;
+  }
+
+  .lb-droplet-actions {
+    width: 10%;
+    text-align: right;
+  }
+
+  .lb-droplet-down {
+    background-color: $light_red_1;
+  }
+
+  .lb-droplet-row:last-child td {
+    padding-bottom: inherit;
+  }
+
+  // TODO: Reuse from _load-balancers.scss
+  .lb-metric-tooltip {
+    position: relative;
+    left: -10px;
+    padding: 5px 10px;
+  }
+
+  .lb-collecting-metrics-tooltip {
+    cursor: pointer;
+  }
+
+  .lb-droplet-status {
+    .Tooltip {
+      margin-left: -2rem;
+      margin-top: -0.75rem;
+    }
+  }
+}

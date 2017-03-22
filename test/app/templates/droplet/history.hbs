@@ -1,0 +1,43 @@
+<div class="Box u-mb-5">
+  <h2>Droplet history</h2>
+  {{#if history.length}}
+    <table>
+      <thead>
+        <tr>
+          {{table-header action="sort" isLoading=sorting sortCol=sort sortDir=sort_direction col="type" text="Event"}}
+          {{table-header action="sort" isLoading=sorting sortCol=sort sortDir=sort_direction col="created_at" text="Initiated"}}
+          {{table-header col="duration" noSorting=true text="Execution Time"}}
+        </tr>
+      </thead>
+      <tbody>
+        {{#each history as |event|}}
+          <tr>
+            <td>{{event.publicTypeName}}</td>
+            <td>{{date-to-human-time date=event.createdAt}}</td>
+            <td class="droplet-history-execution-time-col">
+              {{#if (eq event.status 'done')}}
+                {{event.executionTime}}
+              {{else if (eq event.status 'error')}}
+                Action did not complete
+              {{else}}
+                {{loading-spinner message="Executing"}}
+              {{/if}}
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{#if needsPagination}}
+      {{paginator-full
+        linkToPage="droplet.history"
+        isLoading=paginating
+        pages=history.meta.pagination.pages
+        currentPage=history.meta.pagination.current_page
+        scrollToAfterLoad="#aurora-container"
+        action="changePage"
+      }}
+    {{/if}}
+  {{else}}
+    <p>This Droplet has no history.</p>
+  {{/if}}
+</div>

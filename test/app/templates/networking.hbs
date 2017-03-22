@@ -1,0 +1,27 @@
+{{#if hideNetworkingHeader}}
+  {{outlet}}
+{{else}}
+  <div class="row">
+    <div class="columns small-12">
+      <h1>Networking</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="columns small-12">
+      <ul class="Tabs u-mb-4 droplet-tabs" role="tablist">
+        {{#link-to 'networking.domains' tagName="li" activeClass="is-active"}}<a>Domains</a>{{/link-to}}
+        {{#link-to 'networking.floatingIp' tagName="li" activeClass="is-active"}}<a>Floating IPs</a>{{/link-to}}
+        {{#if loadBalancersEnabled}}
+          {{#link-to 'networking.loadBalancers' tagName="li"  activeClass="is-active"}}<a>Load Balancers</a>{{/link-to}}
+        {{/if}}
+        {{#if securityGroupsEnabled}}
+          {{#link-to 'networking.securityGroups' tagName="li"  activeClass="is-active"}}<a>Firewalls</a>{{/link-to}}
+        {{/if}}
+        {{#link-to 'networking.ptr' tagName="li"  activeClass="is-active"}}<a>PTR records</a>{{/link-to}}
+      </ul>
+    </div>
+    <div class="columns small-12 networkingPage">
+      {{outlet}}
+    </div>
+  </div>
+{{/if}}

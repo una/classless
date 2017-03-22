@@ -1,0 +1,18 @@
+<div class="Reply__Feedback {{if isExpanded 'Reply__Feedback--expanded' ''}}">
+  <p>
+    <span>Was this response helpful?</span>
+    <a href="#" {{action "givePositiveFeedback"}}>Yes</a>
+    <span> / </span>
+    <a href="#" {{action "giveNegativeFeedback"}}>No</a>
+  </p>
+  {{#if isExpanded}}
+    <div class="Reply__Feedback__Body">
+      <a role="button" class="Button Button--icon Icon--close" {{action "closeFeedback"}}></a>
+      <strong>{{feedbackHeader}}</strong>
+      {{textarea autofocus=true placeholder="Enter your feedback" value=feedback}}
+      <button class="Button Button--blue Button--fullWidth" {{action "submitFeedback"}}>
+        Submit Feedback
+      </button>
+    </div>
+  {{/if}}
+</div>

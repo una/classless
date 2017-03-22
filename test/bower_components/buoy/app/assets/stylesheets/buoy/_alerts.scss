@@ -1,0 +1,169 @@
+.Alert {
+  width: 100%;
+  text-align: left;
+  font-weight: 600;
+  color: $white;
+  font-size: 1.1rem;
+  border-radius: $border_radius;
+
+  h3 {
+    color: $white;
+    font-weight: 400;
+    display: inline-block;
+  }
+
+  p {
+    display: inline-block;
+
+    &:last-of-type {
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.Alert--success {
+  background: $green;
+
+  .Button--alert {
+    color: $green;
+    &:hover {
+      background: white;
+      color:$green;
+    }
+  }
+
+  .Alert-more {
+    background-color: darken($green, 4);
+  }
+}
+
+.Alert--failure {
+  background: $red;
+
+  .Button--alert {
+    color: $red;
+    &:hover {
+      background: white;
+      color:$red;
+    }
+  }
+
+  .Alert-more {
+    background-color: lighten($red, 5);
+  }
+}
+
+.Alert--neutral {
+  background: $yellow;
+  color: $yellow_text;
+  font-weight: 400;
+
+  .Button--alert {
+    color: $yellow_text;
+    &:hover {
+      background: white;
+      color:$yellow_text;
+    }
+  }
+
+  .Alert-icon{
+    color: $yellow_text;
+  }
+
+  .Alert-close  {
+    color: lighten($yellow_text, 23);
+  }
+
+  h3 {
+    color: $type;
+  }
+
+  .Alert-more {
+    background-color: lighten($yellow, 7)
+  }
+}
+
+.Alert--neutralGrey {
+  background: $grey_1;
+  font-weight: 400;
+  color: $type;
+  border: 1px solid $grey_3;
+
+  .Button--alert {
+    background-color: $blue;
+    border-color: $blue;
+    color: $white;
+    &:hover {
+      background: $blue_hover;
+      border-color: $blue_hover;
+    }
+  }
+
+  h3 {
+    color: $type;
+  }
+
+  .Alert-close  {
+    color: lighten($type, 15);
+  }
+
+  .Alert-icon{
+    color: $type;
+  }
+}
+
+.Alert--blue {
+  background: $blue;
+}
+
+.Alert-content {
+  padding: 1.2rem;
+}
+
+.Alert-icon{
+  color: $white;
+  text-decoration: none;
+  border: 0;
+  font-size: .8rem;
+  margin: 0 .7rem 0 .2rem;
+  display: inline-block;
+
+}
+.Alert-icon--large {
+    font-size: 1.2rem;
+
+}
+
+.Button--alert {
+  background-color: $white;
+  border-color: $white;
+  margin-left:  1rem;
+  padding: 0 .5rem;
+  font-size: .85rem;
+  height: 1.8rem;
+  line-height: 1.8rem;
+  display: inline-block;
+  float: right;
+  white-space: nowrap;
+  border-radius: $border_radius;
+
+  span {
+    font-size: .3rem;
+    margin-left: 4px;
+  }
+}
+
+.Alert-close {
+  display: inline-block;
+  float: right;
+  color: $white;
+  border: 0;
+  font-size: .9rem;
+  position: relative;
+  top: .18rem;
+}

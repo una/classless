@@ -1,0 +1,175 @@
+.file-uploader {
+  .Modal-content.file-upload {
+    .Modal-body {
+      padding: 0 2rem;
+
+      .upload-area {
+        height: 172px;
+        border: 2px dashed $grey_4;
+        background: $grey_1;
+        border-radius: 4px;
+        position: relative;
+
+        &::before,
+        input + label {
+          content: 'Drag & drop files and folders to upload';
+          position: absolute;
+          left: 50%;
+          top: 45px;
+          transform: translate(-50%, -50%);
+
+          @extend %font--bold;
+        }
+
+        &::before {
+          font-size: 1.3rem;
+        }
+
+        &.dragover {
+          border-color: $blue;
+          background: $grey_2;
+
+          &::before {
+            content: 'Drop files to preview your upload';
+          }
+        }
+
+        input {
+          opacity: 0;
+          position: absolute;
+          z-index: -1;
+
+          + label {
+            top: 102px;
+            background: $blue;
+            border-radius: 3px;
+            color: #fff;
+            text-align: center;
+            height: 45px;
+            line-height: 45px;
+            padding: 0 20px;
+            display: inline-block;
+            cursor: pointer;
+
+            @extend %font--semibold;
+          }
+        }
+
+        + p {
+          line-height: 2;
+          margin: 0.9rem 0 1.1rem;
+        }
+      }
+
+      .header-clone {
+        margin-bottom: 0;
+      }
+
+      .name {
+        width: 358px;
+      }
+
+      .type {
+        width: 210px;
+      }
+
+      .size {
+        width: 80px;
+      }
+
+      .file-table {
+        margin-top: -1px;
+        max-height: 192px;
+        overflow: auto;
+
+        table {
+          margin-bottom: 2px;
+
+          thead {
+            display: none;
+          }
+
+          tr {
+            height: 47px;
+          }
+
+          td {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding-top: 11px;
+            padding-bottom: 11px;
+          }
+
+          td.name {
+            padding-right: 5px;
+
+            .resource-icon {
+              display: inline-block;
+              transform: scale(0.9);
+              margin: 0 9px 0 0;
+              vertical-align: text-bottom;
+
+              &.file {
+                margin-right: 16px;
+              }
+            }
+          }
+
+          .action {
+            color: $red;
+            cursor: pointer;
+          }
+        }
+      }
+
+      input[type="radio"] {
+        &:checked + span + label {
+          color: $blue;
+        }
+
+        + span {
+          margin-top: 4px;
+
+          + label {
+            margin-right: 1.5em;
+          }
+        }
+      }
+    }
+
+    .Modal-footer {
+      padding-top: 12px;
+      height: 120px;
+
+      .Button {
+        width: 210px;
+        position: absolute;
+        left: calc(2rem + 235px);
+      }
+
+      .columns {
+        position: static;
+
+        &:last-of-type .Button {
+          left: 2rem;
+        }
+      }
+    }
+  }
+}
+
+.Modal-backdrop.dragover {
+  background-color: $grey_4;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    left: 10px;
+    top: 10px;
+    bottom: 10px;
+    border: 3px solid $blue;
+    border-radius: 3px;
+  }
+}
