@@ -24,13 +24,19 @@ function getHTMLElements(htmlText) {
     // console.log(substring);
 
     substring.forEach(item => {
-      // get all id elements and add '#' to all Elem list
-      if (elem.startsWith("id")) {
-        allElems.push('#' + item);
-
-      // get all class elements and add '.' to all Elem list
+      // This is for frameworks
+      if (item.includes("{") ||  item.includes("}") ||  item.includes("(") || item.includes(")") || item.includes("/")) {
+        console.log(item);
+        return
       } else {
-        allElems.push('.' + item)
+        // get all id elements and add '#' to all Elem list
+        if (elem.startsWith("id")) {
+          allElems.push('#' + item);
+
+        // get all class elements and add '.' to all Elem list
+        } else {
+          allElems.push('.' + item)
+        }
       }
     })
   });
