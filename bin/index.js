@@ -20,14 +20,6 @@ let cssElemArray = cssUtils.getAllCSSElems(cssFilePath);
 const approvedElems = config.acceptedElems;
 cssElemArray.push(approvedElems);
 
-fs.writeFile('tmp.txt', cssElemArray, function(err) {
-    if(err) {
-        return console.log(err);
-    }
-
-    console.log("The file was saved!");
-});
-
 // get all of the HTML elements used
 const totalHTMLElemArray = htmlUtils.getAllHTMLElems(htmlFilePath);
 
