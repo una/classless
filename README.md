@@ -11,8 +11,8 @@ Classless makes sure you use less unique classes in your project and instead imp
 
 ## Setup
 
-- `npm install -g classless-js`
-- `touch classless.config` & set it up with options
+- globally install classless with `npm install -g classless-js`
+- at your root directory, `touch classless.config` & set it up with options
 - run `classless` in your CLI once this is set up in your project
 
 ## Options

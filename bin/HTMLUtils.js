@@ -26,7 +26,6 @@ function getHTMLElements(htmlText) {
     substring.forEach(item => {
       // This is for frameworks
       if (item.includes("{") ||  item.includes("}") ||  item.includes("(") || item.includes(")") || item.includes("/")) {
-        console.log(item);
         return
       } else {
         // get all id elements and add '#' to all Elem list
