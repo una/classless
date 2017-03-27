@@ -13,6 +13,7 @@ Classless makes sure you use less unique classes in your project and instead imp
 
 - `npm install -g classless-js`
 - `touch classless.config` & set it up with options
+- run `classless` in your CLI once this is set up in your project
 
 ## Options
 
@@ -22,9 +23,6 @@ Classless makes sure you use less unique classes in your project and instead imp
 - `htmlPath`: Link to your HTML path(s). Can be any format (i.e. `.erb`, `.hbs`, etc.)
 - `acceptedElems`: Additional accepted elements list
 
+## Contributing
 
-TODO:
-- make stylesheet linkable externally or as node module in the repo
-- make this pass or fail tests
-- CSS as local or URL link
-- Ember plugin
+The `/bin` folder is where all of the executable scripts live. Please update and submit a PR.

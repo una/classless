@@ -2,9 +2,12 @@
   "name": "classless-js",
   "version": "0.1.6",
   "description": "Enforce and question your design system by checking your classes against an approved class list",
-  "main": "bin/index.js",
+  "main": "node ../bin/index.js",
   "scripts": {
     "start": "backpack"
+  },
+  "engines": {
+      "node": ">= 6.0.0"
   },
   "repository": {
     "type": "git",
