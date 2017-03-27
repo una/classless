@@ -34,7 +34,7 @@ function compareMatches(htmlList, cssList) {
     following elements that do not live in the
     design system or accepted classes config:
 
-    ${unmatchedElems}
+    ${JSON.stringify(unmatchedElems)}
 
     Please revisit the design system documenation
     or add them to your approved class list in your
